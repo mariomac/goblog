@@ -1,14 +1,15 @@
 <html>
     <head>
         <title>Mario Macias' blog</title>
+        <link rel="stylesheet" type="text/css" href="/static/style.css">
     </head>
 <body>
     <header>
         <h1>Mario Macias' handcrafted blog</h1>
         <p>Written in Golang</p>
     </header>
-    <div>Here goes the main content:
-    {{.Body}}
+    <div>
+    {{printf "%s" .Body}}
     </div>
     <footer>
         (c) 2017 Mario Macias

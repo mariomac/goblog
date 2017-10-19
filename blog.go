@@ -11,13 +11,18 @@ import (
 	"io/ioutil"
 	"net/http"
 	"regexp"
+	"log"
 )
 
 const INDEX_TMPL = "index"
-const TMPL_DIR = "templates/"
+const TMPL_DIR = "template/"
 const TMPL_EXT = ".html"
-const PAGE_DIR = "pages/"
+const PAGE_DIR = "entries/"
 const PAGE_EXT = ".md"
+const STATIC_DIR = "static/"
+
+const PATH_STATIC = "/static/"
+const PATH_ENTRY = "/entry/"
 
 type Page struct {
 	Body  []byte
@@ -50,11 +55,14 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 	}
 }
 
-var validPath = regexp.MustCompile("^/([_a-zA-Z0-9]+)$")
+var validPage = regexp.MustCompile("^([_a-zA-Z0-9]+)$")
 
-func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
+func makePageHandler(rootPath string, fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		m := validPath.FindStringSubmatch(r.URL.Path)
+		log.Println(r.URL.Path)
+		log.Println(r.URL.Path[len(rootPath):])
+		m := validPage.FindStringSubmatch(r.URL.Path[len(rootPath):])
+		log.Println(m)
 		if m == nil {
 			http.NotFound(w, r)
 			return
@@ -64,7 +72,8 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.Handl
 }
 
 func main() {
-	http.HandleFunc("/", makeHandler(viewHandler))
+	http.HandleFunc(PATH_ENTRY, makePageHandler(PATH_ENTRY, viewHandler))
+	http.Handle(PATH_STATIC, http.StripPrefix(PATH_STATIC, http.FileServer(http.Dir(STATIC_DIR))))
 
 	http.ListenAndServe(":8080", nil)
 }
