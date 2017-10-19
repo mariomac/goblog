@@ -12,7 +12,10 @@ import (
 	"io/ioutil"
 	"net/http"
 	"regexp"
+	"./env"
 )
+
+const ENV_GOBLOG_ROOT = "GOBLOG_ROOT"
 
 const INDEX_TMPL = "index"
 const TMPL_DIR = "template/"
@@ -24,12 +27,14 @@ const STATIC_DIR = "static/"
 const PATH_STATIC = "/static/"
 const PATH_ENTRY = "/entry/"
 
+var BLOG_ROOT = env.GetDef(ENV_GOBLOG_ROOT, "../sample")
+
 type Page struct {
 	Body  []byte
 }
 
 func loadPage(title string) (*Page, error) {
-	filename := PAGE_DIR + title + PAGE_EXT
+	filename := BLOG_ROOT + "/" + PAGE_DIR + title + PAGE_EXT
 	body, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
@@ -46,7 +51,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request, title string) {
 	renderTemplate(w, INDEX_TMPL, p)
 }
 
-var templates = template.Must(template.New(INDEX_TMPL).Funcs(template.FuncMap{"md2html": md2html}).ParseFiles(TMPL_DIR + INDEX_TMPL + TMPL_EXT))
+var templates = template.Must(template.New(INDEX_TMPL).Funcs(template.FuncMap{"md2html": md2html}).ParseFiles(BLOG_ROOT + "/" + TMPL_DIR + INDEX_TMPL + TMPL_EXT))
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 	err := templates.ExecuteTemplate(w, tmpl + TMPL_EXT, p)
@@ -75,7 +80,8 @@ func md2html(mdText []byte) template.HTML {
 
 func main() {
 	http.HandleFunc(PATH_ENTRY, makePageHandler(PATH_ENTRY, viewHandler))
-	http.Handle(PATH_STATIC, http.StripPrefix(PATH_STATIC, http.FileServer(http.Dir(STATIC_DIR))))
+	http.Handle(PATH_STATIC, http.StripPrefix(PATH_STATIC,
+		http.FileServer(http.Dir(BLOG_ROOT + "/" + STATIC_DIR))))
 
 	http.ListenAndServe(":8080", nil)
 }
