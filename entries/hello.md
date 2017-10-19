@@ -1,3 +1,31 @@
 # Hello!
 
-Hello
+![Image](/static/img.png)
+
+Hello!
+
+* This is a very cool thing
+
+        Don't you agree?
+        
+More `code`:
+
+```
+    Hi my friend
+```
+
+Even *java*:
+
+```java
+public class TheClass {}
+```
+
+## And _go_:
+
+```go
+package paquetazo
+
+func main() {
+	
+}
+```

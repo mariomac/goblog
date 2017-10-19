@@ -7,11 +7,11 @@
 package main
 
 import (
+	"github.com/shurcooL/github_flavored_markdown"
 	"html/template"
 	"io/ioutil"
 	"net/http"
 	"regexp"
-	"log"
 )
 
 const INDEX_TMPL = "index"
@@ -46,7 +46,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request, title string) {
 	renderTemplate(w, INDEX_TMPL, p)
 }
 
-var templates = template.Must(template.ParseFiles(TMPL_DIR + INDEX_TMPL + TMPL_EXT))
+var templates = template.Must(template.New(INDEX_TMPL).Funcs(template.FuncMap{"md2html": md2html}).ParseFiles(TMPL_DIR + INDEX_TMPL + TMPL_EXT))
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 	err := templates.ExecuteTemplate(w, tmpl + TMPL_EXT, p)
@@ -59,10 +59,7 @@ var validPage = regexp.MustCompile("^([_a-zA-Z0-9]+)$")
 
 func makePageHandler(rootPath string, fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		log.Println(r.URL.Path)
-		log.Println(r.URL.Path[len(rootPath):])
 		m := validPage.FindStringSubmatch(r.URL.Path[len(rootPath):])
-		log.Println(m)
 		if m == nil {
 			http.NotFound(w, r)
 			return
@@ -70,6 +67,11 @@ func makePageHandler(rootPath string, fn func(http.ResponseWriter, *http.Request
 		fn(w, r, m[0])
 	}
 }
+
+func md2html(mdText []byte) template.HTML {
+	return template.HTML(github_flavored_markdown.Markdown(mdText))
+}
+
 
 func main() {
 	http.HandleFunc(PATH_ENTRY, makePageHandler(PATH_ENTRY, viewHandler))

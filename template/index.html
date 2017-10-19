@@ -9,7 +9,7 @@
         <p>Written in Golang</p>
     </header>
     <div>
-    {{printf "%s" .Body}}
+    {{.Body | md2html}}
     </div>
     <footer>
         (c) 2017 Mario Macias
