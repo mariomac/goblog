@@ -55,8 +55,14 @@ func viewHandler(w http.ResponseWriter, r *http.Request, title string, template 
 	renderTemplate(w, template, p)
 }
 
+var entries = filesearch.ScanTimestampedEntries(BLOG_ROOT + "/" + ENTRY_DIR)
+func getEntries() []*filesearch.Entry {
+	return entries
+}
+
 var templates = template.Must(
-	template.New(TMPL_INDEX).Funcs(template.FuncMap{"md2html": md2html}).ParseFiles(
+	template.New(TMPL_INDEX).Funcs(
+		template.FuncMap{"md2html": md2html, "entries": getEntries}).ParseFiles(
 		filesearch.GetTemplates(BLOG_ROOT + "/" + TMPL_DIR)...))
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
