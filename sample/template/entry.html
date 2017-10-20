@@ -1,8 +1,12 @@
 <html>
-    {{ template "html_head" }}
+{{ template "html_head" }}
 <body>
+<div id="global">
     {{ template "header" }}
+    <div id="entryBody">
     {{ template "body" .}}
+    </div>
     {{ template "footer" }}
+</div>
 </body>
 </html>
