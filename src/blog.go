@@ -17,7 +17,13 @@ import (
 
 const ENV_GOBLOG_ROOT = "GOBLOG_ROOT"
 
-const INDEX_TMPL = "index"
+const TMPL_INDEX = "index"
+const TMPL_HTML_HEAD = "html_head"
+const TMPL_FOOTER = "footer"
+const TMPL_HEADER = "header"
+const TMPL_BODY = "body"
+const TMPL_ENTRY = "entry"
+
 const TMPL_DIR = "template/"
 const TMPL_EXT = ".html"
 const PAGE_DIR = "entries/"
@@ -26,6 +32,7 @@ const STATIC_DIR = "static/"
 
 const PATH_STATIC = "/static/"
 const PATH_ENTRY = "/entry/"
+const PATH_INDEX = "/"
 
 var BLOG_ROOT = env.GetDef(ENV_GOBLOG_ROOT, "../sample")
 
@@ -42,16 +49,23 @@ func loadPage(title string) (*Page, error) {
 	return &Page{Body: body}, nil
 }
 
-func viewHandler(w http.ResponseWriter, r *http.Request, title string) {
+func viewHandler(w http.ResponseWriter, r *http.Request, title string, template string) {
 	p, err := loadPage(title)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound) // Todo: redirect or template 404
 		return
 	}
-	renderTemplate(w, INDEX_TMPL, p)
+	renderTemplate(w, template, p)
 }
 
-var templates = template.Must(template.New(INDEX_TMPL).Funcs(template.FuncMap{"md2html": md2html}).ParseFiles(BLOG_ROOT + "/" + TMPL_DIR + INDEX_TMPL + TMPL_EXT))
+var templates = template.Must(
+	template.New(TMPL_INDEX).Funcs(template.FuncMap{"md2html": md2html}).ParseFiles(
+		BLOG_ROOT + "/" + TMPL_DIR + TMPL_INDEX + TMPL_EXT,
+		BLOG_ROOT + "/" + TMPL_DIR + TMPL_BODY + TMPL_EXT,
+		BLOG_ROOT + "/" + TMPL_DIR + TMPL_ENTRY + TMPL_EXT,
+		BLOG_ROOT + "/" + TMPL_DIR + TMPL_FOOTER + TMPL_EXT,
+		BLOG_ROOT + "/" + TMPL_DIR + TMPL_HEADER + TMPL_EXT,
+		BLOG_ROOT + "/" + TMPL_DIR + TMPL_HTML_HEAD + TMPL_EXT))
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 	err := templates.ExecuteTemplate(w, tmpl + TMPL_EXT, p)
@@ -62,14 +76,25 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 
 var validPage = regexp.MustCompile("^([_a-zA-Z0-9]+)$")
 
-func makePageHandler(rootPath string, fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
+func makeIndexHandler(rootPath string, template string, fn func(http.ResponseWriter, *http.Request, string, string)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		m := validPage.FindStringSubmatch(r.URL.Path[len(rootPath):])
 		if m == nil {
 			http.NotFound(w, r)
 			return
 		}
-		fn(w, r, m[0])
+		renderTemplate(w, template, nil)
+	}
+}
+
+func makePageHandler(rootPath string, template string, fn func(http.ResponseWriter, *http.Request, string, string)) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		m := validPage.FindStringSubmatch(r.URL.Path[len(rootPath):])
+		if m == nil {
+			http.NotFound(w, r)
+			return
+		}
+		fn(w, r, m[0], template)
 	}
 }
 
@@ -79,7 +104,10 @@ func md2html(mdText []byte) template.HTML {
 
 
 func main() {
-	http.HandleFunc(PATH_ENTRY, makePageHandler(PATH_ENTRY, viewHandler))
+	// todo: mezclar handler
+	indexHandler := makeIndexHandler(PATH_INDEX, TMPL_INDEX, viewHandler)
+	http.HandleFunc(PATH_INDEX, indexHandler)
+	http.HandleFunc(PATH_ENTRY, makePageHandler(PATH_ENTRY, TMPL_ENTRY, viewHandler))
 	http.Handle(PATH_STATIC, http.StripPrefix(PATH_STATIC,
 		http.FileServer(http.Dir(BLOG_ROOT + "/" + STATIC_DIR))))
 
