@@ -96,6 +96,7 @@ func makePageHandler(rootPath string, template string, fn func(http.ResponseWrit
 	}
 }
 
+// TODO: remove
 func md2html(mdText []byte) template.HTML {
 	return template.HTML(github_flavored_markdown.Markdown(mdText))
 }

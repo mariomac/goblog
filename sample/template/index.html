@@ -2,8 +2,11 @@
     {{ template "html_head" }}
 <body>
     {{ template "header" }}
-    <div style="background: red">INDEX GOES HERE!</div>
-    {{entries}}
+    <ul>
+        {{ range entries}}
+        <li><a href="/entry/{{.UrlPath}}">{{.Title}}</a>{{.Time}}</li>
+        {{ end }}
+    </ul>
     {{ template "footer" }}
 </body>
 </html>

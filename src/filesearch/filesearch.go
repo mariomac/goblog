@@ -7,12 +7,19 @@ import (
 	"regexp"
 	"time"
 	"strconv"
+	"html/template"
+	"github.com/shurcooL/github_flavored_markdown"
+	"io/ioutil"
+	"golang.org/x/net/html/atom"
 )
 
+// TODO: use pointers & references
 type Entry struct {
 	Time time.Time
 	UrlPath string
 	FileLocation string
+	Title string
+	Html template.HTML
 }
 
 var validTemplate = regexp.MustCompile(".*\\.html$")
@@ -41,13 +48,18 @@ func ScanTimestampedEntries(folder string) []*Entry {
 	filepath.Walk(folder, func(path string, info os.FileInfo, err error) error {
 		fileName := info.Name()
 		if !info.IsDir() && validTimestampedEntry.MatchString(fileName) {
+			fileBody, _ := ioutil.ReadFile(path)
+
+			html := template.HTML(github_flavored_markdown.Markdown(fileBody))
+
 			entry := &Entry{
 				Time:fileNameToTime(fileName),
 				UrlPath:fileName[:(len(fileName)-3)], // remove .md
 				FileLocation:path,
+				Title:title,
+				Html:html,
 			}
 			log.Printf("found %s [%s] %s", entry.FileLocation, entry.UrlPath, entry.Time)
-
 			entries = append(entries, entry)
 		}
 		return nil
@@ -55,6 +67,9 @@ func ScanTimestampedEntries(folder string) []*Entry {
 
 	return entries
 }
+
+
+
 
 // TODO: configure by env
 var location, _ = time.LoadLocation("Europe/Madrid")
