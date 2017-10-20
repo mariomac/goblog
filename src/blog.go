@@ -55,6 +55,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request, title string, template 
 	renderTemplate(w, template, p)
 }
 
+// TODO: retrigger when directory changes
 var entries = filesearch.ScanTimestampedEntries(BLOG_ROOT + "/" + ENTRY_DIR)
 func getEntries() []*filesearch.Entry {
 	return entries
@@ -102,10 +103,7 @@ func md2html(mdText []byte) template.HTML {
 }
 
 func main() {
-	// todo: mezclar handler
-	indexHandler := makeIndexHandler(PATH_INDEX, TMPL_INDEX, viewHandler)
-	filesearch.ScanTimestampedEntries(BLOG_ROOT + "/" + ENTRY_DIR)
-	http.HandleFunc(PATH_INDEX, indexHandler)
+	http.HandleFunc(PATH_INDEX, makeIndexHandler(PATH_INDEX, TMPL_INDEX, viewHandler))
 	http.HandleFunc(PATH_ENTRY, makePageHandler(PATH_ENTRY, TMPL_ENTRY, viewHandler))
 	http.Handle(PATH_STATIC, http.StripPrefix(PATH_STATIC,
 		http.FileServer(http.Dir(BLOG_ROOT + "/" + STATIC_DIR))))

@@ -10,12 +10,15 @@ import (
 	"html/template"
 	"github.com/shurcooL/github_flavored_markdown"
 	"io/ioutil"
-	"golang.org/x/net/html/atom"
+	nethtml "golang.org/x/net/html"
+	"bytes"
 )
+
+const DATE_FORMAT = "Mon Jan _2 15:04:05 2006"
 
 // TODO: use pointers & references
 type Entry struct {
-	Time time.Time
+	Time string
 	UrlPath string
 	FileLocation string
 	Title string
@@ -49,17 +52,35 @@ func ScanTimestampedEntries(folder string) []*Entry {
 		fileName := info.Name()
 		if !info.IsDir() && validTimestampedEntry.MatchString(fileName) {
 			fileBody, _ := ioutil.ReadFile(path)
+			mdBody := github_flavored_markdown.Markdown(fileBody)
 
-			html := template.HTML(github_flavored_markdown.Markdown(fileBody))
+			html := template.HTML(mdBody)
+
+			h1tokenizer := nethtml.NewTokenizerFragment(bytes.NewReader(mdBody), "h1")
+
+			h1tokenizer.Next()
+			token := h1tokenizer.Token()
+			for token.Type != nethtml.StartTagToken && token.Data != "h1" {
+				h1tokenizer.Next()
+				token = h1tokenizer.Token()
+			}
+
+			h1tokenizer.Next()
+			token = h1tokenizer.Token()
+			for token.Type != nethtml.TextToken {
+				h1tokenizer.Next()
+				token = h1tokenizer.Token()
+			}
+
+			title := token.Data
 
 			entry := &Entry{
-				Time:fileNameToTime(fileName),
+				Time:fileNameToTime(fileName).Format("Jan _2, 2006 at 15:04:05"),
 				UrlPath:fileName[:(len(fileName)-3)], // remove .md
 				FileLocation:path,
 				Title:title,
 				Html:html,
 			}
-			log.Printf("found %s [%s] %s", entry.FileLocation, entry.UrlPath, entry.Time)
 			entries = append(entries, entry)
 		}
 		return nil
