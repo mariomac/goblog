@@ -78,11 +78,11 @@ var validPage = regexp.MustCompile("^([_a-zA-Z0-9]+)$")
 
 func makeIndexHandler(rootPath string, template string, fn func(http.ResponseWriter, *http.Request, string, string)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		m := validPage.FindStringSubmatch(r.URL.Path[len(rootPath):])
-		if m == nil {
-			http.NotFound(w, r)
-			return
-		}
+		//m := validPage.FindStringSubmatch(r.URL.Path[len(rootPath):])
+		//if m == nil {
+		//	http.NotFound(w, r)
+		//	return
+		//}
 		renderTemplate(w, template, nil)
 	}
 }
