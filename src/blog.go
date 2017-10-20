@@ -13,21 +13,18 @@ import (
 	"net/http"
 	"regexp"
 	"./env"
+	"./filesearch"
 )
 
 const ENV_GOBLOG_ROOT = "GOBLOG_ROOT"
 
 const TMPL_INDEX = "index"
-const TMPL_HTML_HEAD = "html_head"
-const TMPL_FOOTER = "footer"
-const TMPL_HEADER = "header"
-const TMPL_BODY = "body"
 const TMPL_ENTRY = "entry"
 
 const TMPL_DIR = "template/"
 const TMPL_EXT = ".html"
-const PAGE_DIR = "entries/"
-const PAGE_EXT = ".md"
+const ENTRY_DIR = "entries/"
+const ENTRY_EXT = ".md"
 const STATIC_DIR = "static/"
 
 const PATH_STATIC = "/static/"
@@ -41,7 +38,7 @@ type Page struct {
 }
 
 func loadPage(title string) (*Page, error) {
-	filename := BLOG_ROOT + "/" + PAGE_DIR + title + PAGE_EXT
+	filename := BLOG_ROOT + "/" + ENTRY_DIR + title + ENTRY_EXT
 	body, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
@@ -60,12 +57,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request, title string, template 
 
 var templates = template.Must(
 	template.New(TMPL_INDEX).Funcs(template.FuncMap{"md2html": md2html}).ParseFiles(
-		BLOG_ROOT + "/" + TMPL_DIR + TMPL_INDEX + TMPL_EXT,
-		BLOG_ROOT + "/" + TMPL_DIR + TMPL_BODY + TMPL_EXT,
-		BLOG_ROOT + "/" + TMPL_DIR + TMPL_ENTRY + TMPL_EXT,
-		BLOG_ROOT + "/" + TMPL_DIR + TMPL_FOOTER + TMPL_EXT,
-		BLOG_ROOT + "/" + TMPL_DIR + TMPL_HEADER + TMPL_EXT,
-		BLOG_ROOT + "/" + TMPL_DIR + TMPL_HTML_HEAD + TMPL_EXT))
+		filesearch.GetTemplates(BLOG_ROOT + "/" + TMPL_DIR)...))
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 	err := templates.ExecuteTemplate(w, tmpl + TMPL_EXT, p)
@@ -74,7 +66,7 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 	}
 }
 
-var validPage = regexp.MustCompile("^([_a-zA-Z0-9]+)$")
+var validPage = regexp.MustCompile("^([_\\-a-zA-Z0-9]+)$")
 
 func makeIndexHandler(rootPath string, template string, fn func(http.ResponseWriter, *http.Request, string, string)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -102,10 +94,10 @@ func md2html(mdText []byte) template.HTML {
 	return template.HTML(github_flavored_markdown.Markdown(mdText))
 }
 
-
 func main() {
 	// todo: mezclar handler
 	indexHandler := makeIndexHandler(PATH_INDEX, TMPL_INDEX, viewHandler)
+	filesearch.ScanTimestampedEntries(BLOG_ROOT + "/" + ENTRY_DIR)
 	http.HandleFunc(PATH_INDEX, indexHandler)
 	http.HandleFunc(PATH_ENTRY, makePageHandler(PATH_ENTRY, TMPL_ENTRY, viewHandler))
 	http.Handle(PATH_STATIC, http.StripPrefix(PATH_STATIC,
