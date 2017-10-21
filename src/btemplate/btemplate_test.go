@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-const TEST_RESOURCES = "../../test"
+const TEST_RESOURCES = "../../testresources/testset1"
 
 func getEntries() []*filesearch.Entry {
 	return make([]*filesearch.Entry, 0)

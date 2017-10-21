@@ -13,6 +13,7 @@ import (
 	"./env"
 	"./filesearch"
 	"./btemplate"
+	"./bentry"
 )
 
 const ENV_GOBLOG_ROOT = "GOBLOG_ROOT"
@@ -86,6 +87,9 @@ func makePageHandler(rootPath string, template string, fn func(http.ResponseWrit
 
 
 func main() {
+	blog := bentry.BlogContent{}
+	blog.Load("../testresources/testentries")
+
 	templates.Load(BLOG_ROOT+"/"+TMPL_DIR, getEntries)
 	http.HandleFunc(PATH_INDEX, makeIndexHandler(PATH_INDEX, TMPL_INDEX, viewHandler))
 	http.HandleFunc(PATH_ENTRY, makePageHandler(PATH_ENTRY, TMPL_ENTRY, viewHandler))

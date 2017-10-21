@@ -18,7 +18,7 @@ func equals(a []string, b []string) bool {
 	return true
 }
 
-const TEST_RESOURCES = "../../test"
+const TEST_RESOURCES = "../../testresources/testset1"
 
 func TestEmptySearchNoMatches(t *testing.T) {
 	found := Search(TEST_RESOURCES, regexp.MustCompile("^inexistingfile$"))
@@ -37,13 +37,13 @@ func TestEmptySearchWrongFolder(t *testing.T) {
 func TestAllSearch(t *testing.T) {
 	found := Search(TEST_RESOURCES, nil)
 	expected := []string{
-		"../../test/test1.html",
-		"../../test/test2.html",
-		"../../test/testsub/thing.md",
-		"../../test/testsub/thing2.html",
-		"../../test/testsub2/thing3.html",
-		"../../test/testsub2/thing4.md",
-		"../../test/zztest.md",
+		"../../testresources/testset1/test1.html",
+		"../../testresources/testset1/test2.html",
+		"../../testresources/testset1/testsub/thing.md",
+		"../../testresources/testset1/testsub/thing2.html",
+		"../../testresources/testset1/testsub2/thing3.html",
+		"../../testresources/testset1/testsub2/thing4.md",
+		"../../testresources/testset1/zztest.md",
 	}
 	if !equals(found, expected) {
 		t.Errorf("Search does not contain expected files. Expecting:%s\nGot:%s",
@@ -54,9 +54,9 @@ func TestAllSearch(t *testing.T) {
 func TestMarkdownSearch(t *testing.T) {
 	found := Search(TEST_RESOURCES, regexp.MustCompile("\\.md$"))
 	expected := []string{
-		"../../test/testsub/thing.md",
-		"../../test/testsub2/thing4.md",
-		"../../test/zztest.md",
+		"../../testresources/testset1/testsub/thing.md",
+		"../../testresources/testset1/testsub2/thing4.md",
+		"../../testresources/testset1/zztest.md",
 	}
 	if !equals(found, expected) {
 		t.Errorf("Search does not contain expected files. Expecting:%s\nGot:%s",
