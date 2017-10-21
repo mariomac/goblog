@@ -2,14 +2,14 @@ package btemplate
 
 import "testing"
 import (
-	"../filesearch"
+	"../bentry"
 	"log"
 )
 
 const TEST_RESOURCES = "../../testresources/testset1"
 
-func getEntries() []*filesearch.Entry {
-	return make([]*filesearch.Entry, 0)
+func getEntries() []bentry.Entry {
+	return make([]bentry.Entry, 0)
 }
 
 func TestTemplates_Load(t *testing.T) {
@@ -18,9 +18,9 @@ func TestTemplates_Load(t *testing.T) {
 
 	expected := map[string]bool{
 		"golog_templates": true,
-		"thing2.html": true, "thing3.html": true,
+		"thing2.html":     true, "thing3.html": true,
 		"testsub2/thing3": true, "testsub/thing2": true,
-		"test1.html": true, "test2.html":  true,
+		"test1.html": true, "test2.html": true,
 	}
 
 	actual := templates.entries.Templates()

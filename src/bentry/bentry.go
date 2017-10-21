@@ -1,18 +1,18 @@
 package bentry
 
 import (
-	"regexp"
-	"html/template"
 	"../fs"
-	"log"
-	"time"
-	"strconv"
-	"github.com/shurcooL/github_flavored_markdown"
 	"bytes"
+	"github.com/shurcooL/github_flavored_markdown"
 	nethtml "golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
+	"html/template"
 	"io/ioutil"
+	"log"
+	"regexp"
 	"sort"
+	"strconv"
+	"time"
 )
 
 type Entry struct {
@@ -31,6 +31,15 @@ type BlogContent struct {
 var entryFormat = regexp.MustCompile("[0-9]{12}[_\\-a-zA-Z0-9]+\\.md$")
 var allFormat = regexp.MustCompile("^[_\\-a-zA-Z0-9]+\\.md$")
 var allFileFormat = regexp.MustCompile("[_\\-a-zA-Z0-9]+\\.md$")
+
+func (blog *BlogContent) GetEntries() []Entry {
+	return blog.entries
+}
+
+func (blog *BlogContent) Get(fileName string) (Entry, bool) {
+	entry, ok := blog.all[fileName]
+	return entry, ok
+}
 
 func (blog *BlogContent) Load(folder string) {
 	blog.entries = make([]Entry, 0)

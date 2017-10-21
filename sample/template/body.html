@@ -1,5 +1,6 @@
 {{ define "body" }}
 <div>
-    {{.Body | md2html}}
+    <h1><a href="/entry/{{.FileName}}">{{.Title}}</a></h1>
+    {{.Html}}
 </div>
 {{ end }}

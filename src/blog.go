@@ -7,13 +7,12 @@
 package main
 
 import (
-	"io/ioutil"
+	"./bentry"
+	"./btemplate"
+	"./env"
+	"log"
 	"net/http"
 	"regexp"
-	"./env"
-	"./filesearch"
-	"./btemplate"
-	"./bentry"
 )
 
 const ENV_GOBLOG_ROOT = "GOBLOG_ROOT"
@@ -31,52 +30,31 @@ const PATH_INDEX = "/"
 
 var BLOG_ROOT = env.GetDef(ENV_GOBLOG_ROOT, "../sample")
 
-type Page struct {
-	Body  []byte
-}
-
-func loadPage(title string) (*Page, error) {
-	filename := BLOG_ROOT + "/" + ENTRY_DIR + title + ENTRY_EXT
-	body, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return nil, err
-	}
-	return &Page{Body: body}, nil
-}
-
-func viewHandler(w http.ResponseWriter, r *http.Request, title string, template string) {
-	p, err := loadPage(title)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound) // Todo: redirect or template 404
-		return
-	}
-	templates.Render(w, template, p)
-}
-
-// TODO: retrigger when directory changes
-var entries = filesearch.ScanTimestampedEntries(BLOG_ROOT + "/" + ENTRY_DIR)
-func getEntries() []*filesearch.Entry {
-	return entries
-}
-
+var entries bentry.BlogContent
 var templates = btemplate.Templates{}
 
-var validPage = regexp.MustCompile("^([_\\-a-zA-Z0-9]+)$")
+func viewHandler(w http.ResponseWriter, r *http.Request, fileName string, template string) {
+	log.Printf("viewHandler(_, _, %s, %s)", fileName, template)
+	entry, found := entries.Get(fileName)
+	if !found {
+		http.Error(w, "Entry not found "+fileName, http.StatusNotFound) // Todo: redirect or template 404
+		return
+	}
+	templates.Render(w, template, entry)
+}
 
-func makeIndexHandler(rootPath string, template string, fn func(http.ResponseWriter, *http.Request, string, string)) http.HandlerFunc {
+func makeIndexHandler(template string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		//m := validPage.FindStringSubmatch(r.URL.Path[len(rootPath):])
-		//if m == nil {
-		//	http.NotFound(w, r)
-		//	return
-		//}
 		templates.Render(w, template, nil)
 	}
 }
 
-func makePageHandler(rootPath string, template string, fn func(http.ResponseWriter, *http.Request, string, string)) http.HandlerFunc {
+var validPagePath = regexp.MustCompile("^([_\\-a-zA-Z0-9]+)\\.md$")
+
+func makePageHandler(rootPath string, template string,
+	fn func(http.ResponseWriter, *http.Request, string, string)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		m := validPage.FindStringSubmatch(r.URL.Path[len(rootPath):])
+		m := validPagePath.FindStringSubmatch(r.URL.Path[len(rootPath):])
 		if m == nil {
 			http.NotFound(w, r)
 			return
@@ -85,16 +63,15 @@ func makePageHandler(rootPath string, template string, fn func(http.ResponseWrit
 	}
 }
 
-
 func main() {
-	blog := bentry.BlogContent{}
-	blog.Load("../testresources/testentries")
+	entries = bentry.BlogContent{}
+	entries.Load(BLOG_ROOT + "/" + ENTRY_DIR)
 
-	templates.Load(BLOG_ROOT+"/"+TMPL_DIR, getEntries)
-	http.HandleFunc(PATH_INDEX, makeIndexHandler(PATH_INDEX, TMPL_INDEX, viewHandler))
+	templates.Load(BLOG_ROOT+"/"+TMPL_DIR, entries.GetEntries)
+	http.HandleFunc(PATH_INDEX, makeIndexHandler(TMPL_INDEX))
 	http.HandleFunc(PATH_ENTRY, makePageHandler(PATH_ENTRY, TMPL_ENTRY, viewHandler))
 	http.Handle(PATH_STATIC, http.StripPrefix(PATH_STATIC,
-		http.FileServer(http.Dir(BLOG_ROOT + "/" + STATIC_DIR))))
+		http.FileServer(http.Dir(BLOG_ROOT+"/"+STATIC_DIR))))
 
 	http.ListenAndServe(":8080", nil)
 }

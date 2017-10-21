@@ -17,7 +17,8 @@
     <h2 class="indexHeader">Latest entries</h2>
     <ul>
         {{ range entries}}
-        <li><a href="/entry/{{.UrlPath}}">{{.Title}}</a>{{.Time}}</li>
+        <li><a href="/entry/{{.FileName}}">{{.Title}}</a> {{.Time.Month}}
+            {{.Time.Day}}, {{.Time.Year}} at {{.Time.Hour}}:{{.Time.Minute}}</li>
         {{ end }}
     </ul>
     {{ template "footer" }}

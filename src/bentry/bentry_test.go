@@ -1,10 +1,10 @@
 package bentry
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
-	"time"
 	"strings"
+	"testing"
+	"time"
 )
 
 const TEST_RESOURCES = "../../testresources/testentries"
@@ -90,5 +90,3 @@ func TestGetTitleAndHtml(t *testing.T) {
 	assert.False(strings.Contains(string(html), "This is a title"), "Title should have been removed")
 	assert.False(strings.Contains(string(html), "<h1>"), "H1 should have been removed")
 }
-
-

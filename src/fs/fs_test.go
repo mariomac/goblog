@@ -1,9 +1,9 @@
 package fs
 
 import (
-	"testing"
-	"regexp"
 	"fmt"
+	"regexp"
+	"testing"
 )
 
 func equals(a []string, b []string) bool {

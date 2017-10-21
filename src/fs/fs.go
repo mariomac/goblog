@@ -2,9 +2,9 @@
 package fs
 
 import (
-	"regexp"
-	"path/filepath"
 	"os"
+	"path/filepath"
+	"regexp"
 )
 
 // Returns the paths of all the files contained in the folder and subfolders of the path whose
