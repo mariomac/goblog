@@ -46,3 +46,5 @@ Edit blog template files under the `template/` folder.
 * Main page shows paginated entries
 
 * Add 404 page
+
+* Migrate `log` to `github.com/golang/glog`
