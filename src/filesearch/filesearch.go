@@ -25,21 +25,6 @@ type Entry struct {
 	Html template.HTML
 }
 
-var validTemplate = regexp.MustCompile(".*\\.html$")
-
-func GetTemplates(folder string) []string {
-	files := make([]string, 0, 8)
-	log.Printf("Looking for templates in folder %s\n", folder)
-	filepath.Walk(folder, func(path string, info os.FileInfo, err error) error {
-		if !info.IsDir() && validTemplate.MatchString(info.Name()) {
-			log.Printf("found %s [%s]", path, info.Name())
-			files = append(files, path)
-		}
-		return nil
-	})
-	return files
-}
-
 // YYYYMMDDHHMMsome-text_here.md
 var validTimestampedEntry = regexp.MustCompile("^[0-9]{12}[_\\-a-zA-Z0-9]+\\.md$")
 

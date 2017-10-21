@@ -7,22 +7,19 @@
 package main
 
 import (
-	"github.com/shurcooL/github_flavored_markdown"
-	"html/template"
 	"io/ioutil"
 	"net/http"
 	"regexp"
 	"./env"
 	"./filesearch"
+	"./btemplate"
 )
 
 const ENV_GOBLOG_ROOT = "GOBLOG_ROOT"
 
 const TMPL_INDEX = "index"
 const TMPL_ENTRY = "entry"
-
 const TMPL_DIR = "template/"
-const TMPL_EXT = ".html"
 const ENTRY_DIR = "entries/"
 const ENTRY_EXT = ".md"
 const STATIC_DIR = "static/"
@@ -52,7 +49,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request, title string, template 
 		http.Error(w, err.Error(), http.StatusNotFound) // Todo: redirect or template 404
 		return
 	}
-	renderTemplate(w, template, p)
+	templates.Render(w, template, p)
 }
 
 // TODO: retrigger when directory changes
@@ -61,17 +58,7 @@ func getEntries() []*filesearch.Entry {
 	return entries
 }
 
-var templates = template.Must(
-	template.New(TMPL_INDEX).Funcs(
-		template.FuncMap{"md2html": md2html, "entries": getEntries}).ParseFiles(
-		filesearch.GetTemplates(BLOG_ROOT + "/" + TMPL_DIR)...))
-
-func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
-	err := templates.ExecuteTemplate(w, tmpl + TMPL_EXT, p)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
+var templates = btemplate.Templates{}
 
 var validPage = regexp.MustCompile("^([_\\-a-zA-Z0-9]+)$")
 
@@ -82,7 +69,7 @@ func makeIndexHandler(rootPath string, template string, fn func(http.ResponseWri
 		//	http.NotFound(w, r)
 		//	return
 		//}
-		renderTemplate(w, template, nil)
+		templates.Render(w, template, nil)
 	}
 }
 
@@ -97,12 +84,9 @@ func makePageHandler(rootPath string, template string, fn func(http.ResponseWrit
 	}
 }
 
-// TODO: remove
-func md2html(mdText []byte) template.HTML {
-	return template.HTML(github_flavored_markdown.Markdown(mdText))
-}
 
 func main() {
+	templates.Load(BLOG_ROOT+"/"+TMPL_DIR, getEntries)
 	http.HandleFunc(PATH_INDEX, makeIndexHandler(PATH_INDEX, TMPL_INDEX, viewHandler))
 	http.HandleFunc(PATH_ENTRY, makePageHandler(PATH_ENTRY, TMPL_ENTRY, viewHandler))
 	http.Handle(PATH_STATIC, http.StripPrefix(PATH_STATIC,

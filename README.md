@@ -41,9 +41,8 @@ Edit blog template files under the `template/` folder.
 
 ## TO DO
 
-* Cache static assets, templates, entries and indices so Disk I/O is minimized
-    - Invalidate cache when the templates or entries are changed
+* Reload templates or entries when containing folders change
 
 * Main page shows paginated entries
 
-* Main page shows entries 
+* Add 404 page
