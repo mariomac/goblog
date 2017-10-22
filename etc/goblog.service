@@ -1,0 +1,27 @@
+[Unit]
+Description=GoBlog service
+ConditionPathExists=/usr/bin/goblog
+After=network.target
+
+[Service]
+Type=simple
+User=goblog
+Group=goblog
+LimitNOFILE=1024
+Environment=GOBLOG_PORT=80
+Environment=GOBLOG_ROOT=/var/goblog/etc/macias.info
+
+Restart=on-failure
+RestartSec=10
+startLimitIntervalSec=60
+
+ExecStart=/usr/bin/goblog
+
+# make sure log directory exists and owned by syslog
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /var/log/goblog
+ExecStartPre=/bin/chown syslog:adm /var/log/goblog
+ExecStartPre=/bin/chmod 755 /var/log/goblog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=goblog
