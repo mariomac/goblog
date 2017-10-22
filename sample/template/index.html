@@ -1,19 +1,16 @@
+<!-- Template for the main index page -->
 <html>
     {{ template "html_head" }}
 <body>
 <div id="global">
     {{ template "header" }}
-    <h2 class="indexHeader">About me</h2>
-    <p>Welcome to my shoddy, <i>handmade</i> blog!</p>
-    <p>I'm a Software Engineer at <a href="http://www.midokura.com">Midokura</a> and part-time
-    associate lecturer at the <a href="http://www.upc.edu">Universitat Politècnica de Catalunya</a>,
-    where I obtained my Ph.D. on Computer Architecture.</p>
-    <p>This blog born as a learning experiment with <a href="http://www.golang.org">Go language</a>,
-    but it is intended to be used as a serious blog, evolving the source code as long as new
-    necessities arise.</p>
-    <p>The <a href="http://github.com/mariomac/goblog">code of this blog is available on Github</a>
-    and follows a really <a href="https://en.wikipedia.org/wiki/KISS_principle">KISS</a> philosophy.
-    </p>
+
+    <!-- Some blog pages (not counted as an timestamped blog entry) -->
+    <ul>
+        <li><a href="/entry/about.md">About this blog</a></li>
+    </ul>
+
+    <!-- Some dynamic contents. E.g. Entries list: -->
     <h2 class="indexHeader">Latest entries</h2>
     <ul>
         {{ range entries}}
@@ -21,6 +18,7 @@
             {{.Time.Day}}, {{.Time.Year}} at {{.Time.Hour}}:{{.Time.Minute}}</li>
         {{ end }}
     </ul>
+
     {{ template "footer" }}
 </div>
 </body>

@@ -16,19 +16,17 @@ import (
 )
 
 const ENV_GOBLOG_ROOT = "GOBLOG_ROOT"
+const ENV_GOBLOG_PORT = "GOBLOG_PORT"
 
 const TMPL_INDEX = "index"
 const TMPL_ENTRY = "entry"
 const TMPL_DIR = "template/"
 const ENTRY_DIR = "entries/"
-const ENTRY_EXT = ".md"
 const STATIC_DIR = "static/"
 
 const PATH_STATIC = "/static/"
 const PATH_ENTRY = "/entry/"
 const PATH_INDEX = "/"
-
-var BLOG_ROOT = env.GetDef(ENV_GOBLOG_ROOT, "../sample")
 
 var entries bentry.BlogContent
 var templates = btemplate.Templates{}
@@ -64,6 +62,8 @@ func makePageHandler(rootPath string, template string,
 }
 
 func main() {
+	var BLOG_ROOT = env.GetDef(ENV_GOBLOG_ROOT, "../sample")
+	var BLOG_PORT = env.GetDef(ENV_GOBLOG_PORT, "8080")
 	entries = bentry.BlogContent{}
 	entries.Load(BLOG_ROOT + "/" + ENTRY_DIR)
 
@@ -73,5 +73,5 @@ func main() {
 	http.Handle(PATH_STATIC, http.StripPrefix(PATH_STATIC,
 		http.FileServer(http.Dir(BLOG_ROOT+"/"+STATIC_DIR))))
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":" + BLOG_PORT, nil)
 }
