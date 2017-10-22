@@ -1,16 +1,65 @@
 {{ define "footer" }}
+<!-- Footer -->
 <footer>
-    <p>(c) 2017 <a href="http://www.macias.info">Mario Macias</a></p>
-    <p>
-        <a href="http://es.linkedin.com/in/mariomac">
-            <img src="/static/index/linkedin.png" alt="LinkedIn"/></a>
-        <a href="http://www.flickr.com/photos/mario_79/">
-            <img src="/static/index/flickr.png" alt="Flickr"/></a>
-        <a href="http://github.com/mariomac"><img src="/static/index/github.png" alt="Github"/></a>
-        <a href="http://www.youtube.com/channel/UCBOEvH985Fsk2n4afs2SnkA">
-            <img src="/static/index/youtube.png" alt="Youtube"/></a>
-        <a href="http://www.twitter.com/MaciasUPC"><img src="/static/index/twitter.png" alt="Twitter"/></a>
-    </p>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="http://github.com/mariomac">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+
+                    <li class="list-inline-item">
+                        <a href="http://www.twitter.com/MaciasUPC">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="http://www.youtube.com/channel/UCBOEvH985Fsk2n4afs2SnkA">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-youtube fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="http://es.linkedin.com/in/mariomac">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="http://www.flickr.com/photos/mario_79/">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-flickr fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; Mario Macias 2017</p>
+                <p class="copyright text-muted">Template: <a href="https://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a></p>
+            </div>
+        </div>
+    </div>
 </footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="/static/vendor/jquery/jquery.min.js"></script>
+<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="/static/js/clean-blog.min.js"></script>
+
 {{ end }}
 

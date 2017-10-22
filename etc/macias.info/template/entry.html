@@ -1,28 +1,45 @@
-<!-- Template for the Entry index page -->
+<!DOCTYPE html>
+<html lang="en">
 
-<html>
-{{ template "html_head" }}
-<body>
-<div id="global">
-    {{ template "header" }}
-    <div id="entryBody">
-        <!-- Entry title link -->
-        <h1><a href="/entry/{{.FileName}}">{{.Title}}</a></h1>
+  {{ template "html_head" }}
 
-        {{if .Time}}
-        <div class="postedDate">
-            Posted on {{.Time.Month}} {{.Time.Day}}, {{.Time.Year}}
-            at {{.Time.Hour}}:{{.Time.Minute}}
+  <body>
+
+    {{ template "navbar" }}
+
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('/static/img/post-bg.jpg')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-heading">
+              <h1>{{.Title}}</h1>
+              <!--h2 class="subheading">Problems look mighty small from 150 miles up</h2-->
+              {{if .Time}}
+              <span class="meta">Posted on {{.Time.Month}} {{.Time.Day}}, {{.Time.Year}}</span>
+              {{end}}
+            </div>
+          </div>
         </div>
-        {{end}}
+      </div>
+    </header>
 
-        <!-- Entry HTML-rendered contents -->
-        {{.Html}}
-    </div>
-    <div class="goback">
-        <a href="/">Go back to the index...</a>
-    </div>
+    <!-- Entry HTML-rendered contents -->
+    <!-- Post Content -->
+    <article>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            {{.Html}}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
     {{ template "footer" }}
-</div>
-</body>
+  </body>
+
 </html>

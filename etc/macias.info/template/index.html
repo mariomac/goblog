@@ -1,25 +1,56 @@
-<!-- Template for the main index page -->
-<html>
-    {{ template "html_head" }}
-<body>
-<div id="global">
-    {{ template "header" }}
+<!DOCTYPE html>
+<html lang="en">
 
-    <!-- Some blog pages (not counted as an timestamped blog entry) -->
-    <ul>
-        <li><a href="/entry/about.md">About this blog</a></li>
-    </ul>
+  {{ template "html_head" }}
 
-    <!-- Some dynamic contents. E.g. Entries list: -->
-    <h2 class="indexHeader">Latest entries</h2>
-    <ul>
-        {{ range entries}}
-        <li><a href="/entry/{{.FileName}}">{{.Title}}</a> {{.Time.Month}}
-            {{.Time.Day}}, {{.Time.Year}} at {{.Time.Hour}}:{{.Time.Minute}}</li>
-        {{ end }}
-    </ul>
+  <body>
+    {{ template "navbar" }}
+
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('/static/img/home-bg.jpg')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              <h1>Handcrafted blog</h1>
+              <span class="subheading">Written in <a href="http://www.golang.org" style="color: #aaaadd">Go language</a> as a self-learning exercise</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          {{ range entries}}
+          <div class="post-preview">
+            <a href="/entry/{{.FileName}}">
+              <h2 class="post-title">
+                {{.Title}}
+              </h2>
+              <!--h3 class="post-subtitle">
+                Problems look mighty small from 150 miles up
+              </h3-->
+            </a>
+            <p class="post-meta">Posted on {{.Time.Month}} {{.Time.Day}}, {{.Time.Year}}</p>
+          </div>
+          {{ end }}
+          <hr>
+          <!-- Pager -->
+          <!--
+          <div class="clearfix">
+            <a class="btn btn-secondary float-right" href="#">Older Posts &rarr;</a>
+          </div>
+          -->
+        </div>
+      </div>
+    </div>
+
+    <hr>
 
     {{ template "footer" }}
-</div>
-</body>
+  </body>
+
 </html>
