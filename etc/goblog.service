@@ -23,6 +23,7 @@ Group=goblog
 LimitNOFILE=1024
 Environment=GOBLOG_PORT=80
 Environment=GOBLOG_ROOT=/var/goblog/etc/macias.info
+Environment=GOBLOG_DOMAIN=macias.info
 
 Restart=on-failure
 RestartSec=10

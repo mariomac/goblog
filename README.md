@@ -9,8 +9,8 @@ the `GOBLOG_ROOT` environment variable to point the root to another folder.
 
 The Root contents folders is structured as follows:
 
-* `entries` subfolder contains MarkDown entries for each entry of the blog. The name
-    * Entries whose file name starts with a timestamp `YYYYMMDDname.md` will be automatically added to the
+* `entries` subfolder contains MarkDown entries for each entry of the blog.
+    * Entries whose file name starts with a timestamp `YYYYMMDDHHMMname.md` will be automatically added to the
       index.
     
     * Entries whose file name starts with other pattern will be treated as pages, and will need to link
@@ -43,6 +43,9 @@ At this early stage of the blog, you *MUST* restart the blog process before chan
 
 ## Environment variables
 
+* `GOBLOG_DOMAIN` (default: value returned by `os.Hostname()`)
+    * The domain of your blog (for Atom XML feeds)
+
 * `GOBLOG_PORT` (default: 8080)
     * The port where the HTTP service listens
 
@@ -51,13 +54,15 @@ At this early stage of the blog, you *MUST* restart the blog process before chan
     
 ## Version history
 
+### v0.0.9
+
+* XML Atom Feeds
+
 ### v0.0.8
 
 * Basic behaviour. Functional, simple blog
 
 ## TO DO
-
-* RSS Feed
 
 * Reload templates or entries when containing folders change
 
