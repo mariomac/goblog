@@ -54,6 +54,12 @@ At this early stage of the blog, you *MUST* restart the blog process before chan
     
 ## Version history
 
+### v0.0.10
+
+* Added previews to blog entries
+    - Updated atom.xml to show previews
+    - Updated index.html to show previews
+
 ### v0.0.9
 
 * XML Atom Feeds

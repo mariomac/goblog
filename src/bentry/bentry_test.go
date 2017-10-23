@@ -76,17 +76,23 @@ func TestExtractTime(t *testing.T) {
 		extractTime("197905250607"), "YYYYMMDDHHMM dates should be parsed correctly")
 }
 
-func TestGetTitleAndHtml(t *testing.T) {
+func TestGetTitleBodyAndPreview(t *testing.T) {
 	assert := assert.New(t)
 
-	title, html := getTitleAndHtml([]byte(
+	title, body, preview := getTitleBodyAndPreview([]byte(
 		`# This is a title
-		This is a paragraph
 
-		This is another paragraph`))
+This is a paragraph
+
+This is another paragraph`))
 
 	assert.Equal("This is a title", title, "Title is not well extracted")
-	assert.True(strings.Contains(string(html), "This is a paragraph"))
-	assert.False(strings.Contains(string(html), "This is a title"), "Title should have been removed")
-	assert.False(strings.Contains(string(html), "<h1>"), "H1 should have been removed")
+	assert.True(strings.Contains(string(body), "This is a paragraph"))
+	assert.False(strings.Contains(string(body), "This is a title"), "Title should have been removed")
+	assert.False(strings.Contains(string(body), "<h1>"), "H1 should have been removed")
+
+	assert.True(strings.Contains(string(preview), "This is a paragraph"))
+	assert.False(strings.Contains(string(preview), "This is a title"), "Title should have been removed")
+	assert.False(strings.Contains(string(preview), "This is another paragraph"), "Only first paragraph should be in preview")
+
 }

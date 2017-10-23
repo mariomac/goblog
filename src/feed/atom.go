@@ -20,6 +20,10 @@ func BuildAtomFeed(bentries []bentry.Entry, hostname string, entrypath string) s
 				{Href: "http://" + hostname + entrypath + bentry.FileName,},
 			},
 			Published:atom.Time(*bentry.Time),
+			Summary:&atom.Text{
+				Type:"text/html",
+				Body:string(bentry.Preview),
+			},
 		}
 	}
 

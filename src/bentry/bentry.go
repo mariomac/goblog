@@ -19,6 +19,7 @@ type Entry struct {
 	FileName string
 	Title    string
 	Html     template.HTML
+	Preview  template.HTML
 	Time     *time.Time // may be nil, if it is a page
 }
 
@@ -56,7 +57,7 @@ func (blog *BlogContent) Load(folder string) {
 		}
 
 		timestamped := entryFormat.FindString(path)
-		title, html := getTitleAndHtml(fileBody)
+		title, html, preview := getTitleBodyAndPreview(fileBody)
 
 		var fileName string
 		if len(timestamped) > 0 {
@@ -68,6 +69,7 @@ func (blog *BlogContent) Load(folder string) {
 				Title:    title,
 				FileName: fileName,
 				Html:     html,
+				Preview:  preview,
 			}
 			blog.entries = append(blog.entries, entry)
 			blog.all[fileName] = entry
@@ -78,6 +80,7 @@ func (blog *BlogContent) Load(folder string) {
 				FileName: fileName,
 				Html:     html,
 				Time:     nil,
+				Preview:  preview,
 			}
 			log.Printf("Page found: %s [%s]", path, fileName)
 		}
@@ -102,24 +105,34 @@ func extractTime(timestr string) time.Time {
 	return parsedTime
 }
 
-func getTitleAndHtml(mdBytes []byte) (string, template.HTML) {
+func getTitleBodyAndPreview(mdBytes []byte) (string, template.HTML, template.HTML) {
 	htmlBytes := github_flavored_markdown.Markdown(mdBytes)
 
 	htmlNode, err := nethtml.Parse(bytes.NewReader(htmlBytes))
 	if err != nil {
-		return err.Error(), ""
+		return err.Error(), "", ""
 	}
+
+	firstParagraph := getFirstParagraph(htmlNode)
 
 	h1 := removeFirstH1(htmlNode)
 	title, _ := getText(h1)
 	log.Printf("Parsed title: %s", title)
 
-	buf := new(bytes.Buffer)
-	nethtml.Render(buf, htmlNode)
+	bodyBuf := new(bytes.Buffer)
+	nethtml.Render(bodyBuf, htmlNode)
+	body := template.HTML(bodyBuf.String())
 
-	html := template.HTML(buf.String())
+	var preview template.HTML
+	if firstParagraph != nil {
+		previewBuf := new(bytes.Buffer)
+		nethtml.Render(previewBuf, firstParagraph)
+		preview = template.HTML(previewBuf.String())
+	} else {
+		preview = template.HTML("")
+	}
 
-	return title, html
+	return title, body, preview
 }
 
 // Parameter, parent node. Return type, removed node
@@ -133,6 +146,21 @@ func removeFirstH1(parent *nethtml.Node) *nethtml.Node {
 		removedH1 := removeFirstH1(child)
 		if removedH1 != nil {
 			return removedH1
+		}
+		child = child.NextSibling
+	}
+	return nil
+}
+
+func getFirstParagraph(parent *nethtml.Node) *nethtml.Node {
+	child := parent.FirstChild
+	for child != nil {
+		if child.DataAtom == atom.P {
+			return child
+		}
+		paragraph := getFirstParagraph(child)
+		if paragraph != nil {
+			return paragraph
 		}
 		child = child.NextSibling
 	}
