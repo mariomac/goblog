@@ -1,4 +1,4 @@
-package bentry
+package blog
 
 import (
 	"strings"
@@ -8,11 +8,11 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const TEST_RESOURCES = "../../testresources/testentries"
+const testResources = "../../testresources/testentries"
 
 func TestBlogContent_LoadEntries(t *testing.T) {
-	blog := new(BlogContent)
-	blog.Load(TEST_RESOURCES)
+	blog := new(Content)
+	blog.Load(testResources)
 
 	assert := assert.New(t)
 
@@ -32,8 +32,8 @@ func TestBlogContent_LoadEntries(t *testing.T) {
 }
 
 func TestBlogContent_LoadAll(t *testing.T) {
-	blog := new(BlogContent)
-	blog.Load(TEST_RESOURCES)
+	blog := new(Content)
+	blog.Load(testResources)
 
 	assert := assert.New(t)
 

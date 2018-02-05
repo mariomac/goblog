@@ -5,12 +5,12 @@ import (
 	"encoding/xml"
 	"fmt"
 
-	"github.com/mariomac/goblog/src/bentry"
+	"github.com/mariomac/goblog/src/blog"
 	"golang.org/x/tools/blog/atom"
 )
 
-// Builds an XML Atom feed from an ordered (from new to old) list of blog entries
-func BuildAtomFeed(bentries []bentry.Entry, hostname string, entrypath string) string {
+// BuildAtomFeed builds an XML Atom feed from an ordered (from new to old) list of blog entries
+func BuildAtomFeed(bentries []blog.Entry, hostname string, entrypath string) string {
 	entries := make([]*atom.Entry, len(bentries))
 
 	for i, bentry := range bentries {

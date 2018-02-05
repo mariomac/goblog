@@ -13,29 +13,34 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/mariomac/goblog/src/bentry"
-	"github.com/mariomac/goblog/src/btemplate"
+	"github.com/mariomac/goblog/src/blog"
 	"github.com/mariomac/goblog/src/env"
 	"github.com/mariomac/goblog/src/feed"
+	"github.com/mariomac/goblog/src/visual"
 )
 
-const ENV_GOBLOG_ROOT = "GOBLOG_ROOT"
-const ENV_GOBLOG_PORT = "GOBLOG_PORT"
-const ENV_GOBLOG_DOMAIN = "GOBLOG_DOMAIN"
+// Env var names
+const envGoblogRoot = "GOBLOG_ROOT"
+const envGoblogPort = "GOBLOG_PORT"
+const envGoblogDomain = "GOBLOG_DOMAIN"
 
-const TMPL_INDEX = "index"
-const TMPL_ENTRY = "entry"
-const TMPL_DIR = "template/"
-const ENTRY_DIR = "entries/"
-const STATIC_DIR = "static/"
+// Template names
+const templateIndex = "index"
+const templateEntry = "entry"
 
-const PATH_STATIC = "/static/"
-const PATH_ENTRY = "/entry/"
-const PATH_INDEX = "/"
-const PATH_ATOM = "/atom.xml"
+// Directory names
+const dirTemplate = "template/"
+const dirEntry = "entries/"
+const dirStatic = "static/"
 
-var entries bentry.BlogContent
-var templates = btemplate.Templates{}
+// Path names
+const pathStatic = "/static/"
+const pathEntry = "/entry/"
+const pathIndex = "/"
+const pathAtom = "/atom.xml"
+
+var entries blog.Content
+var templates = visual.Templates{}
 
 func viewHandler(w http.ResponseWriter, r *http.Request, fileName string, template string) {
 	log.Printf("viewHandler(_, _, %s, %s)", fileName, template)
@@ -71,35 +76,35 @@ func main() {
 	log.Print("Starting GoBlog...")
 
 	osHostname, _ := os.Hostname()
-	var BLOG_DOMAIN = env.GetDef(ENV_GOBLOG_DOMAIN, osHostname)
-	var BLOG_ROOT = env.GetDef(ENV_GOBLOG_ROOT, "../sample")
-	var BLOG_PORT = env.GetDef(ENV_GOBLOG_PORT, "8080")
+	var blogDomain = env.GetDef(envGoblogDomain, osHostname)
+	var blogRoot = env.GetDef(envGoblogRoot, "./sample")
+	var blogPort = env.GetDef(envGoblogPort, "8080")
 
 	log.Printf("Environment: { %s=\"%s\", %s=\"%s\", %s=\"%s\",",
-		ENV_GOBLOG_DOMAIN, BLOG_DOMAIN,
-		ENV_GOBLOG_PORT, BLOG_PORT,
-		ENV_GOBLOG_ROOT, BLOG_ROOT)
+		envGoblogDomain, blogDomain,
+		envGoblogPort, blogPort,
+		envGoblogRoot, blogRoot)
 
 	// Load blog entries
-	entries = bentry.BlogContent{}
-	entries.Load(BLOG_ROOT + "/" + ENTRY_DIR)
+	entries = blog.Content{}
+	entries.Load(blogRoot + "/" + dirEntry)
 
 	// Create Atom XML feed
 	atomxml := bytes.NewBufferString(
-		feed.BuildAtomFeed(entries.GetEntries(), BLOG_DOMAIN, PATH_ENTRY)).Bytes()
+		feed.BuildAtomFeed(entries.GetEntries(), blogDomain, pathEntry)).Bytes()
 
 	// Load templates
-	templates.Load(BLOG_ROOT+"/"+TMPL_DIR, entries.GetEntries)
+	templates.Load(blogRoot+"/"+dirTemplate, entries.GetEntries)
 
-	http.HandleFunc(PATH_INDEX, makeIndexHandler(TMPL_INDEX))
-	http.HandleFunc(PATH_ATOM, func(writer http.ResponseWriter, request *http.Request) {
+	http.HandleFunc(pathIndex, makeIndexHandler(templateIndex))
+	http.HandleFunc(pathAtom, func(writer http.ResponseWriter, request *http.Request) {
 		writer.Header().Add("Content-Type", "application/atom+xml")
 		writer.Write(atomxml)
 	})
-	http.HandleFunc(PATH_ENTRY, makePageHandler(PATH_ENTRY, TMPL_ENTRY, viewHandler))
-	http.Handle(PATH_STATIC, http.StripPrefix(PATH_STATIC,
-		http.FileServer(http.Dir(BLOG_ROOT+"/"+STATIC_DIR))))
+	http.HandleFunc(pathEntry, makePageHandler(pathEntry, templateEntry, viewHandler))
+	http.Handle(pathStatic, http.StripPrefix(pathStatic,
+		http.FileServer(http.Dir(blogRoot+"/"+dirStatic))))
 
-	log.Printf("GoBlog is listening at port %s", BLOG_PORT)
-	http.ListenAndServe(":"+BLOG_PORT, nil)
+	log.Printf("GoBlog is listening at port %s", blogPort)
+	http.ListenAndServe(":"+blogPort, nil)
 }

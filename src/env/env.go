@@ -1,16 +1,14 @@
+// Package env holds some helper functions about environment variables
 package env
 
 import "os"
 
-func Get(propertyName string) string {
-	return GetDef(propertyName, "")
-}
-
+// GetDef returns the environment variable named as the argument, or the
+// stated default value if the variable does not exist
 func GetDef(propertyName string, defaultValue string) string {
 	value, found := os.LookupEnv(propertyName)
 	if found == false {
 		return defaultValue
-	} else {
-		return value
 	}
+	return value
 }

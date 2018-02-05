@@ -1,4 +1,5 @@
-package bentry
+// Package blog contains blog content and entries
+package blog
 
 import (
 	"bytes"
@@ -16,15 +17,17 @@ import (
 	"golang.org/x/net/html/atom"
 )
 
+// Entry holds the information of a blog entry or page
 type Entry struct {
 	FileName string
 	Title    string
-	Html     template.HTML
+	HTML     template.HTML
 	Preview  template.HTML
 	Time     *time.Time // may be nil, if it is a page
 }
 
-type BlogContent struct {
+// Content holds the information of all the entries and pages of the blog
+type Content struct {
 	entries []Entry          // Timestamped entries, sorted from new to old
 	all     map[string]Entry // All the pages, mapped by its file name
 }
@@ -34,16 +37,19 @@ var entryFormat = regexp.MustCompile("[0-9]{12}[_\\-a-zA-Z0-9]+\\.md$")
 var allFormat = regexp.MustCompile("^[_\\-a-zA-Z0-9]+\\.md$")
 var allFileFormat = regexp.MustCompile("[_\\-a-zA-Z0-9]+\\.md$")
 
-func (blog *BlogContent) GetEntries() []Entry {
+// GetEntries returns all the entries of the blog.
+func (blog *Content) GetEntries() []Entry {
 	return blog.entries
 }
 
-func (blog *BlogContent) Get(fileName string) (Entry, bool) {
+// Get returned the entry corresponding to the given file name
+func (blog *Content) Get(fileName string) (Entry, bool) {
 	entry, ok := blog.all[fileName]
 	return entry, ok
 }
 
-func (blog *BlogContent) Load(folder string) {
+// Load loads all the files in a folder and constructs the entries of the blog.
+func (blog *Content) Load(folder string) {
 	blog.entries = make([]Entry, 0)
 	blog.all = make(map[string]Entry, 0)
 
@@ -69,7 +75,7 @@ func (blog *BlogContent) Load(folder string) {
 				Time:     &time,
 				Title:    title,
 				FileName: fileName,
-				Html:     html,
+				HTML:     html,
 				Preview:  preview,
 			}
 			blog.entries = append(blog.entries, entry)
@@ -79,7 +85,7 @@ func (blog *BlogContent) Load(folder string) {
 			blog.all[fileName] = Entry{
 				Title:    title,
 				FileName: fileName,
-				Html:     html,
+				HTML:     html,
 				Time:     nil,
 				Preview:  preview,
 			}

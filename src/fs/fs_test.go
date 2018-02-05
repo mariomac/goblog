@@ -18,10 +18,10 @@ func equals(a []string, b []string) bool {
 	return true
 }
 
-const TEST_RESOURCES = "../../testresources/testset1"
+const testResources = "../../testresources/testset1"
 
 func TestEmptySearchNoMatches(t *testing.T) {
-	found := Search(TEST_RESOURCES, regexp.MustCompile("^inexistingfile$"))
+	found := Search(testResources, regexp.MustCompile("^inexistingfile$"))
 	if len(found) != 0 {
 		t.Errorf("Search should be empty, but got: %s", fmt.Sprint(found))
 	}
@@ -35,7 +35,7 @@ func TestEmptySearchWrongFolder(t *testing.T) {
 }
 
 func TestAllSearch(t *testing.T) {
-	found := Search(TEST_RESOURCES, nil)
+	found := Search(testResources, nil)
 	expected := []string{
 		"../../testresources/testset1/test1.html",
 		"../../testresources/testset1/test2.html",
@@ -52,7 +52,7 @@ func TestAllSearch(t *testing.T) {
 }
 
 func TestMarkdownSearch(t *testing.T) {
-	found := Search(TEST_RESOURCES, regexp.MustCompile("\\.md$"))
+	found := Search(testResources, regexp.MustCompile("\\.md$"))
 	expected := []string{
 		"../../testresources/testset1/testsub/thing.md",
 		"../../testresources/testset1/testsub2/thing4.md",

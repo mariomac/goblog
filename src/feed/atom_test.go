@@ -3,17 +3,17 @@ package feed
 import (
 	"testing"
 
-	"github.com/mariomac/goblog/src/bentry"
+	"github.com/mariomac/goblog/src/blog"
 	assert2 "github.com/stretchr/testify/assert"
 )
 
-const TEST_RESOURCES = "../../testresources/testentries"
+const testResources = "../../testresources/testentries"
 
 func TestBuildAtomFeed(t *testing.T) {
 	assert := assert2.New(t)
 
-	entries := bentry.BlogContent{}
-	entries.Load(TEST_RESOURCES)
+	entries := blog.Content{}
+	entries.Load(testResources)
 
 	atomxml := BuildAtomFeed(entries.GetEntries(), "www.superblog.com", "/entry/")
 

@@ -1,9 +1,6 @@
 ASSETNAME  := $(shell basename $(shell pwd))
 BINARY_NAME   = $(ASSETNAME)
 GO_PKGS      := $(shell go list ./... | grep -v "/vendor/")
-GO_FILES     := $(shell find src -type f -name "*.go")
-GOTOOLS       = github.com/axw/gocov/gocov \
-				github.com/AlekSi/gocov-xml \
 
 all: build
 

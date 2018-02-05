@@ -1,21 +1,21 @@
-package btemplate
+package visual
 
 import "testing"
 import (
 	"log"
 
-	"github.com/mariomac/goblog/src/bentry"
+	"github.com/mariomac/goblog/src/blog"
 )
 
-const TEST_RESOURCES = "../../testresources/testset1"
+const testResources = "../../testresources/testset1"
 
-func getEntries() []bentry.Entry {
-	return make([]bentry.Entry, 0)
+func getEntries() []blog.Entry {
+	return make([]blog.Entry, 0)
 }
 
 func TestTemplates_Load(t *testing.T) {
 	templates := Templates{}
-	templates.Load(TEST_RESOURCES, getEntries)
+	templates.Load(testResources, getEntries)
 
 	expected := map[string]bool{
 		"golog_templates": true,
@@ -24,7 +24,7 @@ func TestTemplates_Load(t *testing.T) {
 		"test1.html": true, "test2.html": true,
 	}
 
-	actual := templates.entries.Templates()
+	actual := templates.Templates()
 
 	if len(expected) != len(actual) {
 		t.Errorf("Failed loading templates. Expected: %d. Got: %d", len(expected), len(actual))

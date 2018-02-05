@@ -1,4 +1,4 @@
-// File System tools
+// Package fs contains the File System tools
 package fs
 
 import (
@@ -7,7 +7,7 @@ import (
 	"regexp"
 )
 
-// Returns the paths of all the files contained in the folder and subfolders of the path whose
+// Search returns the paths of all the files contained in the folder and subfolders of the path whose
 // file name matches with the regular expression. If the regular expression is nil, it returns
 // all the files
 // The paths are returned in alphabetical order.
