@@ -2,7 +2,8 @@ package feed
 
 import (
 	"testing"
-	"../bentry"
+
+	"github.com/mariomac/goblog/src/bentry"
 	assert2 "github.com/stretchr/testify/assert"
 )
 

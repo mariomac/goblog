@@ -1,0 +1,15 @@
+package: github.com/mariomac/goblog
+import:
+- package: github.com/shurcooL/github_flavored_markdown
+- package: golang.org/x/net
+  subpackages:
+  - html
+  - html/atom
+- package: golang.org/x/tools
+  subpackages:
+  - blog/atom
+testImport:
+- package: github.com/stretchr/testify
+  version: ~1.2.1
+  subpackages:
+  - assert

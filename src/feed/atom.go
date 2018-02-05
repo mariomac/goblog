@@ -1,11 +1,12 @@
 package feed
 
 import (
-	"golang.org/x/tools/blog/atom"
-	"../bentry"
-	"encoding/xml"
 	"bytes"
+	"encoding/xml"
 	"fmt"
+
+	"github.com/mariomac/goblog/src/bentry"
+	"golang.org/x/tools/blog/atom"
 )
 
 // Builds an XML Atom feed from an ordered (from new to old) list of blog entries
@@ -14,27 +15,27 @@ func BuildAtomFeed(bentries []bentry.Entry, hostname string, entrypath string) s
 
 	for i, bentry := range bentries {
 		entries[i] = &atom.Entry{
-			Title:bentry.Title,
-			ID:fmt.Sprint(bentry.Time.Unix()),
-			Link:[]atom.Link{
-				{Href: "http://" + hostname + entrypath + bentry.FileName,},
+			Title: bentry.Title,
+			ID:    fmt.Sprint(bentry.Time.Unix()),
+			Link: []atom.Link{
+				{Href: "http://" + hostname + entrypath + bentry.FileName},
 			},
-			Published:atom.Time(*bentry.Time),
-			Summary:&atom.Text{
-				Type:"text/html",
-				Body:string(bentry.Preview),
+			Published: atom.Time(*bentry.Time),
+			Summary: &atom.Text{
+				Type: "text/html",
+				Body: string(bentry.Preview),
 			},
 		}
 	}
 
 	feed := atom.Feed{
-		Title:"Entries for " + hostname,
-		ID:hostname,
-		Link:[]atom.Link{
-			{Href: "http://" + hostname,},
+		Title: "Entries for " + hostname,
+		ID:    hostname,
+		Link: []atom.Link{
+			{Href: "http://" + hostname},
 		},
-		Updated:atom.Time(*bentries[0].Time),
-		Entry:entries,
+		Updated: atom.Time(*bentries[0].Time),
+		Entry:   entries,
 	}
 
 	out := make([]byte, 0, 2048)

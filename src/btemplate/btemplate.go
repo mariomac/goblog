@@ -1,13 +1,14 @@
 package btemplate
 
 import (
-	"../bentry"
-	"../fs"
-	"github.com/shurcooL/github_flavored_markdown"
 	"html/template"
 	"log"
 	"net/http"
 	"regexp"
+
+	"github.com/mariomac/goblog/src/bentry"
+	"github.com/mariomac/goblog/src/fs"
+	"github.com/shurcooL/github_flavored_markdown"
 )
 
 type Templates struct {

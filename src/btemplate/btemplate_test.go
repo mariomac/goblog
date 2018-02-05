@@ -2,8 +2,9 @@ package btemplate
 
 import "testing"
 import (
-	"../bentry"
 	"log"
+
+	"github.com/mariomac/goblog/src/bentry"
 )
 
 const TEST_RESOURCES = "../../testresources/testset1"

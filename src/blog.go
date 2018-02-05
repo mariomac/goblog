@@ -7,15 +7,16 @@
 package main
 
 import (
-	"./bentry"
-	"./btemplate"
-	"./env"
-	"./feed"
+	"bytes"
 	"log"
 	"net/http"
-	"regexp"
 	"os"
-	"bytes"
+	"regexp"
+
+	"github.com/mariomac/goblog/src/bentry"
+	"github.com/mariomac/goblog/src/btemplate"
+	"github.com/mariomac/goblog/src/env"
+	"github.com/mariomac/goblog/src/feed"
 )
 
 const ENV_GOBLOG_ROOT = "GOBLOG_ROOT"
@@ -100,5 +101,5 @@ func main() {
 		http.FileServer(http.Dir(BLOG_ROOT+"/"+STATIC_DIR))))
 
 	log.Printf("GoBlog is listening at port %s", BLOG_PORT)
-	http.ListenAndServe(":" + BLOG_PORT, nil)
+	http.ListenAndServe(":"+BLOG_PORT, nil)
 }

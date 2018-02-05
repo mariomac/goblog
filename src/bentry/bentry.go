@@ -1,11 +1,7 @@
 package bentry
 
 import (
-	"../fs"
 	"bytes"
-	"github.com/shurcooL/github_flavored_markdown"
-	nethtml "golang.org/x/net/html"
-	"golang.org/x/net/html/atom"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -13,6 +9,11 @@ import (
 	"sort"
 	"strconv"
 	"time"
+
+	"github.com/mariomac/goblog/src/fs"
+	"github.com/shurcooL/github_flavored_markdown"
+	nethtml "golang.org/x/net/html"
+	"golang.org/x/net/html/atom"
 )
 
 type Entry struct {
