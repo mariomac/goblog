@@ -1,45 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  {{ template "html_head" }}
+{{ template "html_head" }}
 
-  <body>
+<body>
 
-    {{ template "navbar" }}
+{{ template "navbar" }}
 
-    <!-- Page Header -->
-    <header class="masthead" style="background-image: url('/static/img/post-bg.jpg')">
-      <div class="container">
+<!-- Page Header -->
+<header class="masthead"
+        style="background-image: url('/static/img/post-bg.jpg')">
+    <div class="container">
         <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="post-heading">
-              <h1>{{.Title}}</h1>
-              <!--h2 class="subheading">Problems look mighty small from 150 miles up</h2-->
-              {{if .Time}}
-              <span class="meta">Posted on {{.Time.Month}} {{.Time.Day}}, {{.Time.Year}}</span>
-              {{end}}
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-heading">
+                    <h1>{{.Title}}</h1>
+                    <!--h2 class="subheading">Problems look mighty small from 150 miles up</h2-->
+                {{if .Time}}
+                    <span class="meta">Posted on {{.Time.Month}} {{.Time.Day}}
+                        , {{.Time.Year}}</span>
+                {{end}}
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </header>
+    </div>
+</header>
 
-    <!-- Entry HTML-rendered contents -->
-    <!-- Post Content -->
-    <article>
-      <div class="container">
+<!-- Entry HTML-rendered contents -->
+<!-- Post Content -->
+<article>
+    <div class="container">
         <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            {{.Html}}
-          </div>
+            <div class="col-lg-8 col-md-10 mx-auto">
+            {{.HTML}}
+            </div>
         </div>
-      </div>
-    </article>
+        <!-- disqus -->
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div id="disqus_thread"></div>
+            </div>
+        </div>
+    </div>
+</article>
 
-    <hr>
+<hr>
 
-    <!-- Footer -->
-    {{ template "footer" }}
-  </body>
+<!-- Footer -->
+{{ template "footer" }}
+</body>
 
 </html>

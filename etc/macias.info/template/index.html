@@ -1,56 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  {{ template "html_head" }}
+{{ template "html_head" }}
 
-  <body>
-    {{ template "navbar" }}
+<body>
+{{ template "navbar" }}
 
-    <!-- Page Header -->
-    <header class="masthead" style="background-image: url('/static/img/home-bg.jpg')">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="site-heading">
-              <h1>Handcrafted blog</h1>
-              <span class="subheading">Written in <a href="http://www.golang.org" style="color: #aaaadd">Go language</a> as a self-learning exercise</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Main Content -->
+<!-- Page Header -->
+<header class="masthead"
+        style="background-image: url('/static/img/home-bg.jpg')">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          {{ range entries}}
-          <div class="post-preview">
-            <a href="/entry/{{.FileName}}">
-              <h2 class="post-title">
-                {{.Title}}
-              </h2>
-              <p class="post-subtitle">
-                {{.Preview}}
-              </p>
-            </a>
-            <p class="post-meta">Posted on {{.Time.Month}} {{.Time.Day}}, {{.Time.Year}}</p>
-          </div>
-          {{ end }}
-          <hr>
-          <!-- Pager -->
-          <!--
-          <div class="clearfix">
-            <a class="btn btn-secondary float-right" href="#">Older Posts &rarr;</a>
-          </div>
-          -->
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Handcrafted blog</h1>
+                    <span class="subheading">Written in <a
+                            href="http://www.golang.org" style="color: #aaaadd">Go language</a> as a self-learning exercise</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
+</header>
 
-    <hr>
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+        {{ range entries}}
+            <div class="post-preview">
+                <a href="/entry/{{.FileName}}">
+                    <h2 class="post-title">
+                    {{.Title}}
+                    </h2>
+                    <p class="post-subtitle">
+                    {{.Preview}}
+                    </p>
+                </a>
+                <p class="post-meta">Posted on {{.Time.Month}} {{.Time.Day}}
+                    , {{.Time.Year}} (<a href="/entry/{{.FileName}}#disqus_thread"></a></p>)
+            </div>
+        {{ end }}
+            <hr>
+            <!-- Pager -->
+            <!--
+            <div class="clearfix">
+              <a class="btn btn-secondary float-right" href="#">Older Posts &rarr;</a>
+            </div>
+            -->
+        </div>
+    </div>
+</div>
 
-    {{ template "footer" }}
-  </body>
+<hr>
+
+{{ template "footer" }}
+
+<!-- Disqus -->
+<script id="dsq-count-scr" src="//maciasinfo.disqus.com/count.js"
+        async></script>
+</body>
 
 </html>
