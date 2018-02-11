@@ -1,3 +1,8 @@
-.entry-index-right {
-    float: right;
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+pre {
+    font-size: medium;
 }
