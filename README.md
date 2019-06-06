@@ -1,6 +1,6 @@
 # GoBlog
 
-A homecrafted Blog Written in Golang as a learning exercise
+A homecrafted Blog Written in Golang as a learning exercise. If you want to see how it looks, go to my home page: [macias.info](http://macias.info)
 
 ## Blog Structure
 
