@@ -9,7 +9,7 @@ import (
 
 	"github.com/mariomac/goblog/src/blog"
 	"github.com/mariomac/goblog/src/fs"
-	"github.com/shurcooL/github_flavored_markdown"
+	"github.com/russross/blackfriday/v2"
 )
 
 // Templates wraps and extends the functionality of Go's template.Template
@@ -47,5 +47,5 @@ func (t *Templates) Render(w http.ResponseWriter, template string, data interfac
 
 // TODO: remove
 func md2html(mdText []byte) template.HTML {
-	return template.HTML(github_flavored_markdown.Markdown(mdText))
+	return template.HTML(blackfriday.Run(mdText))
 }

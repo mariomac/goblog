@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/mariomac/goblog/src/fs"
-	"github.com/shurcooL/github_flavored_markdown"
+	"github.com/russross/blackfriday/v2"
 	nethtml "golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
 )
@@ -113,7 +113,7 @@ func extractTime(timestr string) time.Time {
 }
 
 func getTitleBodyAndPreview(mdBytes []byte) (string, template.HTML, template.HTML) {
-	htmlBytes := github_flavored_markdown.Markdown(mdBytes)
+	htmlBytes := blackfriday.Run(mdBytes)
 
 	htmlNode, err := nethtml.Parse(bytes.NewReader(htmlBytes))
 	if err != nil {
