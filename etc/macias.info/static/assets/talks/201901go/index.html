@@ -1,0 +1,576 @@
+<!DOCTYPE html><html lang="en-US"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><meta http-equiv="X-UA-Compatible" content="ie=edge"><style>@media screen{body,html{background:#000;height:100%;margin:0;overflow:hidden}.bespoke-marp-osc{display:none;opacity:0}.bespoke-marp-parent{bottom:0;left:0;position:absolute;right:0;top:0}.bespoke-marp-parent>.bespoke-marp-osc{background:rgba(0,0,0,.65);border-radius:7px;bottom:50px;color:#fff;display:block;font-family:Helvetica,Arial,sans-serif;font-size:16px;left:50%;line-height:0;opacity:1;padding:12px;position:absolute;touch-action:manipulation;-webkit-transform:translateX(-50%);transform:translateX(-50%);transition:opacity .2s linear;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;white-space:nowrap;z-index:1}.bespoke-marp-parent>.bespoke-marp-osc>*{margin-left:6px}.bespoke-marp-parent>.bespoke-marp-osc>:first-child{margin-left:0}.bespoke-marp-parent>.bespoke-marp-osc>span{opacity:.8}.bespoke-marp-parent>.bespoke-marp-osc>span[data-bespoke-marp-osc=page]{display:inline-block;min-width:140px;text-align:center}.bespoke-marp-parent>.bespoke-marp-osc>button{-webkit-appearance:none;-moz-appearance:none;appearance:none;background-color:transparent;border:0;color:inherit;cursor:pointer;font-size:inherit;opacity:.8;outline:none;padding:0;transition:opacity .2s linear;-webkit-tap-highlight-color:transparent}.bespoke-marp-parent>.bespoke-marp-osc>button:disabled{cursor:not-allowed;opacity:.15!important}.bespoke-marp-parent>.bespoke-marp-osc>button:hover{opacity:1}.bespoke-marp-parent>.bespoke-marp-osc>button:hover:active{opacity:.6}.bespoke-marp-parent>.bespoke-marp-osc>button:hover:not(:disabled){transition:none}.bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev]{background-size:contain;background:transparent url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNNjggOTBMMjggNTBsNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;height:32px;overflow:hidden;text-indent:100%;white-space:nowrap;width:32px}.bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next]{background-size:contain;background:transparent url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNMzIgOTBsNDAtNDAtNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;height:32px;overflow:hidden;text-indent:100%;white-space:nowrap;width:32px}.bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen]{background-size:contain;background:transparent url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IGNsYXNzPSJhIiB4PSIxMCIgeT0iMjAiIHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgcng9IjUuNjciLz48cGF0aCBjbGFzcz0iYSIgZD0iTTQwIDcwSDIwVjUwbTIwIDBMMjAgNzBtNDAtNDBoMjB2MjBtLTIwIDBsMjAtMjAiLz48L3N2Zz4=") no-repeat 50%;height:32px;overflow:hidden;text-indent:100%;white-space:nowrap;width:32px}.bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen].exit{background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IGNsYXNzPSJhIiB4PSIxMCIgeT0iMjAiIHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgcng9IjUuNjciLz48cGF0aCBjbGFzcz0iYSIgZD0iTTIwIDUwaDIwdjIwbS0yMCAwbDIwLTIwbTQwIDBINjBWMzBtMjAgMEw2MCA1MCIvPjwvc3ZnPg==")}.bespoke-marp-parent.bespoke-marp-inactive{cursor:none}.bespoke-marp-parent.bespoke-marp-inactive>.bespoke-marp-osc{opacity:0;pointer-events:none}svg.bespoke-marp-slide{height:100%;left:0;pointer-events:none;position:absolute;top:0;width:100%;z-index:-1}svg.bespoke-marp-slide.bespoke-marp-active{pointer-events:auto;z-index:0}.bespoke-progress-parent{background:#222;display:flex;height:5px;width:100%}.bespoke-progress-parent+.bespoke-marp-parent{top:5px}.bespoke-progress-parent .bespoke-progress-bar{flex:0 0 0;background:#0288d1;transition:flex-basis .2s cubic-bezier(0,1,1,1)}}@media print{.bespoke-marp-osc,.bespoke-progress-parent{display:none!important;transition:none!important}.bespoke-marp-parent{top:0}}</style><style>article#presentation > svg > foreignObject > section {
+  width: 1280px;
+  height: 720px;
+
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+
+  scroll-snap-align: center center;
+}article#presentation > svg > foreignObject > section::after {
+  bottom: 0;
+  content: attr(data-marpit-pagination);
+  padding: inherit;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}article#presentation > svg > foreignObject > section:not([data-marpit-pagination])::after {
+  display: none;
+}/* Normalization */article#presentation > svg > foreignObject > section h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}@page {
+  size: 1280px 720px;
+  margin: 0;
+}@media print {html, body {
+  background-color: #fff;
+  margin: 0;
+  page-break-inside: avoid;
+  break-inside: avoid-page;
+}
+  article#presentation > svg > foreignObject > section {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  article#presentation > svg > foreignObject > section, article#presentation > svg > foreignObject > section * {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  article#presentation > svg[data-marpit-svg] {
+    display: block;
+    height: 100vh;
+    width: 100vw;
+  }
+}article#presentation > svg > foreignObject > section svg[data-marp-fitting=svg]{display:block;height:auto;width:100%}@supports (-ms-ime-align:auto){article#presentation > svg > foreignObject > section svg[data-marp-fitting=svg]{position:static}}article#presentation > svg > foreignObject > section svg[data-marp-fitting=svg].__reflow__{content:""}@supports (-ms-ime-align:auto){article#presentation > svg > foreignObject > section svg[data-marp-fitting=svg].__reflow__{position:relative}}article#presentation > svg > foreignObject > section [data-marp-fitting-svg-content]{display:table;white-space:nowrap}article#presentation > svg > foreignObject > section [data-marp-fitting-svg-content-wrap]{white-space:pre}article#presentation > svg > foreignObject > section img[data-marp-twemoji]{background:transparent;height:1em;margin:0 .05em 0 .1em;vertical-align:-.1em;width:1em}/*!
+ * Marp default theme.
+ *
+ * @theme default
+ */@font-face{font-family:octicons-link;src:url(data:font/woff;charset=utf-8;base64,d09GRgABAAAAAAZwABAAAAAACFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEU0lHAAAGaAAAAAgAAAAIAAAAAUdTVUIAAAZcAAAACgAAAAoAAQAAT1MvMgAAAyQAAABJAAAAYFYEU3RjbWFwAAADcAAAAEUAAACAAJThvmN2dCAAAATkAAAABAAAAAQAAAAAZnBnbQAAA7gAAACyAAABCUM+8IhnYXNwAAAGTAAAABAAAAAQABoAI2dseWYAAAFsAAABPAAAAZwcEq9taGVhZAAAAsgAAAA0AAAANgh4a91oaGVhAAADCAAAABoAAAAkCA8DRGhtdHgAAAL8AAAADAAAAAwGAACfbG9jYQAAAsAAAAAIAAAACABiATBtYXhwAAACqAAAABgAAAAgAA8ASm5hbWUAAAToAAABQgAAAlXu73sOcG9zdAAABiwAAAAeAAAAME3QpOBwcmVwAAAEbAAAAHYAAAB/aFGpk3jaTY6xa8JAGMW/O62BDi0tJLYQincXEypYIiGJjSgHniQ6umTsUEyLm5BV6NDBP8Tpts6F0v+k/0an2i+itHDw3v2+9+DBKTzsJNnWJNTgHEy4BgG3EMI9DCEDOGEXzDADU5hBKMIgNPZqoD3SilVaXZCER3/I7AtxEJLtzzuZfI+VVkprxTlXShWKb3TBecG11rwoNlmmn1P2WYcJczl32etSpKnziC7lQyWe1smVPy/Lt7Kc+0vWY/gAgIIEqAN9we0pwKXreiMasxvabDQMM4riO+qxM2ogwDGOZTXxwxDiycQIcoYFBLj5K3EIaSctAq2kTYiw+ymhce7vwM9jSqO8JyVd5RH9gyTt2+J/yUmYlIR0s04n6+7Vm1ozezUeLEaUjhaDSuXHwVRgvLJn1tQ7xiuVv/ocTRF42mNgZGBgYGbwZOBiAAFGJBIMAAizAFoAAABiAGIAznjaY2BkYGAA4in8zwXi+W2+MjCzMIDApSwvXzC97Z4Ig8N/BxYGZgcgl52BCSQKAA3jCV8CAABfAAAAAAQAAEB42mNgZGBg4f3vACQZQABIMjKgAmYAKEgBXgAAeNpjYGY6wTiBgZWBg2kmUxoDA4MPhGZMYzBi1AHygVLYQUCaawqDA4PChxhmh/8ODDEsvAwHgMKMIDnGL0x7gJQCAwMAJd4MFwAAAHjaY2BgYGaA4DAGRgYQkAHyGMF8NgYrIM3JIAGVYYDT+AEjAwuDFpBmA9KMDEwMCh9i/v8H8sH0/4dQc1iAmAkALaUKLgAAAHjaTY9LDsIgEIbtgqHUPpDi3gPoBVyRTmTddOmqTXThEXqrob2gQ1FjwpDvfwCBdmdXC5AVKFu3e5MfNFJ29KTQT48Ob9/lqYwOGZxeUelN2U2R6+cArgtCJpauW7UQBqnFkUsjAY/kOU1cP+DAgvxwn1chZDwUbd6CFimGXwzwF6tPbFIcjEl+vvmM/byA48e6tWrKArm4ZJlCbdsrxksL1AwWn/yBSJKpYbq8AXaaTb8AAHja28jAwOC00ZrBeQNDQOWO//sdBBgYGRiYWYAEELEwMTE4uzo5Zzo5b2BxdnFOcALxNjA6b2ByTswC8jYwg0VlNuoCTWAMqNzMzsoK1rEhNqByEyerg5PMJlYuVueETKcd/89uBpnpvIEVomeHLoMsAAe1Id4AAAAAAAB42oWQT07CQBTGv0JBhagk7HQzKxca2sJCE1hDt4QF+9JOS0nbaaYDCQfwCJ7Au3AHj+LO13FMmm6cl7785vven0kBjHCBhfpYuNa5Ph1c0e2Xu3jEvWG7UdPDLZ4N92nOm+EBXuAbHmIMSRMs+4aUEd4Nd3CHD8NdvOLTsA2GL8M9PODbcL+hD7C1xoaHeLJSEao0FEW14ckxC+TU8TxvsY6X0eLPmRhry2WVioLpkrbp84LLQPGI7c6sOiUzpWIWS5GzlSgUzzLBSikOPFTOXqly7rqx0Z1Q5BAIoZBSFihQYQOOBEdkCOgXTOHA07HAGjGWiIjaPZNW13/+lm6S9FT7rLHFJ6fQbkATOG1j2OFMucKJJsxIVfQORl+9Jyda6Sl1dUYhSCm1dyClfoeDve4qMYdLEbfqHf3O/AdDumsjAAB42mNgYoAAZQYjBmyAGYQZmdhL8zLdDEydARfoAqIAAAABAAMABwAKABMAB///AA8AAQAAAAAAAAAAAAAAAAABAAAAAA==) format("woff")}article#presentation > svg > foreignObject > section .markdown-body,article#presentation > svg > foreignObject > section{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:16px;line-height:1.5;word-wrap:break-word}article#presentation > svg > foreignObject > section .markdown-body .pl-c,article#presentation > svg > foreignObject > section .pl-c{color:#6a737d}article#presentation > svg > foreignObject > section .markdown-body .pl-c1,article#presentation > svg > foreignObject > section .markdown-body .pl-s .pl-v,article#presentation > svg > foreignObject > section .pl-c1,article#presentation > svg > foreignObject > section .pl-s .pl-v{color:#005cc5}article#presentation > svg > foreignObject > section .markdown-body .pl-e,article#presentation > svg > foreignObject > section .markdown-body .pl-en,article#presentation > svg > foreignObject > section .pl-e,article#presentation > svg > foreignObject > section .pl-en{color:#6f42c1}article#presentation > svg > foreignObject > section .markdown-body .pl-s .pl-s1,article#presentation > svg > foreignObject > section .markdown-body .pl-smi,article#presentation > svg > foreignObject > section .pl-s .pl-s1,article#presentation > svg > foreignObject > section .pl-smi{color:#24292e}article#presentation > svg > foreignObject > section .markdown-body .pl-ent,article#presentation > svg > foreignObject > section .pl-ent{color:#22863a}article#presentation > svg > foreignObject > section .markdown-body .pl-k,article#presentation > svg > foreignObject > section .pl-k{color:#d73a49}article#presentation > svg > foreignObject > section .markdown-body .pl-pds,article#presentation > svg > foreignObject > section .markdown-body .pl-s,article#presentation > svg > foreignObject > section .markdown-body .pl-s .pl-pse .pl-s1,article#presentation > svg > foreignObject > section .markdown-body .pl-sr,article#presentation > svg > foreignObject > section .markdown-body .pl-sr .pl-cce,article#presentation > svg > foreignObject > section .markdown-body .pl-sr .pl-sra,article#presentation > svg > foreignObject > section .markdown-body .pl-sr .pl-sre,article#presentation > svg > foreignObject > section .pl-pds,article#presentation > svg > foreignObject > section .pl-s,article#presentation > svg > foreignObject > section .pl-s .pl-pse .pl-s1,article#presentation > svg > foreignObject > section .pl-sr,article#presentation > svg > foreignObject > section .pl-sr .pl-cce,article#presentation > svg > foreignObject > section .pl-sr .pl-sra,article#presentation > svg > foreignObject > section .pl-sr .pl-sre{color:#032f62}article#presentation > svg > foreignObject > section .markdown-body .pl-smw,article#presentation > svg > foreignObject > section .markdown-body .pl-v,article#presentation > svg > foreignObject > section .pl-smw,article#presentation > svg > foreignObject > section .pl-v{color:#e36209}article#presentation > svg > foreignObject > section .markdown-body .pl-bu,article#presentation > svg > foreignObject > section .pl-bu{color:#b31d28}article#presentation > svg > foreignObject > section .markdown-body .pl-ii,article#presentation > svg > foreignObject > section .pl-ii{color:#fafbfc;background-color:#b31d28}article#presentation > svg > foreignObject > section .markdown-body .pl-c2,article#presentation > svg > foreignObject > section .pl-c2{color:#fafbfc;background-color:#d73a49}article#presentation > svg > foreignObject > section .markdown-body .pl-c2:before,article#presentation > svg > foreignObject > section .pl-c2:before{content:"^M"}article#presentation > svg > foreignObject > section .markdown-body .pl-sr .pl-cce,article#presentation > svg > foreignObject > section .pl-sr .pl-cce{font-weight:700;color:#22863a}article#presentation > svg > foreignObject > section .markdown-body .pl-ml,article#presentation > svg > foreignObject > section .pl-ml{color:#735c0f}article#presentation > svg > foreignObject > section .markdown-body .pl-mh,article#presentation > svg > foreignObject > section .markdown-body .pl-mh .pl-en,article#presentation > svg > foreignObject > section .markdown-body .pl-ms,article#presentation > svg > foreignObject > section .pl-mh,article#presentation > svg > foreignObject > section .pl-mh .pl-en,article#presentation > svg > foreignObject > section .pl-ms{font-weight:700;color:#005cc5}article#presentation > svg > foreignObject > section .markdown-body .pl-mi,article#presentation > svg > foreignObject > section .pl-mi{font-style:italic;color:#24292e}article#presentation > svg > foreignObject > section .markdown-body .pl-mb,article#presentation > svg > foreignObject > section .pl-mb{font-weight:700;color:#24292e}article#presentation > svg > foreignObject > section .markdown-body .pl-md,article#presentation > svg > foreignObject > section .pl-md{color:#b31d28;background-color:#ffeef0}article#presentation > svg > foreignObject > section .markdown-body .pl-mi1,article#presentation > svg > foreignObject > section .pl-mi1{color:#22863a;background-color:#f0fff4}article#presentation > svg > foreignObject > section .markdown-body .pl-mc,article#presentation > svg > foreignObject > section .pl-mc{color:#e36209;background-color:#ffebda}article#presentation > svg > foreignObject > section .markdown-body .pl-mi2,article#presentation > svg > foreignObject > section .pl-mi2{color:#f6f8fa;background-color:#005cc5}article#presentation > svg > foreignObject > section .markdown-body .pl-mdr,article#presentation > svg > foreignObject > section .pl-mdr{font-weight:700;color:#6f42c1}article#presentation > svg > foreignObject > section .markdown-body .pl-ba,article#presentation > svg > foreignObject > section .pl-ba{color:#586069}article#presentation > svg > foreignObject > section .markdown-body .pl-sg,article#presentation > svg > foreignObject > section .pl-sg{color:#959da5}article#presentation > svg > foreignObject > section .markdown-body .pl-corl,article#presentation > svg > foreignObject > section .pl-corl{text-decoration:underline;color:#032f62}article#presentation > svg > foreignObject > section .markdown-body .octicon,article#presentation > svg > foreignObject > section .octicon{display:inline-block;vertical-align:text-top;fill:currentColor}article#presentation > svg > foreignObject > section .markdown-body a,article#presentation > svg > foreignObject > section a{background-color:transparent}article#presentation > svg > foreignObject > section .markdown-body a:active,article#presentation > svg > foreignObject > section .markdown-body a:hover,article#presentation > svg > foreignObject > section a:active,article#presentation > svg > foreignObject > section a:hover{outline-width:0}article#presentation > svg > foreignObject > section .markdown-body strong,article#presentation > svg > foreignObject > section strong{font-weight:inherit;font-weight:bolder}article#presentation > svg > foreignObject > section .markdown-body h1,article#presentation > svg > foreignObject > section h1{margin:.67em 0}article#presentation > svg > foreignObject > section .markdown-body img,article#presentation > svg > foreignObject > section img{border-style:none}article#presentation > svg > foreignObject > section .markdown-body code,article#presentation > svg > foreignObject > section .markdown-body kbd,article#presentation > svg > foreignObject > section .markdown-body pre,article#presentation > svg > foreignObject > section code,article#presentation > svg > foreignObject > section kbd,article#presentation > svg > foreignObject > section pre{font-family:monospace,monospace;font-size:1em}article#presentation > svg > foreignObject > section .markdown-body hr,article#presentation > svg > foreignObject > section hr{box-sizing:content-box;overflow:visible}article#presentation > svg > foreignObject > section .markdown-body input,article#presentation > svg > foreignObject > section input{font:inherit;margin:0;overflow:visible}article#presentation > svg > foreignObject > section .markdown-body [type=checkbox],article#presentation > svg > foreignObject > section [type=checkbox]{box-sizing:border-box;padding:0}article#presentation > svg > foreignObject > section .markdown-body *,article#presentation > svg > foreignObject > section *{box-sizing:border-box}article#presentation > svg > foreignObject > section .markdown-body input,article#presentation > svg > foreignObject > section input{font-family:inherit;font-size:inherit;line-height:inherit}article#presentation > svg > foreignObject > section .markdown-body a,article#presentation > svg > foreignObject > section a{color:#0366d6;text-decoration:none}article#presentation > svg > foreignObject > section .markdown-body a:hover,article#presentation > svg > foreignObject > section a:hover{text-decoration:underline}article#presentation > svg > foreignObject > section .markdown-body strong,article#presentation > svg > foreignObject > section strong{font-weight:600}article#presentation > svg > foreignObject > section .markdown-body hr,article#presentation > svg > foreignObject > section hr{height:0;margin:15px 0;overflow:hidden;background:transparent;border-bottom:1px solid #dfe2e5}article#presentation > svg > foreignObject > section .markdown-body hr:before,article#presentation > svg > foreignObject > section hr:before{display:table;content:""}article#presentation > svg > foreignObject > section .markdown-body hr:after,article#presentation > svg > foreignObject > section hr:after{display:table;clear:both;content:""}article#presentation > svg > foreignObject > section .markdown-body table,article#presentation > svg > foreignObject > section table{border-spacing:0;border-collapse:collapse}article#presentation > svg > foreignObject > section .markdown-body td,article#presentation > svg > foreignObject > section .markdown-body th,article#presentation > svg > foreignObject > section td,article#presentation > svg > foreignObject > section th{padding:0}article#presentation > svg > foreignObject > section .markdown-body h1,article#presentation > svg > foreignObject > section .markdown-body h2,article#presentation > svg > foreignObject > section .markdown-body h3,article#presentation > svg > foreignObject > section .markdown-body h4,article#presentation > svg > foreignObject > section .markdown-body h5,article#presentation > svg > foreignObject > section .markdown-body h6,article#presentation > svg > foreignObject > section h1,article#presentation > svg > foreignObject > section h2,article#presentation > svg > foreignObject > section h3,article#presentation > svg > foreignObject > section h4,article#presentation > svg > foreignObject > section h5,article#presentation > svg > foreignObject > section h6{margin-top:0;margin-bottom:0}article#presentation > svg > foreignObject > section .markdown-body h1,article#presentation > svg > foreignObject > section h1{font-size:32px;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body h2,article#presentation > svg > foreignObject > section h2{font-size:24px;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body h3,article#presentation > svg > foreignObject > section h3{font-size:20px;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body h4,article#presentation > svg > foreignObject > section h4{font-size:16px;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body h5,article#presentation > svg > foreignObject > section h5{font-size:14px;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body h6,article#presentation > svg > foreignObject > section h6{font-size:12px;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body p,article#presentation > svg > foreignObject > section p{margin-top:0;margin-bottom:10px}article#presentation > svg > foreignObject > section .markdown-body blockquote,article#presentation > svg > foreignObject > section blockquote{margin:0}article#presentation > svg > foreignObject > section .markdown-body ol,article#presentation > svg > foreignObject > section .markdown-body ul,article#presentation > svg > foreignObject > section ol,article#presentation > svg > foreignObject > section ul{padding-left:0;margin-top:0;margin-bottom:0}article#presentation > svg > foreignObject > section .markdown-body ol ol,article#presentation > svg > foreignObject > section .markdown-body ul ol,article#presentation > svg > foreignObject > section ol ol,article#presentation > svg > foreignObject > section ul ol{list-style-type:lower-roman}article#presentation > svg > foreignObject > section .markdown-body ol ol ol,article#presentation > svg > foreignObject > section .markdown-body ol ul ol,article#presentation > svg > foreignObject > section .markdown-body ul ol ol,article#presentation > svg > foreignObject > section .markdown-body ul ul ol,article#presentation > svg > foreignObject > section ol ol ol,article#presentation > svg > foreignObject > section ol ul ol,article#presentation > svg > foreignObject > section ul ol ol,article#presentation > svg > foreignObject > section ul ul ol{list-style-type:lower-alpha}article#presentation > svg > foreignObject > section .markdown-body dd,article#presentation > svg > foreignObject > section dd{margin-left:0}article#presentation > svg > foreignObject > section .markdown-body code,article#presentation > svg > foreignObject > section .markdown-body pre,article#presentation > svg > foreignObject > section code,article#presentation > svg > foreignObject > section pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px}article#presentation > svg > foreignObject > section .markdown-body pre,article#presentation > svg > foreignObject > section pre{margin-top:0;margin-bottom:0}article#presentation > svg > foreignObject > section .markdown-body .octicon,article#presentation > svg > foreignObject > section .octicon{vertical-align:text-bottom}article#presentation > svg > foreignObject > section .markdown-body .pl-0,article#presentation > svg > foreignObject > section .pl-0{padding-left:0!important}article#presentation > svg > foreignObject > section .markdown-body .pl-1,article#presentation > svg > foreignObject > section .pl-1{padding-left:4px!important}article#presentation > svg > foreignObject > section .markdown-body .pl-2,article#presentation > svg > foreignObject > section .pl-2{padding-left:8px!important}article#presentation > svg > foreignObject > section .markdown-body .pl-3,article#presentation > svg > foreignObject > section .pl-3{padding-left:16px!important}article#presentation > svg > foreignObject > section .markdown-body .pl-4,article#presentation > svg > foreignObject > section .pl-4{padding-left:24px!important}article#presentation > svg > foreignObject > section .markdown-body .pl-5,article#presentation > svg > foreignObject > section .pl-5{padding-left:32px!important}article#presentation > svg > foreignObject > section .markdown-body .pl-6,article#presentation > svg > foreignObject > section .pl-6{padding-left:40px!important}article#presentation > svg > foreignObject > section .markdown-body:before,article#presentation > svg > foreignObject > section:before{display:table;content:""}article#presentation > svg > foreignObject > section .markdown-body:after,article#presentation > svg > foreignObject > section:after{display:table;clear:both/* content:""; */}article#presentation > svg > foreignObject > section .markdown-body>:first-child,article#presentation > svg > foreignObject > section>:first-child{margin-top:0!important}article#presentation > svg > foreignObject > section .markdown-body>:last-child,article#presentation > svg > foreignObject > section>:last-child{margin-bottom:0!important}article#presentation > svg > foreignObject > section .markdown-body a:not([href]),article#presentation > svg > foreignObject > section a:not([href]){color:inherit;text-decoration:none}article#presentation > svg > foreignObject > section .markdown-body .anchor,article#presentation > svg > foreignObject > section .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}article#presentation > svg > foreignObject > section .markdown-body .anchor:focus,article#presentation > svg > foreignObject > section .anchor:focus{outline:none}article#presentation > svg > foreignObject > section .markdown-body blockquote,article#presentation > svg > foreignObject > section .markdown-body dl,article#presentation > svg > foreignObject > section .markdown-body ol,article#presentation > svg > foreignObject > section .markdown-body p,article#presentation > svg > foreignObject > section .markdown-body pre,article#presentation > svg > foreignObject > section .markdown-body table,article#presentation > svg > foreignObject > section .markdown-body ul,article#presentation > svg > foreignObject > section blockquote,article#presentation > svg > foreignObject > section dl,article#presentation > svg > foreignObject > section ol,article#presentation > svg > foreignObject > section p,article#presentation > svg > foreignObject > section pre,article#presentation > svg > foreignObject > section table,article#presentation > svg > foreignObject > section ul{margin-top:0;margin-bottom:16px}article#presentation > svg > foreignObject > section .markdown-body hr,article#presentation > svg > foreignObject > section hr{height:.25em;padding:0;margin:24px 0;background-color:#e1e4e8;border:0}article#presentation > svg > foreignObject > section .markdown-body blockquote,article#presentation > svg > foreignObject > section blockquote{padding:0 1em;color:#6a737d;border-left:.25em solid #dfe2e5}article#presentation > svg > foreignObject > section .markdown-body blockquote>:first-child,article#presentation > svg > foreignObject > section blockquote>:first-child{margin-top:0}article#presentation > svg > foreignObject > section .markdown-body blockquote>:last-child,article#presentation > svg > foreignObject > section blockquote>:last-child{margin-bottom:0}article#presentation > svg > foreignObject > section .markdown-body kbd,article#presentation > svg > foreignObject > section kbd{font-size:11px;border:1px solid #c6cbd1;border-bottom-color:#959da5;box-shadow:inset 0 -1px 0 #959da5}article#presentation > svg > foreignObject > section .markdown-body h1,article#presentation > svg > foreignObject > section .markdown-body h2,article#presentation > svg > foreignObject > section .markdown-body h3,article#presentation > svg > foreignObject > section .markdown-body h4,article#presentation > svg > foreignObject > section .markdown-body h5,article#presentation > svg > foreignObject > section .markdown-body h6,article#presentation > svg > foreignObject > section h1,article#presentation > svg > foreignObject > section h2,article#presentation > svg > foreignObject > section h3,article#presentation > svg > foreignObject > section h4,article#presentation > svg > foreignObject > section h5,article#presentation > svg > foreignObject > section h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}article#presentation > svg > foreignObject > section .markdown-body h1 .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h2 .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h3 .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h4 .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h5 .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h6 .octicon-link,article#presentation > svg > foreignObject > section h1 .octicon-link,article#presentation > svg > foreignObject > section h2 .octicon-link,article#presentation > svg > foreignObject > section h3 .octicon-link,article#presentation > svg > foreignObject > section h4 .octicon-link,article#presentation > svg > foreignObject > section h5 .octicon-link,article#presentation > svg > foreignObject > section h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}article#presentation > svg > foreignObject > section .markdown-body h1:hover .anchor,article#presentation > svg > foreignObject > section .markdown-body h2:hover .anchor,article#presentation > svg > foreignObject > section .markdown-body h3:hover .anchor,article#presentation > svg > foreignObject > section .markdown-body h4:hover .anchor,article#presentation > svg > foreignObject > section .markdown-body h5:hover .anchor,article#presentation > svg > foreignObject > section .markdown-body h6:hover .anchor,article#presentation > svg > foreignObject > section h1:hover .anchor,article#presentation > svg > foreignObject > section h2:hover .anchor,article#presentation > svg > foreignObject > section h3:hover .anchor,article#presentation > svg > foreignObject > section h4:hover .anchor,article#presentation > svg > foreignObject > section h5:hover .anchor,article#presentation > svg > foreignObject > section h6:hover .anchor{text-decoration:none}article#presentation > svg > foreignObject > section .markdown-body h1:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h2:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h3:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h4:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h5:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h6:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section h1:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section h2:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section h3:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section h4:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section h5:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section h6:hover .anchor .octicon-link{visibility:visible}article#presentation > svg > foreignObject > section .markdown-body h1,article#presentation > svg > foreignObject > section h1{padding-bottom:.3em;font-size:2em;border-bottom:1px solid #eaecef}article#presentation > svg > foreignObject > section .markdown-body h2,article#presentation > svg > foreignObject > section h2{padding-bottom:.3em;font-size:1.5em;border-bottom:1px solid #eaecef}article#presentation > svg > foreignObject > section .markdown-body h3,article#presentation > svg > foreignObject > section h3{font-size:1.25em}article#presentation > svg > foreignObject > section .markdown-body h4,article#presentation > svg > foreignObject > section h4{font-size:1em}article#presentation > svg > foreignObject > section .markdown-body h5,article#presentation > svg > foreignObject > section h5{font-size:.875em}article#presentation > svg > foreignObject > section .markdown-body h6,article#presentation > svg > foreignObject > section h6{font-size:.85em;color:#6a737d}article#presentation > svg > foreignObject > section .markdown-body ol,article#presentation > svg > foreignObject > section .markdown-body ul,article#presentation > svg > foreignObject > section ol,article#presentation > svg > foreignObject > section ul{padding-left:2em}article#presentation > svg > foreignObject > section .markdown-body ol ol,article#presentation > svg > foreignObject > section .markdown-body ol ul,article#presentation > svg > foreignObject > section .markdown-body ul ol,article#presentation > svg > foreignObject > section .markdown-body ul ul,article#presentation > svg > foreignObject > section ol ol,article#presentation > svg > foreignObject > section ol ul,article#presentation > svg > foreignObject > section ul ol,article#presentation > svg > foreignObject > section ul ul{margin-top:0;margin-bottom:0}article#presentation > svg > foreignObject > section .markdown-body li,article#presentation > svg > foreignObject > section li{word-wrap:break-all}article#presentation > svg > foreignObject > section .markdown-body li>p,article#presentation > svg > foreignObject > section li>p{margin-top:16px}article#presentation > svg > foreignObject > section .markdown-body li+li,article#presentation > svg > foreignObject > section li+li{margin-top:.25em}article#presentation > svg > foreignObject > section .markdown-body dl,article#presentation > svg > foreignObject > section dl{padding:0}article#presentation > svg > foreignObject > section .markdown-body dl dt,article#presentation > svg > foreignObject > section dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body dl dd,article#presentation > svg > foreignObject > section dl dd{padding:0 16px;margin-bottom:16px}article#presentation > svg > foreignObject > section .markdown-body table,article#presentation > svg > foreignObject > section table{display:block;width:100%;overflow:auto}article#presentation > svg > foreignObject > section .markdown-body table th,article#presentation > svg > foreignObject > section table th{font-weight:600}article#presentation > svg > foreignObject > section .markdown-body table td,article#presentation > svg > foreignObject > section .markdown-body table th,article#presentation > svg > foreignObject > section table td,article#presentation > svg > foreignObject > section table th{padding:6px 13px;border:1px solid #dfe2e5}article#presentation > svg > foreignObject > section .markdown-body table tr,article#presentation > svg > foreignObject > section table tr{background-color:#fff;border-top:1px solid #c6cbd1}article#presentation > svg > foreignObject > section .markdown-body table tr:nth-child(2n),article#presentation > svg > foreignObject > section table tr:nth-child(2n){background-color:#f6f8fa}article#presentation > svg > foreignObject > section .markdown-body img,article#presentation > svg > foreignObject > section img{max-width:100%;box-sizing:content-box;background-color:#fff}article#presentation > svg > foreignObject > section .markdown-body img[align=right],article#presentation > svg > foreignObject > section img[align=right]{padding-left:20px}article#presentation > svg > foreignObject > section .markdown-body img[align=left],article#presentation > svg > foreignObject > section img[align=left]{padding-right:20px}article#presentation > svg > foreignObject > section .markdown-body code,article#presentation > svg > foreignObject > section code{padding:.2em .4em;margin:0;font-size:85%;background-color:rgba(27,31,35,.05);border-radius:3px}article#presentation > svg > foreignObject > section .markdown-body pre,article#presentation > svg > foreignObject > section pre{word-wrap:normal}article#presentation > svg > foreignObject > section .markdown-body pre>code,article#presentation > svg > foreignObject > section pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}article#presentation > svg > foreignObject > section .markdown-body .highlight,article#presentation > svg > foreignObject > section .highlight{margin-bottom:16px}article#presentation > svg > foreignObject > section .markdown-body .highlight pre,article#presentation > svg > foreignObject > section .highlight pre{margin-bottom:0;word-break:normal}article#presentation > svg > foreignObject > section .markdown-body .highlight pre,article#presentation > svg > foreignObject > section .markdown-body pre,article#presentation > svg > foreignObject > section .highlight pre,article#presentation > svg > foreignObject > section pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f6f8fa;border-radius:3px}article#presentation > svg > foreignObject > section .markdown-body pre code,article#presentation > svg > foreignObject > section pre code{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}article#presentation > svg > foreignObject > section .markdown-body .full-commit .btn-outline:not(:disabled):hover,article#presentation > svg > foreignObject > section .full-commit .btn-outline:not(:disabled):hover{color:#005cc5;border-color:#005cc5}article#presentation > svg > foreignObject > section .markdown-body kbd,article#presentation > svg > foreignObject > section kbd{display:inline-block;padding:3px 5px;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;line-height:10px;color:#444d56;vertical-align:middle;background-color:#fafbfc;border:1px solid #d1d5da;border-bottom-color:#c6cbd1;border-radius:3px;box-shadow:inset 0 -1px 0 #c6cbd1}article#presentation > svg > foreignObject > section .markdown-body :checked+.radio-label,article#presentation > svg > foreignObject > section :checked+.radio-label{position:relative;z-index:1;border-color:#0366d6}article#presentation > svg > foreignObject > section .markdown-body .task-list-item,article#presentation > svg > foreignObject > section .task-list-item{list-style-type:none}article#presentation > svg > foreignObject > section .markdown-body .task-list-item+.task-list-item,article#presentation > svg > foreignObject > section .task-list-item+.task-list-item{margin-top:3px}article#presentation > svg > foreignObject > section .markdown-body .task-list-item input,article#presentation > svg > foreignObject > section .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}article#presentation > svg > foreignObject > section .markdown-body hr,article#presentation > svg > foreignObject > section hr{border-bottom-color:#eee}article#presentation > svg > foreignObject > section .hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}article#presentation > svg > foreignObject > section .hljs-comment,article#presentation > svg > foreignObject > section .hljs-meta{color:#969896}article#presentation > svg > foreignObject > section .hljs-emphasis,article#presentation > svg > foreignObject > section .hljs-quote,article#presentation > svg > foreignObject > section .hljs-string,article#presentation > svg > foreignObject > section .hljs-strong,article#presentation > svg > foreignObject > section .hljs-template-variable,article#presentation > svg > foreignObject > section .hljs-variable{color:#df5000}article#presentation > svg > foreignObject > section .hljs-keyword,article#presentation > svg > foreignObject > section .hljs-selector-tag,article#presentation > svg > foreignObject > section .hljs-type{color:#a71d5d}article#presentation > svg > foreignObject > section .hljs-attribute,article#presentation > svg > foreignObject > section .hljs-bullet,article#presentation > svg > foreignObject > section .hljs-literal,article#presentation > svg > foreignObject > section .hljs-symbol{color:#0086b3}article#presentation > svg > foreignObject > section .hljs-name,article#presentation > svg > foreignObject > section .hljs-section{color:#63a35c}article#presentation > svg > foreignObject > section .hljs-tag{color:#333}article#presentation > svg > foreignObject > section .hljs-attr,article#presentation > svg > foreignObject > section .hljs-selector-attr,article#presentation > svg > foreignObject > section .hljs-selector-class,article#presentation > svg > foreignObject > section .hljs-selector-id,article#presentation > svg > foreignObject > section .hljs-selector-pseudo,article#presentation > svg > foreignObject > section .hljs-title{color:#795da3}article#presentation > svg > foreignObject > section .hljs-addition{color:#55a532;background-color:#eaffea}article#presentation > svg > foreignObject > section .hljs-deletion{color:#bd2c00;background-color:#ffecec}article#presentation > svg > foreignObject > section .hljs-link{text-decoration:underline}article#presentation > svg > foreignObject > section svg[data-marp-fitting=svg]{max-height:563px}article#presentation > svg > foreignObject > section h1{color:#246;font-size:1.6em}article#presentation > svg > foreignObject > section h1,article#presentation > svg > foreignObject > section h2{border-bottom:none}article#presentation > svg > foreignObject > section h2{font-size:1.3em}article#presentation > svg > foreignObject > section h3{font-size:1.1em}article#presentation > svg > foreignObject > section h4{font-size:1.05em}article#presentation > svg > foreignObject > section h5{font-size:1em}article#presentation > svg > foreignObject > section h6{font-size:.9em}article#presentation > svg > foreignObject > section h1 strong,article#presentation > svg > foreignObject > section h2 strong,article#presentation > svg > foreignObject > section h3 strong,article#presentation > svg > foreignObject > section h4 strong,article#presentation > svg > foreignObject > section h5 strong,article#presentation > svg > foreignObject > section h6 strong{font-weight:inherit;color:#48c}article#presentation > svg > foreignObject > section hr{height:0;padding-top:.25em}article#presentation > svg > foreignObject > section pre{border:1px solid #999;line-height:1.15;overflow:visible}article#presentation > svg > foreignObject > section pre code svg[data-marp-fitting=svg]{max-height:529px}article#presentation > svg > foreignObject > section footer,article#presentation > svg > foreignObject > section header{margin:0;position:absolute;left:30px;color:hsla(0,0%,40%,.75);font-size:18px}article#presentation > svg > foreignObject > section header{top:21px}article#presentation > svg > foreignObject > section footer{bottom:21px}article#presentation > svg > foreignObject > section{align-items:stretch;background:#fff;display:flex;flex-direction:column;flex-wrap:nowrap;font-size:29px;height:720px;justify-content:center;padding:78.5px;width:1280px}article#presentation > svg > foreignObject > section>:last-child,article#presentation > svg > foreignObject > section[data-footer]>:nth-last-child(2){margin-bottom:0}article#presentation > svg > foreignObject > section>:first-child,article#presentation > svg > foreignObject > section>header:first-child+*{margin-top:0}article#presentation > svg > foreignObject > section:after{position:absolute;padding:0;right:30px;bottom:21px;font-size:24px;color:#777}article#presentation > svg > foreignObject > section.invert{background-color:#222;color:#e6eaf0}article#presentation > svg > foreignObject > section.invert:after{color:#999}article#presentation > svg > foreignObject > section.invert img{background-color:transparent}article#presentation > svg > foreignObject > section.invert a{color:#50b3ff}article#presentation > svg > foreignObject > section.invert h1{color:#a3c5e7}article#presentation > svg > foreignObject > section.invert h2,article#presentation > svg > foreignObject > section.invert h3,article#presentation > svg > foreignObject > section.invert h4,article#presentation > svg > foreignObject > section.invert h5{color:#ebeff5}article#presentation > svg > foreignObject > section.invert blockquote,article#presentation > svg > foreignObject > section.invert h6{border-color:#3d3f43;color:#939699}article#presentation > svg > foreignObject > section.invert h1 strong,article#presentation > svg > foreignObject > section.invert h2 strong,article#presentation > svg > foreignObject > section.invert h3 strong,article#presentation > svg > foreignObject > section.invert h4 strong,article#presentation > svg > foreignObject > section.invert h5 strong,article#presentation > svg > foreignObject > section.invert h6 strong{color:#7bf}article#presentation > svg > foreignObject > section.invert hr{background-color:#3d3f43}article#presentation > svg > foreignObject > section.invert footer,article#presentation > svg > foreignObject > section.invert header{color:hsla(0,0%,60%,.75)}article#presentation > svg > foreignObject > section.invert code,article#presentation > svg > foreignObject > section.invert kbd{background-color:#111}article#presentation > svg > foreignObject > section.invert kbd{border-color:#666;box-shadow:inset 0 -1px 0 #555;color:#e6eaf0}article#presentation > svg > foreignObject > section.invert table tr{background-color:#12181d;border-color:#60657b}article#presentation > svg > foreignObject > section.invert table tr:nth-child(2n){background-color:#1b2024}article#presentation > svg > foreignObject > section.invert table td,article#presentation > svg > foreignObject > section.invert table th{border-color:#5b5e61}article#presentation > svg > foreignObject > section.invert pre{background-color:#0a0e12;border-color:#777}article#presentation > svg > foreignObject > section.invert pre code{background-color:transparent}article#presentation > svg > foreignObject > section[data-color] h1,article#presentation > svg > foreignObject > section[data-color] h2,article#presentation > svg > foreignObject > section[data-color] h3,article#presentation > svg > foreignObject > section[data-color] h4,article#presentation > svg > foreignObject > section[data-color] h5,article#presentation > svg > foreignObject > section[data-color] h6{color:currentColor}article#presentation > svg > foreignObject > section.lead {
+  text-align: center;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"] {
+  padding: 0 !important;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"]::before,
+article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"]::after,
+article#presentation > svg > foreignObject > section[data-marpit-advanced-background="content"]::before,
+article#presentation > svg > foreignObject > section[data-marpit-advanced-background="content"]::after {
+  display: none !important;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"] > div[data-marpit-advanced-background-container] {
+  all: initial;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"][data-marpit-advanced-background-split] > div[data-marpit-advanced-background-container] {
+  width: 50%;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"][data-marpit-advanced-background-split="right"] > div[data-marpit-advanced-background-container] {
+  margin-left: 50%;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"] > div[data-marpit-advanced-background-container] > figure {
+  all: initial;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex: auto;
+  margin: 0;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="content"],
+article#presentation > svg > foreignObject > section[data-marpit-advanced-background="pseudo"] {
+  background: transparent !important;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="pseudo"],
+article#presentation > svg[data-marpit-svg] > foreignObject[data-marpit-advanced-background="pseudo"] {
+  pointer-events: none !important;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background-split] {
+  width: 100%;
+  height: 100%;
+}</style></head><body><div class="bespoke-marp-osc"><button data-bespoke-marp-osc="prev" tabindex="-1" title="Previous slide">Previous slide</button><span data-bespoke-marp-osc="page"></span><button data-bespoke-marp-osc="next" tabindex="-1" title="Next slide">Next slide</button><button data-bespoke-marp-osc="fullscreen" tabindex="-1" title="Toggle fullscreen (f)">Toggle fullscreen</button></div><article id="presentation"><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="1" data-class="lead" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" class="lead" style="--class:lead;--theme:default;--heading-divider:1;
+;">
+<h1><svg data-marp-fitting="svg"><foreignObject><span data-marp-fitting-svg-content> Summoning the Go Memory Manager</span></foreignObject></svg></h1>
+
+<h2>Mario Macías, Ph.D.</h2>
+<h3>Barcelona Golang Meetup. Jan 31st, 2019</h3>
+<h4><a href="http://twitter.com/MaciasUPC">twitter.com/MaciasUPC</a>           <a href="http://github.com/mariomac">github.com/mariomac</a></h4>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Who am I?</h1>
+<h2>Senior Software Engineer at New Relic (2017-)</h2>
+<h2>Part-time associate lecturer at Universitat Politècnica de Catalunya (2009-)</h2>
+<h3>Before:</h3>
+<pre><code class="language-plain"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap> |       |Game|                                        |Mido|  New 
+ | iSOCO |loft|    Barcelona Supercomputing Center     |kura| Relic 
+ |---+---+---+---+---+---+---|---+---+---+---+---+---+---+---+---*-
+2003    2005                2010                2015            2019
+</span></span></foreignObject></svg></code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Our scenario: Donuts quality scoring</h1>
+<pre><code class="language-go"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap><span class="hljs-keyword">package</span> donut
+
+<span class="hljs-keyword">type</span> Donut <span class="hljs-keyword">struct</span> {              <span class="hljs-keyword">type</span> Preferences <span class="hljs-keyword">struct</span> {
+    Radius     <span class="hljs-keyword">float32</span>               Radius     <span class="hljs-keyword">float32</span>      
+    Thick      <span class="hljs-keyword">float32</span>               Thick      <span class="hljs-keyword">float32</span>    
+    Toppings   []<span class="hljs-keyword">string</span>              Toppings   <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">float32</span>      
+    GlutenFree <span class="hljs-keyword">bool</span>                  GlutenFree <span class="hljs-keyword">float32</span>              
+    Hole       <span class="hljs-keyword">bool</span>                  Hole       <span class="hljs-keyword">float32</span>
+    Filling    <span class="hljs-keyword">string</span>                Filling    <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">float32</span>
+}                                 }
+</span></span></foreignObject></svg></code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Our scenario: Donuts quality scoring</h1>
+<pre><code class="language-plain"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap>+-------------+         +-------------+
+|   d:Donut   +--------&gt;+             |
++-------------+         |             |       +-----+
+                        | Score(d, p) +------&gt;+score|
++-------------+         |             |       +-----+
+|p:Preferences+--------&gt;+             |
++-------------+         +-------------+
+</span></span></foreignObject></svg></code></pre>
+<p>Our monopolistic Cloud service needs to monitor all the Donuts in the Earth!<br />
+<strong>Performance is critical</strong></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Designing our functions</h1>
+<pre><code class="language-go"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Generate</span><span class="hljs-params">()</span> *<span class="hljs-title">Donut</span></span> { }
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Score</span><span class="hljs-params">(d *Donut, p *Preferences)</span> <span class="hljs-title">float32</span></span> { }
+</span></span></foreignObject></svg></code></pre>
+<p>... or ...</p>
+<pre><code><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Generate</span><span class="hljs-params">()</span> <span class="hljs-title">Donut</span> { }</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Score</span><span class="hljs-params">(d Donut, p Preferences)</span> <span class="hljs-title">float32</span> { }</span>
+</span></span></foreignObject></svg></code></pre>
+<p>... ?</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Remembering good old C-lessons</h1>
+<blockquote>
+<p>When passing arguments or returning values, <strong>pointers are faster than big structs</strong></p>
+</blockquote>
+<h3><code>reflect.TypeOf</code>, Go 1.11.5 for Darwin x86_64</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:right"></th>
+<th style="text-align:center">Value</th>
+<th style="text-align:center">Pointer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">Donut</td>
+<td style="text-align:center">56 bytes</td>
+<td style="text-align:center">8 bytes</td>
+</tr>
+<tr>
+<td style="text-align:right">Preferences</td>
+<td style="text-align:center">32 bytes</td>
+<td style="text-align:center">8 bytes</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Checking that our previous knowledge is true</h1>
+<pre><code class="language-go"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkValue</span><span class="hljs-params">(b *testing.B)</span></span> {
+	preferences := RndPreferences()
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ {
+		_ = ScoreVal(GenerateRndVal(), preferences)
+	}
+}
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkPointers</span><span class="hljs-params">(b *testing.B)</span></span> {
+	preferences := RndPreferences()
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ {
+		_ = ScorePtr(GenerateRndPtr(), &amp;preferences)
+	}
+}
+</span></span></foreignObject></svg></code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Benchmark Results</h1>
+<p><code>go test ./donut/. -bench=Benchmark -benchmem</code></p>
+<pre><code><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap>BenchmarkValue<span class="hljs-number">-4</span>     <span class="hljs-number">5000000</span>     <span class="hljs-number">262</span> ns/op    <span class="hljs-number">15</span> B/op   <span class="hljs-number">0</span> allocs/op
+BenchmarkPointers<span class="hljs-number">-4</span>  <span class="hljs-number">5000000</span>     <span class="hljs-number">332</span> ns/op    <span class="hljs-number">79</span> B/op   <span class="hljs-number">1</span> allocs/op
+</span></span></foreignObject></svg></code></pre>
+<p>Our code (including random number generation and scoring operations) using values is ~23% faster than using pointers!</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Digging into the results</h1>
+<ol>
+<li>Adding <code>-cpuprofile profile.out</code> to the <code>go test</code> command.</li>
+<li>Running <code>go tool trace benchmarks.out</code></li>
+</ol>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Traces using pointers</h1>
+<p><img src="./figs/trace-poin.png" alt="Trace with pointers" /></p>
+<ul>
+<li>Heap is filled every ~20 ms</li>
+<li>Garbage Collection usually takes ~240 ns</li>
+</ul>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Traces using values</h1>
+<p><img src="./figs/trace-vals.png" alt="Trace with pointers" /></p>
+<ul>
+<li>Heap is filled every ~60ms</li>
+<li>Garbage Collection usually takes ~240 ns</li>
+</ul>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Digging more into the results</h1>
+<ol>
+<li>Adding <code>-cpuprofile cpu.prof -memprofile mem.prof</code> to the <code>go test</code> command.</li>
+<li>Running <code>go tool pprof</code></li>
+</ol>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Flame graph for value-based benchmark</h1>
+<p><code>go tool pprof cpu.prof</code></p>
+<p><img src="./figs/pprof-vals.png" alt="" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Flame graph for pointer-based benchmark</h1>
+<p><code>go tool pprof cpu.prof</code><br />
+<img src="./figs/pprof-poin.png" alt="" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1><code>top</code> Memory generation for both benchmarks</h1>
+<p><code>go tool pprof mem.prof</code></p>
+<pre><code class="language-plain"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap>(pprof) top
+Showing nodes accounting for 568.03MB, 100% of 568.03MB total
+      flat  flat%   sum%        cum   cum%
+  479.03MB 84.33% 84.33%   479.03MB 84.33%  github.com/mariomac/gomem/donut.GenerateRndPtr
+      89MB 15.67%   100%       89MB 15.67%  github.com/mariomac/gomem/donut.GenerateRndVal
+         0     0%   100%   479.03MB 84.33%  github.com/mariomac/gomem/donut.BenchmarkPointers
+         0     0%   100%       89MB 15.67%  github.com/mariomac/gomem/donut.BenchmarkValue
+         0     0%   100%   568.03MB   100%  testing.(*B).launch
+         0     0%   100%   568.03MB   100%  testing.(*B).runN
+</span></span></foreignObject></svg></code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>But <code>GenerateRndPtr</code> and <code>GenerateRndVal</code> generate the same amount of information!</h1>
+<p><img src="./figs/go-song.png" alt="" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Compile-time escape analysis</h1>
+<h4><svg data-marp-fitting="svg"><foreignObject><span data-marp-fitting-svg-content> <strong>Priority #1</strong>: try to allocate new objects in the stack</span></foreignObject></svg></h4>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Compile-time escape analysis</h1>
+<h4><svg data-marp-fitting="svg"><foreignObject><span data-marp-fitting-svg-content> <strong>Priority #1</strong>: try to allocate new objects in the stack</span></foreignObject></svg></h4>
+<h4><svg data-marp-fitting="svg"><foreignObject><span data-marp-fitting-svg-content> <strong>#2</strong>: allocate in the heap the values that &quot;escape&quot; the stack</span></foreignObject></svg></h4>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>What do <em>&quot;to escape&quot;</em> means?</h1>
+<pre><code class="language-plain"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap>                                    
+func a() *Obj {
+  r := Obj{}                     
+  // ... do something        
+  return &amp;r;                     
+}                            
+func b() {                       
+  o := a()
+  // ... do something
+}
+</span></span></foreignObject></svg></code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>What do <em>&quot;to escape&quot;</em> means?</h1>
+<pre><code class="language-plain"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap>                                    Stack
+func a() *Obj {
+  r := Obj{}                     +----------+
+  // ... do something        b() |  o:*Obj  |
+  return &amp;r;                     +----------+
+}                            
+func b() {                       
+  o := a()
+  // ... do something
+}
+</span></span></foreignObject></svg></code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>What do <em>&quot;to escape&quot;</em> means?</h1>
+<pre><code class="language-plain"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap>                                    Stack
+func a() *Obj {
+  r := Obj{}                     +----------+
+  // ... do something        b() |  o:*Obj  |
+  return &amp;r;                     +----------+
+}                            a() |  r:Obj   |
+func b() {                       +----------+
+  o := a()
+  // ... do something
+}
+</span></span></foreignObject></svg></code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>What do <em>&quot;to escape&quot;</em> means?</h1>
+<pre><code class="language-plain"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap>                                    Stack
+func a() *Obj {
+  r := Obj{}                     +----------+
+  // ... do something        b() |  o:*Obj -----+
+  return &amp;r;                     +----------|   |
+}                            a() |  r:Obj &lt;-----+
+func b() {                       +----------+
+  o := a()
+  // ... do something
+}
+</span></span></foreignObject></svg></code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-color="red" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--color:red;--theme:default;--heading-divider:1;
+;color:red;">
+<h1>What do <em>&quot;to escape&quot;</em> means?</h1>
+<pre><code class="language-plain"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap>                                    Stack
+func a() *Obj {
+  r := Obj{}                     +----------+
+  // ... do something        b() |  o:*Obj -----+
+  return &amp;r;                     +----------+   |
+}                                         &lt;-----+
+func b() {                       
+  o := a()
+  // ... do something
+}
+</span></span></foreignObject></svg></code></pre>
+<h2> Unsafe memory access!!</h2>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Object creation is <em>escaped</em> to the heap</h1>
+<pre><code class="language-plain"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap>                                    Stack             Heap
+func a() *Obj {
+  r := Obj{}                     +----------+        +----------+
+  // ... do something        b() |  o:*Obj ------------&gt; r:Obj  |
+  return &amp;r;                     +----------+        +----------+
+}                            
+func b() {                       
+  o := a()
+  // ... do something
+}
+</span></span></foreignObject></svg></code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Getting insights from the go compiler</h1>
+<ul>
+<li>Add <code>-gcflags=&quot;-m&quot;</code> to the <code>go build</code>, <code>go test</code> or <code>go run</code> commands.</li>
+</ul>
+<pre><code class="language-go"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap> <span class="hljs-number">5</span>: <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">a</span><span class="hljs-params">()</span> *<span class="hljs-title">Obj</span></span> {           | ./dummy.<span class="hljs-keyword">go</span>:<span class="hljs-number">5</span>:<span class="hljs-number">6</span>: can inline a
+ <span class="hljs-number">6</span>:   r := Obj{}              | ./dummy.<span class="hljs-keyword">go</span>:<span class="hljs-number">10</span>:<span class="hljs-number">8</span>: inlining call to a
+ <span class="hljs-number">7</span>:   <span class="hljs-keyword">return</span> &amp;r               | ./dummy.<span class="hljs-keyword">go</span>:<span class="hljs-number">7</span>:<span class="hljs-number">9</span>: &amp;r escapes to heap
+ <span class="hljs-number">8</span>: }                         | ./dummy.<span class="hljs-keyword">go</span>:<span class="hljs-number">6</span>:<span class="hljs-number">2</span>: moved to heap: r
+ <span class="hljs-number">9</span>: <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">b</span><span class="hljs-params">()</span></span> {                | ./dummy.<span class="hljs-keyword">go</span>:<span class="hljs-number">11</span>:<span class="hljs-number">13</span>: o escapes to heap
+<span class="hljs-number">10</span>:   o := a()                | ./dummy.<span class="hljs-keyword">go</span>:<span class="hljs-number">10</span>:<span class="hljs-number">8</span>: &amp;r escapes to heap
+<span class="hljs-number">11</span>:   fmt.Printf(<span class="hljs-string">"%#v\n"</span>, o)  | ./dummy.<span class="hljs-keyword">go</span>:<span class="hljs-number">10</span>:<span class="hljs-number">8</span>: moved to heap: r
+<span class="hljs-number">12</span>: }                         | ./dummy.<span class="hljs-keyword">go</span>:<span class="hljs-number">11</span>:<span class="hljs-number">12</span>: b ... argument
+<span class="hljs-number">13</span>: <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {             |                   does not escape
+<span class="hljs-number">14</span>:   b()
+<span class="hljs-number">15</span>: }
+</span></span></foreignObject></svg></code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Getting insights from the go compiler</h1>
+<ul>
+<li>Using <code>-gcflags=&quot;-m&quot;</code> to improve the efficiency of our code.</li>
+</ul>
+<pre><code class="language-go"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap> <span class="hljs-number">5</span>: <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">a</span><span class="hljs-params">()</span> <span class="hljs-title">Obj</span></span> {            | ./dumm2.<span class="hljs-keyword">go</span>:<span class="hljs-number">5</span>:<span class="hljs-number">6</span>: can inline a 
+ <span class="hljs-number">6</span>:   r := Obj{}              | ./dumm2.<span class="hljs-keyword">go</span>:<span class="hljs-number">12</span>:<span class="hljs-number">8</span>: inlining call to a
+ <span class="hljs-number">7</span>:   <span class="hljs-keyword">return</span> r                | ./dumm2.<span class="hljs-keyword">go</span>:<span class="hljs-number">11</span>:<span class="hljs-number">13</span>: o escapes to heap
+ <span class="hljs-number">8</span>: }                         | ./dumm2.<span class="hljs-keyword">go</span>:<span class="hljs-number">11</span>:<span class="hljs-number">12</span>: b ... argument
+ <span class="hljs-number">9</span>: <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">b</span><span class="hljs-params">()</span></span> {                |                   does not escape
+<span class="hljs-number">10</span>:   o := a()
+<span class="hljs-number">11</span>:   fmt.Printf(<span class="hljs-string">"%#v\n"</span>, o)
+<span class="hljs-number">12</span>: }
+<span class="hljs-number">13</span>: <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+<span class="hljs-number">14</span>:   b()
+<span class="hljs-number">15</span>: }
+</span></span></foreignObject></svg></code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Compile-time escape analysis</h1>
+<h4><svg data-marp-fitting="svg"><foreignObject><span data-marp-fitting-svg-content> <strong>Priority #1</strong>: try to allocate new objects in the stack</span></foreignObject></svg></h4>
+<h4><svg data-marp-fitting="svg"><foreignObject><span data-marp-fitting-svg-content> <strong>#2</strong>: allocate in the heap the values that &quot;escape&quot; the stack</span></foreignObject></svg></h4>
+<ul>
+<li>Even if they don't actually escape, <strong>they will be allocated in the heap if the compiler is not 100% sure</strong></li>
+</ul>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1><svg data-marp-fitting="svg"><foreignObject><span data-marp-fitting-svg-content> Conclusions</span></foreignObject></svg></h1>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>#1: putting some light on a common misconception for memory-managed languages</h1>
+<h2><em>&quot;Moving pointers is faster than moving structs&quot;</em></h2>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>#1: putting some light on a common misconception for memory-managed languages</h1>
+<h2><em>&quot;Moving pointers is faster than moving structs&quot;</em></h2>
+<h3>Yes, but... <code>t(heap_alloc) &gt;&gt; t(cache_line_copy)</code></h3>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1><svg data-marp-fitting="svg"><foreignObject><span data-marp-fitting-svg-content>#2:  Don't try premature optimizations</span></foreignObject></svg></h1>
+<ul>
+<li>Readability first</li>
+<li>Compiler optimizations may disable your &quot;optimizations&quot;</li>
+<li>Internal implementation details may disable compiler optimizations: <code>log.Debug(value)</code></li>
+</ul>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>#3: walktrhough by some nice Go performance tools</h1>
+<ul>
+<li><code>-benchmem</code> to also benchmark memory generation</li>
+<li><code>-cpuprofile</code> (and <code>-memprofile</code>) to trace garbage collection (amongst others)</li>
+<li><code>pprof</code> to see which parts of the code are the most time/memory consuming</li>
+<li><code>-gcflags=&quot;-m&quot;</code> to get insights about compiler optimization decisions</li>
+</ul>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" style="--theme:default;--heading-divider:1;
+;">
+<h1>Future work</h1>
+<ul>
+<li>Values travelling depth in the call stack
+<ul>
+<li>Recursive functions</li>
+</ul>
+</li>
+<li>Cost of Stack growth vs big heaps</li>
+<li>Using values vs pointers as receivers</li>
+</ul>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-class="lead" data-theme="default" data-heading-divider="1" data-style="section.lead {
+  text-align: center;
+}
+" class="lead" style="--class:lead;--theme:default;--heading-divider:1;
+;">
+<h1><svg data-marp-fitting="svg"><foreignObject><span data-marp-fitting-svg-content> Thank you for your attention!</span></foreignObject></svg></h1>
+
+<h2>Mario Macías, Ph.D.</h2>
+<h3>Barcelona Golang Meetup. Jan 31st, 2019</h3>
+<h4><a href="http://twitter.com/MaciasUPC">twitter.com/MaciasUPC</a>           <a href="http://github.com/mariomac">github.com/mariomac</a></h4>
+</section>
+</foreignObject></svg></article><script>!function(){"use strict";function e(e){var n=i([["iOS",/iP(hone|od|ad)/],["Android OS",/Android/],["BlackBerry OS",/BlackBerry|BB10/],["Windows Mobile",/IEMobile/],["Amazon OS",/Kindle/],["Windows 3.11",/Win16/],["Windows 95",/(Windows 95)|(Win95)|(Windows_95)/],["Windows 98",/(Windows 98)|(Win98)/],["Windows 2000",/(Windows NT 5.0)|(Windows 2000)/],["Windows XP",/(Windows NT 5.1)|(Windows XP)/],["Windows Server 2003",/(Windows NT 5.2)/],["Windows Vista",/(Windows NT 6.0)/],["Windows 7",/(Windows NT 6.1)/],["Windows 8",/(Windows NT 6.2)/],["Windows 8.1",/(Windows NT 6.3)/],["Windows 10",/(Windows NT 10.0)/],["Windows ME",/Windows ME/],["Open BSD",/OpenBSD/],["Sun OS",/SunOS/],["Linux",/(Linux)|(X11)/],["Mac OS",/(Mac_PowerPC)|(Macintosh)/],["QNX",/QNX/],["BeOS",/BeOS/],["OS/2",/OS\/2/],["Search Bot",/(nuhk)|(Googlebot)|(Yammybot)|(Openbot)|(Slurp)|(MSNBot)|(Ask Jeeves\/Teoma)|(ia_archiver)/]]).filter(function(n){return n.rule&&n.rule.test(e)})[0];return n?n.name:null}function n(){return"undefined"!=typeof process&&process.version&&{name:"node",version:process.version.slice(1),os:process.platform}}function t(n){var t=i([["aol",/AOLShield\/([0-9\._]+)/],["edge",/Edge\/([0-9\._]+)/],["yandexbrowser",/YaBrowser\/([0-9\._]+)/],["vivaldi",/Vivaldi\/([0-9\.]+)/],["kakaotalk",/KAKAOTALK\s([0-9\.]+)/],["samsung",/SamsungBrowser\/([0-9\.]+)/],["chrome",/(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9\.]+)(:?\s|$)/],["phantomjs",/PhantomJS\/([0-9\.]+)(:?\s|$)/],["crios",/CriOS\/([0-9\.]+)(:?\s|$)/],["firefox",/Firefox\/([0-9\.]+)(?:\s|$)/],["fxios",/FxiOS\/([0-9\.]+)/],["opera",/Opera\/([0-9\.]+)(?:\s|$)/],["opera",/OPR\/([0-9\.]+)(:?\s|$)$/],["ie",/Trident\/7\.0.*rv\:([0-9\.]+).*\).*Gecko$/],["ie",/MSIE\s([0-9\.]+);.*Trident\/[4-7].0/],["ie",/MSIE\s(7\.0)/],["bb10",/BB10;\sTouch.*Version\/([0-9\.]+)/],["android",/Android\s([0-9\.]+)/],["ios",/Version\/([0-9\._]+).*Mobile.*Safari.*/],["safari",/Version\/([0-9\._]+).*Safari/],["facebook",/FBAV\/([0-9\.]+)/],["instagram",/Instagram\s([0-9\.]+)/],["ios-webview",/AppleWebKit\/([0-9\.]+).*Mobile/]]);if(!n)return null;var o=t.map(function(e){var t=e.rule.exec(n),i=t&&t[1].split(/[._]/).slice(0,3);return i&&i.length<3&&(i=i.concat(1==i.length?[0,0]:[0])),t&&{name:e.name,version:i.join(".")}}).filter(Boolean)[0]||null;return o&&(o.os=e(n)),/alexa|bot|crawl(er|ing)|facebookexternalhit|feedburner|google web preview|nagios|postrank|pingdom|slurp|spider|yahoo!|yandex/i.test(n)&&((o=o||{}).bot=!0),o}function i(e){return e.map(function(e){return{name:e[0],rule:e[1]}})}var o=function(){return"undefined"!=typeof navigator?t(navigator.userAgent):n()},r=o;let s;const a=["android","bb10","crios","facebook","fxios","instagram","ios-webview","ios","phantomjs","safari"];function l(){Array.from(document.getElementsByTagName("svg"),e=>{if(e.hasAttribute("data-marpit-svg")){const{clientHeight:n,clientWidth:t}=e;e.style.transform||(e.style.transform="translateZ(0)");const{width:i,height:o}=e.viewBox.baseVal,r=Math.min(n/o,t/i);Array.from(e.querySelectorAll(":scope > foreignObject"),e=>{const s=e.x.baseVal.value,a=e.y.baseVal.value;Array.from(e.querySelectorAll(":scope > section"),e=>{e.style.transformOrigin||(e.style.transformOrigin="0 0");const l=(t-r*i)/2-s,d=(n-r*o)/2-a;e.style.transform=`translate3d(${l}px,${d}px,0) scale(${r}) translate(${s}px,${a}px)`})})}})}const d="data-marp-fitting",c="data-marp-fitting-code",u="data-marp-fitting-math",f=(e,n,t)=>{if(e.getAttribute(n)!==t)return e.setAttribute(n,t),!0};!function(e=!0){const n=()=>{for(const e of function(){if(!s){s=[];const{name:e}=r()||{};a.includes(e)&&s.push(l)}return s}())e();Array.from(document.querySelectorAll(`svg[${d}="svg"]`),e=>{const n=e.firstChild,t=n.firstChild,{scrollWidth:i,scrollHeight:o}=t;let r,s=1;if(e.hasAttribute(c)&&(r=e.parentElement.parentElement),e.hasAttribute(u)&&(r=e.parentElement),r){const e=getComputedStyle(r),n=Math.ceil(r.clientWidth-parseFloat(e.paddingLeft)-parseFloat(e.paddingRight));n&&(s=n)}const a=Math.max(i,s),l=Math.max(o,1),d=`0 0 ${a} ${l}`;f(n,"width",`${a}`),f(n,"height",`${l}`),f(e,"preserveAspectRatio",getComputedStyle(e).getPropertyValue("--preserve-aspect-ratio")||"xMinYMin meet"),f(e,"viewBox",d)&&e.classList.toggle("__reflow__")}),e&&window.requestAnimationFrame(n)};n()}()}();
+</script><script>!function(){"use strict";var e={from:function(e,n){var t=1===(e.parent||e).nodeType?e.parent||e:document.querySelector(e.parent||e),r=[].filter.call("string"==typeof e.slides?t.querySelectorAll(e.slides):e.slides||t.children,function(e){return"SCRIPT"!==e.nodeName}),i=r[0],l={},o=function(e,n){r[e]&&(a("deactivate",u(i,n)),i=r[e],a("activate",u(i,n)))},s=function(e,n){var t=r.indexOf(i)+e;a(e>0?"next":"prev",u(i,n))&&o(t,n)},c=function(e,n){l[e]=(l[e]||[]).filter(function(e){return e!==n})},a=function(e,n){return(l[e]||[]).reduce(function(e,t){return e&&!1!==t(n)},!0)},u=function(e,n){return(n=n||{}).index=r.indexOf(e),n.slide=e,n},d={on:function(e,n){return(l[e]||(l[e]=[])).push(n),c.bind(null,e,n)},off:c,fire:a,slide:function(e,n){if(!arguments.length)return r.indexOf(i);a("slide",u(r[e],n))&&o(e,n)},next:s.bind(null,1),prev:s.bind(null,-1),parent:t,slides:r};return(n||[]).forEach(function(e){e(d)}),o(0),d}},n=function(){return function(e){e.slides.forEach(function(e){e.addEventListener("keydown",function(e){(/INPUT|TEXTAREA|SELECT/.test(e.target.nodeName)||"true"===e.target.contentEditable)&&e.stopPropagation()})})}};function t(e){e.parent.classList.add("bespoke-marp-parent"),e.slides.map(e=>e.classList.add("bespoke-marp-slide")),e.on("activate",n=>{e.slides.map(e=>e.classList.remove("bespoke-marp-active")),n.slide.classList.add("bespoke-marp-active")})}function r(e=2e3){return n=>{let t;function r(){t&&clearTimeout(t),t=setTimeout(()=>{n.parent.classList.add("bespoke-marp-inactive")},e),n.parent.classList.remove("bespoke-marp-inactive")}document.addEventListener("mousedown",r),document.addEventListener("mousemove",r),document.addEventListener("touchend",r),setTimeout(r,0)}}var i,l=(function(e){var n,t,r,i,l,o;n="undefined"!=typeof window&&void 0!==window.document?window.document:{},t=e.exports,r="undefined"!=typeof Element&&"ALLOW_KEYBOARD_INPUT"in Element,i=function(){for(var e,t=[["requestFullscreen","exitFullscreen","fullscreenElement","fullscreenEnabled","fullscreenchange","fullscreenerror"],["webkitRequestFullscreen","webkitExitFullscreen","webkitFullscreenElement","webkitFullscreenEnabled","webkitfullscreenchange","webkitfullscreenerror"],["webkitRequestFullScreen","webkitCancelFullScreen","webkitCurrentFullScreenElement","webkitCancelFullScreen","webkitfullscreenchange","webkitfullscreenerror"],["mozRequestFullScreen","mozCancelFullScreen","mozFullScreenElement","mozFullScreenEnabled","mozfullscreenchange","mozfullscreenerror"],["msRequestFullscreen","msExitFullscreen","msFullscreenElement","msFullscreenEnabled","MSFullscreenChange","MSFullscreenError"]],r=0,i=t.length,l={};r<i;r++)if((e=t[r])&&e[1]in n){for(r=0;r<e.length;r++)l[t[0][r]]=e[r];return l}return!1}(),l={change:i.fullscreenchange,error:i.fullscreenerror},o={request:function(e){return new Promise(function(t){var l=i.requestFullscreen,o=function(){this.off("change",o),t()}.bind(this);e=e||n.documentElement,/ Version\/5\.1(?:\.\d+)? Safari\//.test(navigator.userAgent)?e[l]():e[l](r?Element.ALLOW_KEYBOARD_INPUT:{}),this.on("change",o)}.bind(this))},exit:function(){return new Promise(function(e){var t=function(){this.off("change",t),e()}.bind(this);n[i.exitFullscreen](),this.on("change",t)}.bind(this))},toggle:function(e){return this.isFullscreen?this.exit():this.request(e)},onchange:function(e){this.on("change",e)},onerror:function(e){this.on("error",e)},on:function(e,t){var r=l[e];r&&n.addEventListener(r,t,!1)},off:function(e,t){var r=l[e];r&&n.removeEventListener(r,t,!1)},raw:i},i?(Object.defineProperties(o,{isFullscreen:{get:function(){return Boolean(n[i.fullscreenElement])}},element:{enumerable:!0,get:function(){return n[i.fullscreenElement]}},enabled:{enumerable:!0,get:function(){return Boolean(n[i.fullscreenEnabled])}}}),t?e.exports=o:window.screenfull=o):t?e.exports=!1:window.screenfull=!1}(i={exports:{}},i.exports),i.exports);function o(e){e.fullscreen=(()=>l.toggle(document.body).then(()=>e.fire("fullscreen",l.isEnabled)).catch(e=>console.error(e))),document.addEventListener("keydown",n=>{70!==n.which&&122!==n.which||n.altKey||n.ctrlKey||n.metaKey||!l.enabled||(e.fullscreen(),n.preventDefault())})}function s(e={}){const n=Object.assign({history:!0},e);return e=>{function t(){const n=parseInt(window.location.hash.slice(1),10);Number.isNaN(n)||function(n){const t=Math.max(0,Math.min(n,e.slides.length-1));t!==e.slide()&&e.slide(t)}(n-1)}setTimeout(()=>{t(),e.on("activate",e=>{n.history?window.location.hash=e.index+1:window.location.replace(`#${e.index+1}`)}),window.addEventListener("hashchange",t)},0)}}var c,a=function(e){return function(n){var t="vertical"!==e;document.addEventListener("keydown",function(e){(34==e.which||32==e.which&&!e.shiftKey||t&&39==e.which||!t&&40==e.which)&&n.next(),(33==e.which||32==e.which&&e.shiftKey||t&&37==e.which||!t&&38==e.which)&&n.prev()})}};function u(e={}){const n=Object.assign({interval:200},e);return e=>{a()(e),document.addEventListener("keydown",n=>{35===n.which&&e.slide(e.slides.length-1),36===n.which&&e.slide(0),38===n.which&&e.prev(),40===n.which&&e.next()});let t,r,i=0;e.parent.addEventListener("wheel",l=>{let o=!1;const s=(e,n)=>{e&&(o=o||function(e,n){return function(e,n){const t=n===c.X?"Width":"Height";return e[`client${t}`]<e[`scroll${t}`]}(e,n)&&function(e,n){const{overflow:t}=e,r=e[`overflow${n}`];return"auto"===t||"scroll"===t||"auto"===r||"scroll"===r}(getComputedStyle(e),n)}(e,n)),e&&e.parentElement&&s(e.parentElement,n)};if(0!==l.deltaX&&s(l.target,c.X),0!==l.deltaY&&s(l.target,c.Y),o)return;l.preventDefault(),r&&clearTimeout(r),r=setTimeout(()=>{t=0},n.interval);const a=Date.now()-i<n.interval,u=Math.sqrt(Math.pow(l.deltaX,2)+Math.pow(l.deltaY,2)),d=u<=t;if(t=u,a||d)return;let f;(l.deltaX>0||l.deltaY>0)&&(f="next"),(l.deltaX<0||l.deltaY<0)&&(f="prev"),f&&(e[f](),i=Date.now())})}}function d(e=".bespoke-marp-osc"){const n=document.querySelector(e);if(!n)return()=>{};const t=(e,t)=>{n.querySelectorAll(`[data-bespoke-marp-osc=${JSON.stringify(e)}]`).forEach(t)};return l.enabled||t("fullscreen",e=>e.style.display="none"),e=>{n.addEventListener("click",n=>{if(n.target instanceof HTMLElement)switch(n.target.dataset.bespokeMarpOsc){case"next":e.next();break;case"prev":e.prev();break;case"fullscreen":"function"==typeof e.fullscreen&&l.enabled&&e.fullscreen()}}),e.parent.appendChild(n),e.on("activate",({index:n})=>{t("page",t=>t.textContent=`Page ${n+1} of ${e.slides.length}`),t("prev",e=>e.disabled=0===n),t("next",t=>t.disabled=n===e.slides.length-1)}),e.on("fullscreen",e=>t("fullscreen",n=>n.classList.toggle("exit",e)))}}!function(e){e.X="X",e.Y="Y"}(c||(c={}));const f=".bespoke-progress-parent > .bespoke-progress-bar";function h(e){e.on("activate",n=>{document.querySelectorAll(f).forEach(t=>{t.style.flexBasis=`${100*n.index/(e.slides.length-1)}%`})})}function p(e={}){const n=Object.assign({slope:Math.tan(-35*Math.PI/180),swipeThreshold:30},e);return e=>{let t;const r=e.parent,i=e=>{const n=r.getBoundingClientRect();return{x:e.pageX-(n.left+n.right)/2,y:e.pageY-(n.top+n.bottom)/2}};r.addEventListener("touchstart",e=>{t=1===e.touches.length?i(e.touches[0]):void 0}),r.addEventListener("touchmove",e=>{if(t)if(1===e.touches.length){e.preventDefault();const n=i(e.touches[0]),r=n.x-t.x,l=n.y-t.y;t.delta=Math.sqrt(Math.pow(Math.abs(r),2)+Math.pow(Math.abs(l),2)),t.radian=Math.atan2(r,l)}else t=void 0}),r.addEventListener("touchend",r=>{if(t){if(t.delta&&t.delta>=n.swipeThreshold){let i=t.radian-n.slope;i=(i+Math.PI)%(2*Math.PI)-Math.PI,e[i<0?"next":"prev"](),r.stopPropagation()}t=void 0}})}}e.from(document.getElementById("presentation"),[n(),t,r(),s({history:!1}),u(),o,h,p(),d()])}();
+</script></body></html>
