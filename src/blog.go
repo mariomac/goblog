@@ -58,7 +58,7 @@ func makeIndexHandler(template string) http.HandlerFunc {
 	}
 }
 
-var validPagePath = regexp.MustCompile("^([_\\-a-zA-Z0-9]+)\\.md$")
+var validPagePath = regexp.MustCompile(`^([_\-a-zA-Z0-9]+)\.md$`)
 
 func makePageHandler(rootPath string, template string,
 	fn func(http.ResponseWriter, *http.Request, string, string)) http.HandlerFunc {

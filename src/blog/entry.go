@@ -33,9 +33,9 @@ type Content struct {
 }
 
 // YYYYMMDDHHMMsome-text_here.md
-var entryFormat = regexp.MustCompile("[0-9]{12}[_\\-a-zA-Z0-9]+\\.md$")
-var allFormat = regexp.MustCompile("^[_\\-a-zA-Z0-9]+\\.md$")
-var allFileFormat = regexp.MustCompile("[_\\-a-zA-Z0-9]+\\.md$")
+var entryFormat = regexp.MustCompile(`[0-9]{12}[_\-a-zA-Z0-9]+\.md$`)
+var allFormat = regexp.MustCompile(`^[_\-a-zA-Z0-9]+\.md$`)
+var allFileFormat = regexp.MustCompile(`[_\-a-zA-Z0-9]+\.md$`)
 
 // GetEntries returns all the entries of the blog.
 func (blog *Content) GetEntries() []Entry {

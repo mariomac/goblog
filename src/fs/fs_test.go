@@ -52,7 +52,7 @@ func TestAllSearch(t *testing.T) {
 }
 
 func TestMarkdownSearch(t *testing.T) {
-	found := Search(testResources, regexp.MustCompile("\\.md$"))
+	found := Search(testResources, regexp.MustCompile(`\.md$`))
 	expected := []string{
 		"../../testresources/testset1/testsub/thing.md",
 		"../../testresources/testset1/testsub2/thing4.md",

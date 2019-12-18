@@ -17,7 +17,7 @@ type Templates struct {
 	*template.Template
 }
 
-var validTemplate = regexp.MustCompile(".*\\.html$")
+var validTemplate = regexp.MustCompile(`.*\.html$`)
 
 const templateExtension = ".html"
 
