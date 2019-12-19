@@ -12,7 +12,8 @@ import (
 	"time"
 
 	"github.com/mariomac/goblog/src/fs"
-	"github.com/russross/blackfriday/v2"
+	"github.com/yuin/goldmark"
+	highlighting "github.com/yuin/goldmark-highlighting"
 	nethtml "golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
 )
@@ -113,9 +114,23 @@ func extractTime(timestr string) time.Time {
 }
 
 func getTitleBodyAndPreview(mdBytes []byte) (string, template.HTML, template.HTML) {
-	htmlBytes := blackfriday.Run(mdBytes)
+	// TODO: proper caching of goldmark
+	markdown := goldmark.New(
+		goldmark.WithExtensions(
+			highlighting.NewHighlighting(
+				highlighting.WithStyle("tango"),
+			),
+		),
+	)
+	htmlBytes := bytes.Buffer{}
+	if err := markdown.Convert(mdBytes, &htmlBytes); err != nil {
+		// TODO: properly log/manage errors
+		htmlBytes = bytes.Buffer{}
+		htmlBytes.WriteString(`<h1>Error parsing markdown</h1><p>` + err.Error() + `</p>`)
+	}
+	htmlNode, err := nethtml.Parse(bytes.NewReader(htmlBytes.Bytes()))
 
-	htmlNode, err := nethtml.Parse(bytes.NewReader(htmlBytes))
+	// TODO: properly handle error
 	if err != nil {
 		return err.Error(), "", ""
 	}

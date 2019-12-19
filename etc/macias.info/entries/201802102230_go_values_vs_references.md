@@ -16,7 +16,7 @@ in the heap.
 Let's consider a machine to create Donuts with diversity of sizes, shapes and
 ingredients:
 
-```go
+```golang
 type Donut struct {
     Radius     float32
     Thick      float32

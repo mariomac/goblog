@@ -6,10 +6,12 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"strings"
 
 	"github.com/mariomac/goblog/src/blog"
 	"github.com/mariomac/goblog/src/fs"
-	"github.com/russross/blackfriday/v2"
+	"github.com/yuin/goldmark"
+	highlighting "github.com/yuin/goldmark-highlighting"
 )
 
 // Templates wraps and extends the functionality of Go's template.Template
@@ -47,5 +49,16 @@ func (t *Templates) Render(w http.ResponseWriter, template string, data interfac
 
 // TODO: remove
 func md2html(mdText []byte) template.HTML {
-	return template.HTML(blackfriday.Run(mdText))
+	// TODO: proper caching of goldmark
+	markdown := goldmark.New(
+		goldmark.WithExtensions(
+			highlighting.Highlighting,
+		),
+	)
+	sb := strings.Builder{}
+	if err := markdown.Convert(mdText, &sb); err != nil {
+		// TODO: properly log/manage errors
+		return template.HTML(`<h1>Error parsing markdown</h1><p>` + err.Error() + `</p>`)
+	}
+	return template.HTML(sb.String())
 }
