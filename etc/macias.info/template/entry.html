@@ -1,47 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{{ template "html_head" }}
+{{ template "html_head" . }}
 
 <body>
 
 {{ template "navbar" }}
 
 <!-- Page Header -->
-<header class="masthead"
-        style="background-image: url('/static/img/post-bg.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="post-heading">
-                    <h1>{{.Title}}</h1>
-                    <!--h2 class="subheading">Problems look mighty small from 150 miles up</h2-->
-                {{if .Time}}
-                    <span class="meta">Posted on {{.Time.Month}} {{.Time.Day}}
-                        , {{.Time.Year}}</span>
-                {{end}}
-                </div>
-            </div>
-        </div>
-    </div>
+<header>
+  <h1>{{.Title}}</h1>
+  <!--h2 class="subheading">Problems look mighty small from 150 miles up</h2-->
+    {{if .Time}}
+      <p>Posted on {{.Time.Month}} {{.Time.Day}}
+        , {{.Time.Year}}</p>
+    {{end}}
 </header>
 
 <!-- Entry HTML-rendered contents -->
 <!-- Post Content -->
 <article>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-            {{.HTML}}
-            </div>
-        </div>
-        <!-- disqus -->
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div id="disqus_thread"></div>
-            </div>
-        </div>
-    </div>
+  <section class="article-body">
+      {{.HTML}}
+  </section>
+  <!-- disqus -->
+  <hr>
+  <section>
+    <div id="disqus_thread"></div>
+  </section>
 </article>
 
 <hr>

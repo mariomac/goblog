@@ -8,23 +8,24 @@
 
 <!-- Page Header -->
 <header>
-  <h1>Home crafted blog</h1>
+  <h1 class="blog-title">Mario Macias' handcrafted blog</h1>
   <div>Written in <a href="http://www.golang.org">Go language</a> as a self-learning exercise
   </div>
 </header>
 
 <!-- Main Content -->
-<section>
+<section id="entries">
     {{ range entries}}
+      <hr/>
       <article>
         <h2 class="post-title">
           <a href="/entry/{{.FileName}}">{{.Title}}</a>
         </h2>
+        <p class="post-meta"><a href="/entry/{{.FileName}}">Posted on {{.Time.Month}} {{.Time.Day}}
+            , {{.Time.Year}}</a> (<a href="http://macias.info/entry/{{.FileName}}#disqus_thread"></a>)</p>
         <p class="post-subtitle">
             {{.Preview}}
         </p>
-        <p class="post-meta"><a href="/entry/{{.FileName}}">Posted on {{.Time.Month}} {{.Time.Day}}
-            , {{.Time.Year}}</a> (<a href="http://macias.info/entry/{{.FileName}}#disqus_thread"></a>)</p>
       </article>
     {{ end }}
 </section>

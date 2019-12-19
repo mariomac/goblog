@@ -1,10 +1,39 @@
 body {
-    font-family: sans-serif;
+    font-family: "Open Sans", sans-serif;
     color: black;
 }
 
 a {
     color: black;
+}
+
+.post-title{
+    margin-top: 25px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.post-title a {
+    text-decoration: none;
+    color: #444444;
+}
+
+.post-title a:hover {
+    text-decoration: underline;
+}
+
+.post-meta {
+    margin-top: 3px;
+    font-size: smaller;
+    padding-left: 10px;
+}
+
+.post-meta a {
+    text-decoration: none;
+}
+
+.post-meta a:hover {
+    text-decoration: underline;
 }
 
 img {
@@ -16,6 +45,27 @@ pre {
     font-size: medium;
 }
 
+header {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+footer ul {
+    list-style-type: none;
+}
+
+footer ul li {
+    display: inline;
+
+}
+
 @media(min-width: 700px) {
     body {
         width: 700px;
@@ -23,13 +73,8 @@ pre {
         margin: 0px auto auto;
     }
 
-    header {
-        text-align: center;
-    }
-
-    h1 {
+    header h1 .blog-title {
         font-size: 58px;
-        margin-bottom: 0px;
     }
 }
 
@@ -53,6 +98,12 @@ nav > .nav-header > .nav-title {
     padding: 10px 10px 10px 10px;
 }
 
+nav > .nav-header > .nav-title > a {
+    text-decoration: none;
+    color: #efefef;
+}
+
+
 nav > .nav-btn {
     display: none;
 }
@@ -69,6 +120,8 @@ nav > .nav-links > a {
     text-decoration: none;
     color: #efefef;
 }
+
+
 
 nav > .nav-links > a:hover {
     background-color: rgba(0, 0, 0, 0.3);

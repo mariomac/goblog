@@ -251,8 +251,13 @@ Final project for Bachelor's Degree on Computer Sciences. Universitat Autònoma 
 ## Past research projects
     
 * [RenewIT: Advanced concepts and tools for renewable energy supply of IT Data Centres](http://www.renewit-project.eu) (2013-2016)
+
 * [ASCETiC: Adapting Service lifeCycle towards EfficienT Clouds](http://www.ascetic.eu/) (2013-2016)
+
 * [OPTIMIS: Optimized Infrastructure Services](http://www.optimis-project.eu/) (2010-2013)
+
 * [VENUS-C: Towards an interoperable Scientific Cloud for Europe](http://www.venus-c.eu/) (2010-2012)
+
 * [Nuba: Normalized Usage of Business-oriented Architectures](http://nuba.morfeo-project.org/) (2009-2012)
+
 * [SORMA: Self-Organising ICT Resource Management](http://www.sorma-project.eu) (2006-2009)
