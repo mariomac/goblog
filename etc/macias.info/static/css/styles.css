@@ -7,6 +7,15 @@ a {
     color: black;
 }
 
+pre > span {
+    font-size: 14px;
+    line-height: 20px;
+}
+pre > code {
+    font-size: 14px;
+    line-height: 20px;
+}
+
 .post-title{
     margin-top: 25px;
     margin-bottom: 0px;

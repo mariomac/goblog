@@ -8,13 +8,13 @@ the code syntax according to the [Alec Thomas' Chroma engine and styles](https:/
 For example, the following preformatted Markdown entry:
 
 ```
-   ```c
-   #include<stdio.h>
+ ```c
+ #include<stdio.h>
    
-   void main() {
-       printf("Hello, world!");
-   }
-    ```
+ void main() {
+     printf("Hello, world!");
+ }
+ `` `
 ```
 
 Will be rendered as:
