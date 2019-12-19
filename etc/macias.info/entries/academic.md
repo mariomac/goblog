@@ -20,6 +20,8 @@ archive backup of my [Academic web page](http://mario.site.ac.upc.edu).
     
 ## Teaching
 
+* [Software Architecture](https://www.upc.edu/content/master/guiadocent/pdf/ang/230719) (2019)
+
 * [Fundamentals of computers](http://www.etsetb.upc.edu/documents/guia_docent/assignatures/all/ang/230005.pdf) (2012-2019)    		
     - Watch some online lessons about [managing 2-D arrays in C](https://www.youtube.com/playlist?list=PLEV9kss5YQokQUx3HAjCEtNNcsQN0yD64) (in Spanish)
     - Is `printf` too boring for you? [Put some color to your UNIX console](https://github.com/mariomac/better-console)
