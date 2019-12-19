@@ -3,3 +3,4 @@
 * Configure some aspects via yaml (title, navbars, meta...)
 * Detect changes in the filesystem and recompile markdowns and templates.
 * Add github hooks. Reload blogs from hooks.
+* Read linked images from markdown folder (for an easier read).

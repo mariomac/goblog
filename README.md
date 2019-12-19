@@ -54,6 +54,13 @@ At this early stage of the blog, you *MUST* restart the blog process before chan
     
 ## Version history
 
+### v0.1.0
+
+* Changed markdown processor
+* Added code syntax highlighting
+* Modified makefile
+* Addressed few code lintings
+
 ### v0.0.10
 
 * Added previews to blog entries

@@ -34,3 +34,5 @@ Also, few new changes have been added:
   probably agree 😅.
   
 * Added metadata to a header, and a page title that coincides with the entry title.
+
+You can download this blog engine, with some examples, from my [GitHub repository](https://github.com/mariomac/goblog).

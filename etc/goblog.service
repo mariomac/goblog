@@ -1,8 +1,8 @@
 # To install goblog as a service:
 #
 # useradd goblog -s /sbin/nologin -M
-# go build src/blog.go
-# cp blog /usr/bin/goblog
+# make clean compile
+# cp bin/goblog /usr/bin/goblog
 # apt-get install libcap2-bin -y
 # setcap 'cap_net_bind_service=+ep' /usr/bin/goblog
 # cp etc/goblog.service /lib/systemd/system/goblog.service
