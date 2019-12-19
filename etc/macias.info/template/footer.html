@@ -1,85 +1,75 @@
 {{ define "footer" }}
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <ul class="list-inline text-center">
-                    <li class="list-inline-item">
-                        <a href="/atom.xml">
+  <!-- Footer -->
+  <footer>
+    <div>Copyright &copy; Mario Macias 2017-2019</div>
+    <ul class="list-inline text-center">
+      <li>
+        <a href="/atom.xml">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
                   </span>
-                        </a>
-                    </li>
+        </a>
+      </li>
 
-                    <li class="list-inline-item">
-                        <a href="http://github.com/mariomac">
+      <li>
+        <a href="http://github.com/mariomac">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-github fa-stack-1x fa-inverse"></i>
                   </span>
-                        </a>
-                    </li>
+        </a>
+      </li>
 
-                    <li class="list-inline-item">
-                        <a href="http://www.twitter.com/MaciasUPC">
+      <li>
+        <a href="http://www.twitter.com/MaciasUPC">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                   </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="http://www.youtube.com/channel/UCBOEvH985Fsk2n4afs2SnkA">
+        </a>
+      </li>
+      <li>
+        <a href="http://www.youtube.com/channel/UCBOEvH985Fsk2n4afs2SnkA">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-youtube fa-stack-1x fa-inverse"></i>
                   </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="http://es.linkedin.com/in/mariomac">
+        </a>
+      </li>
+      <li>
+        <a href="http://es.linkedin.com/in/mariomac">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
                   </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="http://www.flickr.com/photos/mario_79/">
+        </a>
+      </li>
+      <li>
+        <a href="http://www.flickr.com/photos/mario_79/">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-flickr fa-stack-1x fa-inverse"></i>
                   </span>
-                        </a>
-                    </li>
-                </ul>
-                <p class="copyright text-muted">Copyright &copy; Mario Macias 2017</p>
-                <p class="copyright text-muted">Template: <a href="https://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a></p>
-            </div>
-        </div>
-    </div>
-</footer>
+        </a>
+      </li>
+    </ul>
+  </footer>
 
-<!-- Bootstrap core JavaScript -->
-<script src="/static/vend/jquery/jquery.min.js"></script>
-<script src="/static/vend/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Disqus -->
-<script>
-/**
-*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-s.src = 'https://maciasinfo.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <!-- Disqus -->
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+      (function () { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://maciasinfo.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
 
 
 {{ end }}
