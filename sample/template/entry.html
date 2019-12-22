@@ -3,26 +3,24 @@
 <html>
 {{ template "html_head" }}
 <body>
-<div id="global">
-    {{ template "header" }}
-    <div id="entryBody">
-        <!-- Entry title link -->
-        <h1><a href="/entry/{{.FileName}}">{{.Title}}</a></h1>
+{{ template "header" }}
+<hr/>
+<!-- Entry title link -->
+<h2><a href="/entry/{{.FileName}}">{{.Title}}</a></h2>
 
-        {{if .Time}}
-        <div class="postedDate">
-            Posted on {{.Time.Month}} {{.Time.Day}}, {{.Time.Year}}
-            at {{.Time.Hour}}:{{.Time.Minute}}
-        </div>
-        {{end}}
+{{if .Time}}
+  <div>
+    Posted on {{.Time.Month}} {{.Time.Day}}, {{.Time.Year}}
+    at {{.Time.Hour}}:{{.Time.Minute}}
+  </div>
+{{end}}
+<hr/>
 
-        <!-- Entry HTML-rendered contents -->
-        {{.HTML}}
-    </div>
-    <div class="goback">
-        <a href="/">Go back to the index...</a>
-    </div>
-    {{ template "footer" }}
-</div>
+<!-- Entry HTML-rendered contents -->
+{{.HTML}}
+
+<hr/>
+
+{{ template "footer" }}
 </body>
 </html>
