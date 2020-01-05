@@ -78,7 +78,7 @@ What's up, gang!
 The [KAConf library](http://github.com/mariomac/kaconf) makes intensive use of
 Java Reflection to automatically set the configurable values to their respective
 fields. However, if you use the `native-image` GraalVM command, you can run the
-program but the generated binary is not able to modify the the `Config` and
+program but the generated binary is not able to modify the `Config` and
 `StaticConfig` values at runtime, showing always the default _Hello, world!_ 
 message.
 
