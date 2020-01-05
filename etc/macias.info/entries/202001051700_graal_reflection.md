@@ -8,7 +8,7 @@ I felt disappointed when they
 pointed me out that GraalVM does not support reflection by default (which IMHO
 is a wonderful and powerful tool to enhance the expressiveness of our software
 and to reduce boilerplate). However, you can actually configure the
-ahead-of-time compiler incorporate a user-provided reflection metadata.
+ahead-of-time compiler to incorporate a user-provided reflection metadata.
 
 Let's see how.
 
