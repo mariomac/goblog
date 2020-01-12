@@ -1,9 +1,34 @@
-# Academic archive page
+# Mario Macías, Ph.D. 
 
+I am a Senior Software Engineer at [New Relic](http://www.newrelic.com). I'm
+programming since I was 12 years old, when I learnt the BASIC programming
+language on my [MSX computer](https://en.wikipedia.org/wiki/MSX).
+
+## Experience as a developer
+
+* Senior Software Engineer at [New Relic](http://www.newrelic.com). 2017-now
+    * [Go](http://www.golang.org) programming
+    * Linux and Windows system monitoring
+    * Others: JMX, Kubernetes, Docker, Prometheus
+* Systems Software Engineer at [Midokura](http://www.midokura.com). 2016-2017
+    * [Scala](https://www.scala-lang.org/) programming
+    * Java programming
+* Senior Researcher at 
+
+
+## Talks and lectures
+    
+* [Summoning the Go memory manager](/static/assets/talks/201901go/index.html)   
+  * [Golang Barcelona Meetup](https://www.meetup.com/es-ES/Golang-Barcelona/). January 31st, 2019
+
+## <a name="academical"></a>Academical *résumé*
+
+I've been scientific researcher from 2006 to 2016 at the
+ 
 I am neither teacher nor academic researcher anymore. I'll keep this page as an
 archive backup of my [Academic web page](http://mario.site.ac.upc.edu).
 
-## Education
+### Education
     
 * Doctor of Philosophy in *Computer Architecture*.
   [Technical University of Catalonia](http://www.upc.edu). 2014.
@@ -18,7 +43,7 @@ archive backup of my [Academic web page](http://mario.site.ac.upc.edu).
 
 * Bachelor's degree in *Computer Engineering*. [Autonomous University of Barcelona](http://www.uab.cat). 2002
     
-## Teaching
+### Teaching
 
 * [Software Architecture](https://www.upc.edu/content/master/guiadocent/pdf/ang/230719) (2019)
 
@@ -37,10 +62,7 @@ archive backup of my [Academic web page](http://mario.site.ac.upc.edu).
     
 * [Cloud Business and Virtualization](http://www.talent.upc.edu/ing/professionals/presentacio/codi/332100/cloud-business-amp-virtualization/) (Coordinator of Postgraduate course, 2016)
 
-## Talks and lectures
-    
-* [Summoning the Go memory manager](/static/assets/talks/201901go/index.html)   
-  * [Golang Barcelona Meetup](https://www.meetup.com/es-ES/Golang-Barcelona/). January 31st, 2019
+### Talks and lectures
               
 * [Servicios de Supercomputación](/static/assets/talks/BSC_general.pdf)
   * [Barcelona Supercomputing Center](http://www.bsc.es). February 12th, 2015
@@ -55,8 +77,8 @@ archive backup of my [Academic web page](http://mario.site.ac.upc.edu).
   * [Barcelona Supercomputing Center](http://www.bsc.es). July 10th, 2014
     		
         
-## Publications
-### Books
+### Publications
+#### Books
     
 * M. Macías, M. Gómez, R. Tous, J. Torres.
 [Introducción a Apache Spark](http://www.editorialuoc.cat/introduccion-a-apache-spark_2) (Editorial UOC, 2015. ISBN: 9788491160373)
@@ -74,7 +96,7 @@ archive backup of my [Academic web page](http://mario.site.ac.upc.edu).
 [CLOUD COMPUTING: Some of the relevant issues in current Execution Environments for Distributed Computing](http://www.lulu.com/content/3077784)
 (Lulu.com publisher, 2008. ISBN: 978-1-4092-1787-9)
 
-### Journal Articles
+#### Journal Articles
 
 * A. Carbó, E. Oró, J. Salom, M. Canuto, M. Macías, J. Guitart
 [Experimental and numerical analysis for potential heat reuse in liquid cooled
@@ -102,7 +124,7 @@ Future Generation Computer Systems, Vol. 28 (8), pp. 1295-1302. October 2012
 Concurrency and Computation: Practice and Experience, Vol. 22 (14), pp. 1990-2011. September 2010
         
     
-### Conference proceedings
+#### Conference proceedings
     
 * M. Canuto, R. Bosch, M. Macías, J. Guitart.
 [A methodology for full-system power modeling in heterogeneous data centers](/static/assets/papers/2016UCC.pdf).
@@ -179,7 +201,7 @@ Nancy, France, December 3-7, 2007
 The Hague, The Netherlands, October 24-26, 2007
   
     
-### Workshop proceedings
+#### Workshop proceedings
     
 * K. Djemame, D. Armstrong, R. Kavanagh, A. J. Ferrer, D. Antona, D. Garcia Perez, J. C. Deprez, C. Ponsard, D. Ortiz, M. Macías, J. Guitart, F. Lordan, J. Ejarque, R. Sirvent, R. Badia, M. Kammer, O. Kao, E. Agiatzidou, A. Dimakis, C. Courcoubetis, L. Blasi.
 [Energy Efficiency Embedded Service Lifecycle: Towards an Energy Efficient Cloud Computing Architecture](/static/assets/papers/2014AsceticPosition.pdf).
@@ -207,7 +229,7 @@ Bucharest, Romania, November 21-22, 2008
 In conjunction with the 8th IEEE/ACM International Conference on Grid Computing (Grid 2007).
 Austin, Texas, USA, September 19, 2007    
 
-### Book chapters
+#### Book chapters
     
 * M. Macías.
 [Towards the Pocket Workstation: Powering Mobile Applications in the Cloud](/static/assets/papers/2008EEDC.pdf).
@@ -220,14 +242,14 @@ In: R. Buyya, K. Bubendorfer (Eds.), "*Market-Oriented Grid and Utility Computin
 Chapter 12. Wiley (publisher). June 2009. ISBN: 978-0-470-28768-2
         
     
-### Magazines
+#### Magazines
     
 * I. Goiri, J. Guitart, M. Macías, J. Torres, E. Ayguadé, J. Ejarque, R. Sirvent, D. Lezzi, R. Badia.
 [EMOTIVE: the BSC's Engine for Cloud Solutions](http://www.beliefproject.org/zero-in/zero-in-third-edition/emotive-the-bsc2019s-engine-for-cloud-solutions).
 Zero-In eMagazine: Building Insights, Breaking Boundaries Issue 3, Successful Case Studies of eScience/eResearch Projects in Europe and Globally, pp. 15-16.
 October 2009
     
-### Other documents
+#### Other documents
     
 * M. Macías, J. Guitart (advisor).
 [Business-Driven Resource Allocation and Management for Data Centres in Cloud Computing Markets](/static/assets/others/phdthesis.pdf).
@@ -250,7 +272,7 @@ Final project for Bachelor's Degree on Computer Sciences. Universitat Autònoma 
 (*sorry, no English version available!*)
 	
     
-## Past research projects
+### Past research projects
     
 * [RenewIT: Advanced concepts and tools for renewable energy supply of IT Data Centres](http://www.renewit-project.eu) (2013-2016)
 

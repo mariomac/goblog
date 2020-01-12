@@ -3,6 +3,7 @@ package blog
 
 import (
 	"bytes"
+	"github.com/yuin/goldmark/renderer/html"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -121,6 +122,7 @@ func getTitleBodyAndPreview(mdBytes []byte) (string, template.HTML, template.HTM
 				highlighting.WithStyle("tango"),
 			),
 		),
+		goldmark.WithRendererOptions(html.WithUnsafe()),
 	)
 	htmlBytes := bytes.Buffer{}
 	if err := markdown.Convert(mdBytes, &htmlBytes); err != nil {
