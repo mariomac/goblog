@@ -1,3 +1,4 @@
+* Improve HTTP cache control
 * Cache static assets
 * Log each URL access 
 * Configure some aspects via yaml (title, navbars, meta...)

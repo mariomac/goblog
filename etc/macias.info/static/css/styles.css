@@ -3,6 +3,11 @@ body {
     color: black;
 }
 
+.coletilla {
+    font-size: smaller;
+    margin-bottom: 15px;
+}
+
 a {
     color: black;
 }
@@ -184,7 +189,10 @@ nav > #nav-check {
         height: calc(100vh - 50px);
         overflow-y: auto;
     }
-    nav > .nav-header {
-        visibility: hidden;
+    nav > .nav-header > .nav-title {
+        display: inline-block;
+        font-size: 20px;
+        color: #fff;
+        padding: 10px 10px 10px 10px;
     }
 }
