@@ -8,6 +8,10 @@ body {
     margin-bottom: 15px;
 }
 
+code {
+    font-size: 15px;
+}
+
 a {
     color: black;
 }
