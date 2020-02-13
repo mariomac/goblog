@@ -12,6 +12,8 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 * Systems Software Engineer at [Midokura](http://www.midokura.com). 2016-2017
 
+* Co-founder, coder and technical coordinator at [Betroop](https://web.archive.org/web/20170520202202/http://betroop.es/). 2015-2017
+
 * Senior Researcher at [Barcelona Supercomputing Center](http://www.bsc.es). 2006-2016
 
 * Software Engineer at [Gameloft](http://www.gameloft.com). 2005-2006
@@ -19,6 +21,8 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 * Software Engineer at [iSOCO - Intelligent Software Components](https://www.linkedin.com/company/isoco-clever/about/). 2003-2004
 
 * Sporadic, study-combined jobs at factories 👨‍🏭. 1997-2002
+
+* Badminton trainer 🏸 for diverse clubs and institutions. 1996-2000, 2005
 
 ## Education
     
@@ -34,27 +38,11 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 * Master's degree in *Computer Engineering*. [Universitat Autònoma de Barcelona](http://www.uab.cat). 2005
 
 * Bachelor's degree in *Computer Engineering*. [Universitat Autònoma de Barcelona](http://www.uab.cat). 2002
-    
-## Teaching
 
-* [Software Architecture](https://www.upc.edu/content/master/guiadocent/pdf/ang/230719) (2019)
-
-* [Fundamentals of computers](http://www.etsetb.upc.edu/documents/guia_docent/assignatures/all/ang/230005.pdf) (2012-2019)    		
-    - Watch some online lessons about [managing 2-D arrays in C](https://www.youtube.com/playlist?list=PLEV9kss5YQokQUx3HAjCEtNNcsQN0yD64) (in Spanish)
-    - Is `printf` too boring for you? [Put some color to your UNIX console](https://github.com/mariomac/better-console)
-    - Watch some online lessons about [managing lists in C](http://www.youtube.com/playlist?list=PLEV9kss5YQokCyGdCNM0z6f3jc_Xbs2UL&feature=c4-feed-u) (in Spanish)
-        		   	
-* [Object-Oriented Programming](http://www.etsetb.upc.es/documents/guia_docent/assignatures/SisElec/230010.pdf) (2010-2019)
-    - Learn how to program a simple shooter videogame with my [Marcianitos playlist on Youtube](https://www.youtube.com/playlist?list=PLEV9kss5YQolykPXK5s-g1xG7B_HwNcfA) (in Spanish).
-    - Take a look to [MOO Pang!](https://github.com/mariomac/moopang) (in Spanish)
-    - Create and windows, draw something into them, and manage the user interaction easily with the [Ventana Java class](https://github.com/mariomac/ventanas)! (in Spanish)
-        
-* [Introduction to Computer Systems](http://www.etsetb.upc.edu/documents/guia_docent/assignatures/ang/TL_EE/11470.pdf) (2009-10)    
-    - Scribble your screen with the [Tortuga C library](https://github.com/mariomac/tortuga)!
-    
-* [Cloud Business and Virtualization](http://www.talent.upc.edu/ing/professionals/presentacio/codi/332100/cloud-business-amp-virtualization/) (Coordinator of Postgraduate course, 2016)
-      
 ## Talks and lectures
+
+* [The Go Concurrency Model: a tour on simplicity](https://github.com/mariomac/go-concurrency-tools)
+  * [Assembler School](https://www.assemblerschool.com/). February 12th, 2020
 
 * [Pointers vs Values: digging into the Performance War](../static/assets/talks/202001go.pdf)    
   * [Barcelona Golang Meetup](https://www.meetup.com/es-ES/Golang-Barcelona/). January 29th, 2020
@@ -74,6 +62,25 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
   * [Barcelona Supercomputing Center](http://www.bsc.es). June 11th, 2014
   * [Barcelona Supercomputing Center](http://www.bsc.es). July 10th, 2014
 
+## Teaching
+
+* [Software Architecture](https://www.upc.edu/content/master/guiadocent/pdf/ang/230719) (2019)
+
+* [Fundamentals of computers](http://www.etsetb.upc.edu/documents/guia_docent/assignatures/all/ang/230005.pdf) (2012-2019)    		
+    - Watch some online lessons about [managing 2-D arrays in C](https://www.youtube.com/playlist?list=PLEV9kss5YQokQUx3HAjCEtNNcsQN0yD64) (in Spanish)
+    - Is `printf` too boring for you? [Put some color to your UNIX console](https://github.com/mariomac/better-console)
+    - Watch some online lessons about [managing lists in C](http://www.youtube.com/playlist?list=PLEV9kss5YQokCyGdCNM0z6f3jc_Xbs2UL&feature=c4-feed-u) (in Spanish)
+        		   	
+* [Object-Oriented Programming](http://www.etsetb.upc.es/documents/guia_docent/assignatures/SisElec/230010.pdf) (2010-2019)
+    - Learn how to program a simple shooter videogame with my [Marcianitos playlist on Youtube](https://www.youtube.com/playlist?list=PLEV9kss5YQolykPXK5s-g1xG7B_HwNcfA) (in Spanish).
+    - Take a look to [MOO Pang!](https://github.com/mariomac/moopang) (in Spanish)
+    - Create and windows, draw something into them, and manage the user interaction easily with the [Ventana Java class](https://github.com/mariomac/ventanas)! (in Spanish)
+        
+* [Introduction to Computer Systems](http://www.etsetb.upc.edu/documents/guia_docent/assignatures/ang/TL_EE/11470.pdf) (2009-10)    
+    - Scribble your screen with the [Tortuga C library](https://github.com/mariomac/tortuga)!
+    
+* [Cloud Business and Virtualization](http://www.talent.upc.edu/ing/professionals/presentacio/codi/332100/cloud-business-amp-virtualization/) (Coordinator of Postgraduate course, 2016)
+      
 ## Publications
 ### Books
     
