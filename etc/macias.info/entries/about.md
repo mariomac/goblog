@@ -64,7 +64,7 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## Teaching
 
-From 2009 to 2019 I've been part-time lecturer in the [Universitat Politècnica de Catalunya](http://www.upc.edu).
+From 2009 to 2019, I've been part-time lecturer at the [Universitat Politècnica de Catalunya](http://www.upc.edu).
 These are the subjects I taught during this period, with some selected projects:
 
 * [Software Architecture](https://www.upc.edu/content/master/guiadocent/pdf/ang/230719) (2019)
