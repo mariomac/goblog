@@ -64,6 +64,9 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## Teaching
 
+From 2009 to 2019 I've been part-time lecturer in the [Universitat Politècnica de Catalunya](http://www.upc.edu).
+These are the subjects I taught during this period, with some selected projects:
+
 * [Software Architecture](https://www.upc.edu/content/master/guiadocent/pdf/ang/230719) (2019)
 
 * [Fundamentals of computers](http://www.etsetb.upc.edu/documents/guia_docent/assignatures/all/ang/230005.pdf) (2012-2019)    		
@@ -72,8 +75,10 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
     - Watch some online lessons about [managing lists in C](http://www.youtube.com/playlist?list=PLEV9kss5YQokCyGdCNM0z6f3jc_Xbs2UL&feature=c4-feed-u) (in Spanish)
         		   	
 * [Object-Oriented Programming](http://www.etsetb.upc.es/documents/guia_docent/assignatures/SisElec/230010.pdf) (2010-2019)
+    - Sample videogame: [Limerick - Snake Escape](https://github.com/mariomac/limerick) (in Spanish)
+    - Sample videogame: [¡Escapada!](https://github.com/mariomac/escape) (in Spanish)
     - Learn how to program a simple shooter videogame with my [Marcianitos playlist on Youtube](https://www.youtube.com/playlist?list=PLEV9kss5YQolykPXK5s-g1xG7B_HwNcfA) (in Spanish).
-    - Take a look to [MOO Pang!](https://github.com/mariomac/moopang) (in Spanish)
+    - Sample videogame: [MOO Pang!](https://github.com/mariomac/moopang) (in Spanish)
     - Create and windows, draw something into them, and manage the user interaction easily with the [Ventana Java class](https://github.com/mariomac/ventanas)! (in Spanish)
         
 * [Introduction to Computer Systems](http://www.etsetb.upc.edu/documents/guia_docent/assignatures/ang/TL_EE/11470.pdf) (2009-10)    
