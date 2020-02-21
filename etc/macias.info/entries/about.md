@@ -70,6 +70,7 @@ Acquired skills and knowledge:
 * Working in multi-cultural and international environments
 * Day-by-day management of the work in big consortiums
 * How Science works (for the good and the bad)
+* I like tech. I don't like bureaucracy
 
 ### Software Engineer at [Gameloft](http://www.gameloft.com). 2005-2006
 
