@@ -10,6 +10,8 @@ body {
 
 code {
     font-size: 15px;
+    background: #eeeeee;
+    padding: 2px;
 }
 
 a {
@@ -20,9 +22,11 @@ pre > span {
     font-size: 14px;
     line-height: 20px;
 }
-pre > code {
+
+pre code {
     font-size: 14px;
     line-height: 20px;
+    background: none;
 }
 
 .post-title{
