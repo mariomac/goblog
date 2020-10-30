@@ -1,8 +1,20 @@
 # About me
 
-I am a Senior Software Engineer at [New Relic](http://www.newrelic.com). I love
+I love
 programming since I was 12 years old, when I learnt the BASIC programming
 language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
+
+## TL; DR; (highlights)
+
+* [Ph.D.](/static/assets/others/phdthesis.pdf) in Computer Architecture
+* Senior software engineer at [New Relic](https://newrelic.com) since 2017
+* [University](https://www.upc.edu) teacher since 2009 to 2019
+* Spanish book writer: [Programación en Go](https://www.marcombo.com/programacion-en-go-9788426732330/) (2020),
+  [Introducción a Apache Spark](http://www.editorialuoc.cat/introduccion-a-apache-spark_2) (2015),
+  Del bit a la Nube (2014, free on [Google](https://play.google.com/store/books/details/Mario_Macías_Lloret_Del_bit_a_la_Nube?id=rYk3BAAAQBAJ) /
+    [Kindle](http://www.amazon.es/dp/B00MEMB6YQ) /
+    [iTunes](https://itunes.apple.com/es/book/del-bit-a-la-nube/id910102199))
+* Enthusiast speaker
 
 ## Professional Experience
 
@@ -10,19 +22,22 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 Acquired skills:
 
-* Mastering Go programming language
-* Multiple low-level interfaces for system monitoring data acquisition. Highlighting:
-    - Linux: Proc FileSystem, system calls, init systems, etc...
-    - Windows: Windows Management Instrumentation (WMI), Windows Performance
-      Counters (PdH library)
-    - Kubernetes API
-    - Docker Cgroups
-* Exhaustive testing and maintainability of software that runs on clients' side,
-  with special requirements of security and backwards compatibility
-* Working closely with clients in critical escalations (e.g. requiring new
-  features, fixing product behavior...)
-* User-facing technical support
-    
+* As a system software engineer:
+  * Mastering Go programming language
+  * Multiple low-level interfaces for system monitoring data acquisition: Linux,
+    Windows, Docker Cgroups, Kubernetes APIs...
+  * Exhaustive testing and maintainability of software that runs on clients' side,
+    with special requirements of security and backwards compatibility
+  * Working closely with clients in critical escalations (e.g. requiring new
+    features, fixing product behavior...)
+  * User-facing technical support
+* As a platform/backend engineer:
+  * Microservices architectures
+  * Apache Kafka
+  * Redis
+  * Kubernetes
+  * Deployment best practices
+
 ### Part-time Lecturer at [Universitat Politècnica de Catalunya](http://www.upc.edu). 2009-2019
 
 Acquired skills:
@@ -69,8 +84,6 @@ Acquired skills and knowledge:
 * Consolidating my skills on technical and academic writing
 * Working in multi-cultural and international environments
 * Day-by-day management of the work in big consortiums
-* How Science works (for the good and the bad)
-* I like tech. I don't like bureaucracy
 
 ### Software Engineer at [Gameloft](http://www.gameloft.com). 2005-2006
 
@@ -105,7 +118,7 @@ Acquired skills and knowledge:
 Acquired skills:
 
 - Basics of teaching
-- How to transmit "physical" skills and enforce proprioception of children and
+- How to transmit physical skills and enforce proprioception of children and
   adults
 
 ## Education
@@ -127,21 +140,16 @@ Acquired skills:
 
 * [The Go Concurrency Model: a tour on simplicity](https://github.com/mariomac/go-concurrency-tools)
   * [Assembler School](https://www.assemblerschool.com/). February 12th, 2020
-
 * [Pointers vs Values: digging into the Performance War](../static/assets/talks/202001go.pdf)    
   * [Barcelona Golang Meetup](https://www.meetup.com/es-ES/Golang-Barcelona/). January 29th, 2020
-
 * [Summoning the Go memory manager](/static/assets/talks/201901go/index.html)   
-  * [Barcelona Golang Meetup](https://www.meetup.com/es-ES/Golang-Barcelona/). January 31st, 2019
-              
+  * [Barcelona Golang Meetup](https://www.meetup.com/es-ES/Golang-Barcelona/). January 31st, 2019              
 * [Servicios de Supercomputación](/static/assets/talks/BSC_general.pdf)
   * [Barcelona Supercomputing Center](http://www.bsc.es). February 12th, 2015
-  * [Barcelona Supercomputing Center](http://www.bsc.es). October 30th, 2015
-      
+  * [Barcelona Supercomputing Center](http://www.bsc.es). October 30th, 2015      
 * [La tecnología detrás del Big Data](/static/assets/talks/BigData.pdf)
   * [Centre de Cultura Contemporània de Barcelona](https://www.cccb.org/en). September 9th, 2014
   * [Barcelona Supercomputing Center](http://www.bsc.es). December 16th, 2014
-  
 * *Big Data: ¿Qué hay de big?*    
   * [Barcelona Supercomputing Center](http://www.bsc.es). June 11th, 2014
   * [Barcelona Supercomputing Center](http://www.bsc.es). July 10th, 2014
@@ -165,29 +173,32 @@ These are the subjects I taught during this period, with some selected projects:
     - Sample videogame: [MOO Pang!](https://github.com/mariomac/moopang) (in Spanish)
     - Create and windows, draw something into them, and manage the user interaction easily with the [Ventana Java class](https://github.com/mariomac/ventanas)! (in Spanish)
         
+* [Cloud Business and Virtualization](http://www.talent.upc.edu/ing/professionals/presentacio/codi/332100/cloud-business-amp-virtualization/) (Coordinator of Postgraduate course, 2016)
+
 * [Introduction to Computer Systems](http://www.etsetb.upc.edu/documents/guia_docent/assignatures/ang/TL_EE/11470.pdf) (2009-10)    
     - Scribble your screen with the [Tortuga C library](https://github.com/mariomac/tortuga)!
-    
-* [Cloud Business and Virtualization](http://www.talent.upc.edu/ing/professionals/presentacio/codi/332100/cloud-business-amp-virtualization/) (Coordinator of Postgraduate course, 2016)
       
 ## Publications
+
 ### Books
-    
+
+* M. Macías. [Programación en Go](https://www.marcombo.com/programacion-en-go-9788426732330/). Editorial Marcombo, 2020. ISBN: 9788426732330
+
 * M. Macías, M. Gómez, R. Tous, J. Torres.
-[Introducción a Apache Spark](http://www.editorialuoc.cat/introduccion-a-apache-spark_2) (Editorial UOC, 2015. ISBN: 9788491160373)
+[Introducción a Apache Spark](http://www.editorialuoc.cat/introduccion-a-apache-spark_2). Editorial UOC, 2015. ISBN: 9788491160373
                 
-* M. Macías. *Del bit a la Nube* (eBook, 2014).
+* M. Macías. *Del bit a la Nube*. e-Book, 2014
     - [Google Play](https://play.google.com/store/books/details/Mario_Macías_Lloret_Del_bit_a_la_Nube?id=rYk3BAAAQBAJ)
     - [Amazon](http://www.amazon.es/dp/B00MEMB6YQ)
     - [Apple iTunes](https://itunes.apple.com/es/book/del-bit-a-la-nube/id910102199)
     - [Barnes & Noble](http://www.barnesandnoble.com/w/del-bit-a-la-nube-mario-mac-as/1120198884?ean=2940150737099&itm=1&usri=2940150737099)
     	
-* M. Macías. [Falacias, Juegos y Universos Paralelos](http://www.lulu.com/content/9526323)
-(Lulu.com publisher, 2010. ISBN: 978-1-4466-4391-4)
+* M. Macías. [Falacias, Juegos y Universos Paralelos](http://www.lulu.com/content/9526323).
+Lulu.com publisher, 2010. ISBN: 978-1-4466-4391-4
         
 * J. Torres, I. Goiri, M. Macías.
-[CLOUD COMPUTING: Some of the relevant issues in current Execution Environments for Distributed Computing](http://www.lulu.com/content/3077784)
-(Lulu.com publisher, 2008. ISBN: 978-1-4092-1787-9)
+[CLOUD COMPUTING: Some of the relevant issues in current Execution Environments for Distributed Computing](http://www.lulu.com/content/3077784). 
+Lulu.com publisher, 2008. ISBN: 978-1-4092-1787-9
 
 ### Journal Articles
 
