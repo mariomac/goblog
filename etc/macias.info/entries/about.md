@@ -20,74 +20,41 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ### Senior Software Engineer at [New Relic](http://www.newrelic.com). 2017-now
 
-Acquired skills:
-
-* As a system software engineer:
-  * Mastering Go programming language
-  * Multiple low-level interfaces for system monitoring data acquisition: Linux,
-    Windows, Docker Cgroups, Kubernetes APIs...
-  * Exhaustive testing and maintainability of software that runs on clients' side,
-    with special requirements of security and backwards compatibility
-  * Working closely with clients in critical escalations (e.g. requiring new
-    features, fixing product behavior...)
-  * User-facing technical support
-* As a platform/backend engineer:
-  * Microservices architectures
-  * Apache Kafka
-  * Redis
-  * Kubernetes
-  * Deployment best practices
+* Mastering Go programming language
+* Data acquisition APIs for System Monitoring: Linux, Windows, Docker,
+Kubernetes...
+* Best practices for client-side software
+* Working closely with clients in technical support and critical escalations
+* Microservices architectures: Docker, Kubernetes, Kafka...
 
 ### Part-time Lecturer at [Universitat Politècnica de Catalunya](http://www.upc.edu). 2009-2019
 
-Acquired skills:
-
-* Structuring and exposition of tech concepts for first-year students, who
-  mostly weren't familiarized with programming and low-level computing.
-* Fluency in public speaking.
-* Inter-generational relations (boomer vs millenials vs Z generation).
+* C & assembly programming for first-year students
+* Java and Object-Oriented programming for first-year students
+* Software architecture for Ms.C. students
 
 ### Systems Software Engineer at [Midokura](http://www.midokura.com). 2016-2017
 
-Acquired skills:
-
-* Network monitoring basic concepts
-* Consolidating my knowledge of Java and Java Virtual Machine, in terms of
-  memory and performance consumption.
-* Proper testing practices and frameworks: unit testing, integration testing,
-  code coverage
-* Basics of CI/CD: Jenkins, Ansible...
-* Agile local development environments with Docker Compose, Vagrant, OpenStack...
-* Scrum (yes, actual, strict Scrum; not just saying _"we do Scrum"_)
+* Network monitoring
+* Performance-critical Java and Java Virtual Machine
+* Testing and code quality: unit testing, integration testing, code coverage
+* Basics of CI/CD: Jenkins, Ansible, Vagrant, Docker...
+* Scrum (certified by [Agilar](https://agilar.com/))
 
 ### Co-founder, coder and technical coordinator at [Betroop](https://web.archive.org/web/20170520202202/http://betroop.es/). 2015-2017
 
-Lessons learnt:
-
-* The way you develop your idea is rather more important than how good is your
-  idea
-* Do not externalize development: nobody will put the same love as you into your
-  software
-* Founding an app company: 5% tech work, 95% bureaucracy
-* Do not expect to be able to grow a company in your free time
-* I like tech. I don't like management
+* Coordination with the contractors for building a mobile app
+* Build of our own intranet
+* Lesson learn: I love engineering. I don't like management
 
 ### Senior Researcher at [Barcelona Supercomputing Center](http://www.bsc.es). 2006-2016
 
-Acquired skills and knowledge:
-
-* [Business-Based management of Cloud Environments](/static/assets/others/phdthesis.pdf)
-* Research on the state-of-the art _buzzwords_ (at that time): Big Data, Cloud Computing,
-  Virtualization, Green Computing...
-* Fluency in public speaking
-* English language 🇬🇧😅🇺🇸
-* Consolidating my skills on technical and academic writing
-* Working in multi-cultural and international environments
+* Ph.D. thesis: [Business-Based management of Cloud Environments](/static/assets/others/phdthesis.pdf)
+* Research _buzzwords_: Big Data, Cloud Computing, Virtualization, Green Computing...
+* Technical and academic writing
 * Day-by-day management of the work in big consortiums
 
 ### Software Engineer at [Gameloft](http://www.gameloft.com). 2005-2006
-
-Acquired skills:
 
 * Videogame-oriented software patterns and tooling
 * Mastering Java Micro Edition
@@ -95,31 +62,23 @@ Acquired skills:
 
 ### Software Engineer at [iSOCO - Intelligent Software Components](https://www.linkedin.com/company/isoco-clever/about/). 2003-2004
 
-Acquired skills:
-
-* Deepen Java Knowledge
-* Java Server Pages
+* Java & JSP programming
+* SQL
 * HTML, CSS, Javascript... the unfancy way it was used in 2003
 
 ### Technical assistant at NetMouse SL. August 2001 - September 2002
 
-Acquired experience on public customer facing.
+* Public customer facing
 
 ### Sporadic, study-combined jobs at factories 👨‍🏭. 1997-2001
 
-Acquired skills and knowledge:
-
 * Working at high intensity, in high exigency environments
-* How industry worked (at that time)
-* How lucky I am now for having a job I love
+* Learnt how lucky I am now for having a job I love
 
 ### Badminton trainer 🏸 for diverse clubs and institutions. 1996-2000, 2005
 
-Acquired skills:
-
 - Basics of teaching
-- How to transmit physical skills and enforce proprioception of children and
-  adults
+- Transmitting physical skills and enforcing proprioception of children and adults
 
 ## Education
     
@@ -375,7 +334,7 @@ Final project for Master's Degree on Computer Sciences. Universidad de Las Palma
 Final project for Bachelor's Degree on Computer Sciences. Universitat Autònoma de Barcelona, September 2002
 (*sorry, no English version available!*)
 	
-## Past research projects
+## Public research projects
     
 * [RenewIT: Advanced concepts and tools for renewable energy supply of IT Data Centres](http://www.renewit-project.eu) (2013-2016)
 
