@@ -7,7 +7,7 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 ## TL; DR; (highlights)
 
 * [Ph.D.](/static/assets/others/phdthesis.pdf) in Computer Architecture
-* Senior software engineer at [New Relic](https://newrelic.com) since 2017
+* Senior software engineer at [Red Hat](http://www.redhat.com) since 2021
 * [University](https://www.upc.edu) teacher since 2009 to 2019
 * Spanish book writer: [Programación en Go](https://www.marcombo.com/programacion-en-go-9788426732330/) (2020),
   [Introducción a Apache Spark](http://www.editorialuoc.cat/introduccion-a-apache-spark_2) (2015),
@@ -18,7 +18,11 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## Professional Experience
 
-### Senior Software Engineer at [New Relic](http://www.newrelic.com). 2017-now
+### Senior Software Engineer at [Red Hat](http://www.redhat.com). 2021-now
+
+* Openshift Network observability
+
+### Senior Software Engineer at [New Relic](http://www.newrelic.com). 2017-2021
 
 * Mastering Go programming language
 * Data acquisition APIs for System Monitoring: Linux, Windows, Docker,
