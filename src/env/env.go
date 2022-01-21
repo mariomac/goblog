@@ -1,14 +1,21 @@
 // Package env holds some helper functions about environment variables
 package env
 
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
 // GetDef returns the environment variable named as the argument, or the
 // stated default value if the variable does not exist
-func GetDef(propertyName string, defaultValue string) string {
+func GetDef[T any](propertyName string, defaultValue T) T {
 	value, found := os.LookupEnv(propertyName)
 	if found == false {
 		return defaultValue
 	}
-	return value
+	var val T
+	if _, err := fmt.Sscan(value, &val); err != nil {
+		panic("error parsing " + propertyName + "=" + value + " -> " + err.Error())
+	}
+	return val
 }

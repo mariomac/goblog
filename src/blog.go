@@ -8,6 +8,7 @@ package main
 
 import (
 	"bytes"
+	"github.com/mariomac/goblog/src/conn"
 	"log"
 	"net/http"
 	"os"
@@ -78,7 +79,7 @@ func main() {
 	osHostname, _ := os.Hostname()
 	var blogDomain = env.GetDef(envGoblogDomain, osHostname)
 	var blogRoot = env.GetDef(envGoblogRoot, "./sample")
-	var blogPort = env.GetDef(envGoblogPort, "8080")
+	var blogPort = env.GetDef(envGoblogPort, 8080)
 
 	log.Printf("Environment: { %s=\"%s\", %s=\"%s\", %s=\"%s\",",
 		envGoblogDomain, blogDomain,
@@ -96,15 +97,16 @@ func main() {
 	// Load templates
 	templates.Load(blogRoot+"/"+dirTemplate, entries.GetEntries)
 
-	http.HandleFunc(pathIndex, makeIndexHandler(templateIndex))
-	http.HandleFunc(pathAtom, func(writer http.ResponseWriter, request *http.Request) {
+	mux := http.NewServeMux()
+	mux.HandleFunc(pathIndex, makeIndexHandler(templateIndex))
+	mux.HandleFunc(pathAtom, func(writer http.ResponseWriter, request *http.Request) {
 		writer.Header().Add("Content-Type", "application/atom+xml")
 		writer.Write(atomxml)
 	})
-	http.HandleFunc(pathEntry, makePageHandler(pathEntry, templateEntry, viewHandler))
-	http.Handle(pathStatic, http.StripPrefix(pathStatic,
+	mux.HandleFunc(pathEntry, makePageHandler(pathEntry, templateEntry, viewHandler))
+	mux.Handle(pathStatic, http.StripPrefix(pathStatic,
 		http.FileServer(http.Dir(blogRoot+"/"+dirStatic))))
 
 	log.Printf("GoBlog is listening at port %s", blogPort)
-	http.ListenAndServe(":"+blogPort, nil)
+	panic(conn.ListenAndServeTLS(blogPort, mux))
 }

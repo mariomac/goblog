@@ -1,6 +1,6 @@
-ASSETNAME  := $(shell basename $(shell pwd))
-BINARY_NAME   = $(ASSETNAME)
-
+ASSETNAME   := $(shell basename $(shell pwd))
+BINARY_NAME  = $(ASSETNAME)
+GOCMD       ?= go
 all: build
 
 build: clean fmt lint test compile
@@ -15,7 +15,7 @@ lint:
 
 compile:
 	@echo "=== $(ASSETNAME) === [ compile ]: Building $(BINARY_NAME)..."
-	go build -o bin/$(BINARY_NAME) ./src
+	$(GOCMD) build -o bin/$(BINARY_NAME) ./src
 
 test:
 	@echo "=== $(ASSETNAME) === [ test ]: Running unit tests..."
