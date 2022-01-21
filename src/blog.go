@@ -26,7 +26,6 @@ const (
 	envTLSPort      = "GOBLOG_TLS_PORT"
 	envInsecurePort = "GOBLOG_HTTP_PORT"
 	envDomain       = "GOBLOG_DOMAIN"
-	envTLS          = "GOBLOG_TLS"
 )
 
 // Template names
@@ -84,14 +83,12 @@ func main() {
 	var blogRoot = env.GetDef(envRoot, "./sample")
 	var blogPort = env.GetDef(envTLSPort, 8443)
 	var blogInsecurePort = env.GetDef(envInsecurePort, 8080)
-	var blogTLS = env.GetDef(envTLS, true)
 
 	log.Printf("Environment: %v", map[string]interface{}{
 		envDomain:       blogDomain,
 		envTLSPort:      blogPort,
 		envInsecurePort: blogInsecurePort,
 		envRoot:         blogRoot,
-		envTLS:          blogTLS,
 	})
 
 	// Load blog entries
