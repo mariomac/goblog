@@ -26,6 +26,8 @@ const (
 	envTLSPort      = "GOBLOG_TLS_PORT"
 	envInsecurePort = "GOBLOG_HTTP_PORT"
 	envDomain       = "GOBLOG_DOMAIN"
+	envTLSCert      = "GOBLOG_TLS_CERT"
+	envTLSKey       = "GOBLOG_TLS_KEY"
 )
 
 // Template names
@@ -83,6 +85,8 @@ func main() {
 	var blogRoot = env.GetDef(envRoot, "./sample")
 	var blogPort = env.GetDef(envTLSPort, 8443)
 	var blogInsecurePort = env.GetDef(envInsecurePort, 8080)
+	var blogTLSKey = env.GetDef(envTLSKey, "")
+	var blogTLSCert = env.GetDef(envTLSCert, "")
 
 	log.Printf("Environment: %v", map[string]interface{}{
 		envDomain:       blogDomain,
@@ -119,5 +123,5 @@ func main() {
 	}()
 
 	log.Printf("GoBlog is listening at port %v", blogPort)
-	panic(conn.ListenAndServeTLS(blogPort, mux))
+	panic(conn.ListenAndServeTLS(blogPort, blogTLSCert, blogTLSKey, mux))
 }

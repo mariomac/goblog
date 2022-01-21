@@ -8,8 +8,11 @@ import (
 	"net/http"
 )
 
-func ListenAndServeTLS(port int, handler http.Handler) error {
-	cert, key := createLocalCerts()
+func ListenAndServeTLS(port int, cert, key string, handler http.Handler) error {
+	if key == "" || cert == "" {
+		log.Println("creating insecure local certificates for localhost development only")
+		cert, key = createLocalCerts()
+	}
 	cfg := &tls.Config{
 		MinVersion:       tls.VersionTLS12,
 		CurvePreferences: []tls.CurveID{tls.CurveP521, tls.CurveP384, tls.CurveP256},
