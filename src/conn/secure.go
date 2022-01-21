@@ -4,6 +4,7 @@ package conn
 import (
 	"crypto/tls"
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -26,4 +27,22 @@ func ListenAndServeTLS(port int, handler http.Handler) error {
 		TLSNextProto: make(map[string]func(*http.Server, *tls.Conn, http.Handler), 0),
 	}
 	return server.ListenAndServeTLS(cert, key)
+}
+
+func RedirectionHandler(hostName string, redirectPort int) http.HandlerFunc {
+	return func(rw http.ResponseWriter, req *http.Request) {
+		oldURL := req.URL.String()
+		req.URL.Scheme = "https"
+		// if the redirection port is the standard HTTPS port, we don't attach it
+		// to the redirection URL
+		if redirectPort == 443 {
+			req.URL.Host = hostName
+		} else {
+			req.URL.Host = fmt.Sprintf("%v:%d", hostName, redirectPort)
+		}
+		newURL := req.URL.String()
+		log.Println("redirecting:", oldURL, "->", newURL)
+		rw.Header().Set("Location", newURL)
+		rw.WriteHeader(http.StatusMovedPermanently)
+	}
 }

@@ -54,7 +54,14 @@ At this early stage of the blog, you *MUST* restart the blog process before chan
     
 ## Version history
 
-### v0.1.0
+### v2.0 (under development)
+
+* Updated to Go 1.18 to make use of generic stuff
+* Addressed HTTPS server
+* Redirects old HTTP to HTTPS
+* GOBLOG_DOMAIN default value changed from HOSTNAME to `"localhost"`
+
+### v1.0
 
 * Changed markdown processor
 * Added code syntax highlighting

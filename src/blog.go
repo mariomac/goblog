@@ -8,10 +8,10 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/mariomac/goblog/src/conn"
 	"log"
 	"net/http"
-	"os"
 	"regexp"
 
 	"github.com/mariomac/goblog/src/blog"
@@ -21,9 +21,13 @@ import (
 )
 
 // Env var names
-const envGoblogRoot = "GOBLOG_ROOT"
-const envGoblogPort = "GOBLOG_PORT"
-const envGoblogDomain = "GOBLOG_DOMAIN"
+const (
+	envRoot         = "GOBLOG_ROOT"
+	envTLSPort      = "GOBLOG_TLS_PORT"
+	envInsecurePort = "GOBLOG_HTTP_PORT"
+	envDomain       = "GOBLOG_DOMAIN"
+	envTLS          = "GOBLOG_TLS"
+)
 
 // Template names
 const templateIndex = "index"
@@ -76,15 +80,19 @@ func makePageHandler(rootPath string, template string,
 func main() {
 	log.Print("Starting GoBlog...")
 
-	osHostname, _ := os.Hostname()
-	var blogDomain = env.GetDef(envGoblogDomain, osHostname)
-	var blogRoot = env.GetDef(envGoblogRoot, "./sample")
-	var blogPort = env.GetDef(envGoblogPort, 8080)
+	var blogDomain = env.GetDef(envDomain, "localhost")
+	var blogRoot = env.GetDef(envRoot, "./sample")
+	var blogPort = env.GetDef(envTLSPort, 8443)
+	var blogInsecurePort = env.GetDef(envInsecurePort, 8080)
+	var blogTLS = env.GetDef(envTLS, true)
 
-	log.Printf("Environment: { %s=\"%s\", %s=\"%s\", %s=\"%s\",",
-		envGoblogDomain, blogDomain,
-		envGoblogPort, blogPort,
-		envGoblogRoot, blogRoot)
+	log.Printf("Environment: %v", map[string]interface{}{
+		envDomain:       blogDomain,
+		envTLSPort:      blogPort,
+		envInsecurePort: blogInsecurePort,
+		envRoot:         blogRoot,
+		envTLS:          blogTLS,
+	})
 
 	// Load blog entries
 	entries = blog.Content{}
@@ -107,6 +115,12 @@ func main() {
 	mux.Handle(pathStatic, http.StripPrefix(pathStatic,
 		http.FileServer(http.Dir(blogRoot+"/"+dirStatic))))
 
-	log.Printf("GoBlog is listening at port %s", blogPort)
+	log.Printf("Redirecting insecure traffic from port %v", blogInsecurePort)
+	go func() {
+		panic(http.ListenAndServe(fmt.Sprintf(":%d", blogInsecurePort),
+			conn.RedirectionHandler(blogDomain, blogPort)))
+	}()
+
+	log.Printf("GoBlog is listening at port %v", blogPort)
 	panic(conn.ListenAndServeTLS(blogPort, mux))
 }
