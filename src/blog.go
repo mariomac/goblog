@@ -93,6 +93,8 @@ func main() {
 		envTLSPort:      blogPort,
 		envInsecurePort: blogInsecurePort,
 		envRoot:         blogRoot,
+		envTLSKey:       blogTLSKey,
+		envTLSCert:      blogTLSCert,
 	})
 
 	// Load blog entries
