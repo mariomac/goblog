@@ -8,26 +8,18 @@ package main
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
-	"github.com/mariomac/goblog/src/conn"
+	"github.com/mariomac/goblog/src/install"
 	"log"
 	"net/http"
+	"os"
 	"regexp"
 
 	"github.com/mariomac/goblog/src/blog"
-	"github.com/mariomac/goblog/src/env"
+	"github.com/mariomac/goblog/src/conn"
 	"github.com/mariomac/goblog/src/feed"
 	"github.com/mariomac/goblog/src/visual"
-)
-
-// Env var names
-const (
-	envRoot         = "GOBLOG_ROOT"
-	envTLSPort      = "GOBLOG_TLS_PORT"
-	envInsecurePort = "GOBLOG_HTTP_PORT"
-	envDomain       = "GOBLOG_DOMAIN"
-	envTLSCert      = "GOBLOG_TLS_CERT"
-	envTLSKey       = "GOBLOG_TLS_KEY"
 )
 
 // Template names
@@ -79,51 +71,53 @@ func makePageHandler(rootPath string, template string,
 }
 
 func main() {
+	cfgPath := flag.String("cfg", "", "Path of the YAML configuration file")
+	help := flag.Bool("h", false, "This help")
+	flag.Parse()
+	if *help {
+		flag.Usage()
+		os.Exit(1)
+	}
+	yamlConfig := *cfgPath
+	if env, ok := os.LookupEnv("GOBLOG_CONFIG"); ok {
+		yamlConfig = env
+	}
+	cfg, err := install.ReadConfig(yamlConfig)
+	if err != nil {
+		panic(err)
+	}
+
+	log.Printf("Configuration: %#v", cfg)
+
 	log.Print("Starting GoBlog...")
-
-	var blogDomain = env.GetDef(envDomain, "localhost")
-	var blogRoot = env.GetDef(envRoot, "./sample")
-	var blogPort = env.GetDef(envTLSPort, 8443)
-	var blogInsecurePort = env.GetDef(envInsecurePort, 8080)
-	var blogTLSKey = env.GetDef(envTLSKey, "")
-	var blogTLSCert = env.GetDef(envTLSCert, "")
-
-	log.Printf("Environment: %v", map[string]interface{}{
-		envDomain:       blogDomain,
-		envTLSPort:      blogPort,
-		envInsecurePort: blogInsecurePort,
-		envRoot:         blogRoot,
-		envTLSKey:       blogTLSKey,
-		envTLSCert:      blogTLSCert,
-	})
 
 	// Load blog entries
 	entries = blog.Content{}
-	entries.Load(blogRoot + "/" + dirEntry)
+	entries.Load(cfg.RootPath + "/" + dirEntry)
 
 	// Create Atom XML feed
 	atomxml := bytes.NewBufferString(
-		feed.BuildAtomFeed(entries.GetEntries(), blogDomain, pathEntry)).Bytes()
+		feed.BuildAtomFeed(entries.GetEntries(), cfg.Domain, pathEntry)).Bytes()
 
 	// Load templates
-	templates.Load(blogRoot+"/"+dirTemplate, entries.GetEntries)
+	templates.Load(cfg.RootPath+"/"+dirTemplate, entries.GetEntries)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc(pathIndex, makeIndexHandler(templateIndex))
 	mux.HandleFunc(pathAtom, func(writer http.ResponseWriter, request *http.Request) {
-		writer.Header().Add("Content-Type", "application/atom+xml")
+		writer.Header().Add("Content-Type", "application/xml")
 		writer.Write(atomxml)
 	})
 	mux.HandleFunc(pathEntry, makePageHandler(pathEntry, templateEntry, viewHandler))
 	mux.Handle(pathStatic, http.StripPrefix(pathStatic,
-		http.FileServer(http.Dir(blogRoot+"/"+dirStatic))))
+		http.FileServer(http.Dir(cfg.RootPath+"/"+dirStatic))))
 
-	log.Printf("Redirecting insecure traffic from port %v", blogInsecurePort)
+	log.Printf("Redirecting insecure traffic from port %v", cfg.InsecurePort)
 	go func() {
-		panic(http.ListenAndServe(fmt.Sprintf(":%d", blogInsecurePort),
-			conn.RedirectionHandler(blogDomain, blogPort)))
+		panic(http.ListenAndServe(fmt.Sprintf(":%d", cfg.InsecurePort),
+			conn.RedirectionHandler(cfg.Domain, cfg.TLSPort)))
 	}()
 
-	log.Printf("GoBlog is listening at port %v", blogPort)
-	panic(conn.ListenAndServeTLS(blogPort, blogTLSCert, blogTLSKey, mux))
+	log.Printf("GoBlog is listening at port %v", cfg.TLSPort)
+	panic(conn.ListenAndServeTLS(cfg.TLSPort, cfg.TLSCertPath, cfg.TLSKeyPath, mux))
 }

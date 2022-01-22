@@ -1,0 +1,5 @@
+[allowlist]
+description = "secrets for local testing"
+paths = [
+    "src/conn/certs.go"
+]

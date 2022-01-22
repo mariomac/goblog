@@ -1,10 +1,60 @@
 # GoBlog
 
-A homecrafted Blog Written in Golang as a learning exercise. If you want to see how it looks, go to my home page: [macias.info](http://macias.info)
+A blogging platform written by a coder, for coders.
+
+If you want to see how it looks, go to my home page: [macias.info](http://macias.info)
+
+## Building
+
+```
+make compile
+```
+or
+```
+go build -o goblog ./src
+```
+
+## Running
+
+```
+./goblog
+```
+
+or
+
+```
+./goblog -cfg /path/to/goblog.yml
+```
+
+## Configuring
+
+Default configuration can be overridden by a YAML file config and/or Environment variables.
+
+The YAML file config path must be passed by the `-cfg` command-line argument or the `GOBLOG_CONFIG`
+environment variable.
+
+Environment variables take precedence over YAML configuration.
+
+* env: `GOBLOG_ROOT`, yaml: `rootPath`
+  * The root folder of the blog contens (see [Blog Structure](#blog-structure))
+  * Default: `./sample`
+* env: `GOBLOG_HTTPS_PORT`, yaml: `httpsPort`
+  * Port to serve the secure HTTPS content.
+  * Default: `8443`
+* env: `GOBLOG_HTTP_PORT`, yaml: `httpPort`
+  * Port to listen for any HTTP request and redirect it to its HTTPS-equivalent URL
+  * Default: `8080`
+* env: `GOBLOG_DOMAIN`, yaml: `domain`
+  * Domain/hostname/IP where the blog is going to be visible from
+  * Default: `localhost`
+* env: `GOBLOG_TLS_CERT`, yaml: `tlsCertPath`
+* env: `GOBLOG_TLS_KEY`, yaml: `tlsKeyPath`
+  * Paths of the TLS certificate and key for HTTPS serving
+  * Default: empty
 
 ## Blog Structure
 
-The `sample` folder contains an simplified example of the Root contents for a blog. You can override
+The `sample` folder contains a simplified example of the Root contents for a blog. You can override
 the `GOBLOG_ROOT` environment variable to point the root to another folder.
 
 The Root contents folders is structured as follows:
@@ -52,48 +102,3 @@ At this early stage of the blog, you *MUST* restart the blog process before chan
 * `GOBLOG_ROOT` (default: `../sample`)
     * The root folder of the blog contents
     
-## Version history
-
-### v2.0 (under development)
-
-* Updated to Go 1.18 to make use of generic stuff
-* Addressed HTTPS server
-* Redirects old HTTP to HTTPS
-* GOBLOG_DOMAIN default value changed from HOSTNAME to `"localhost"`
-
-### v1.0
-
-* Changed markdown processor
-* Added code syntax highlighting
-* Modified makefile
-* Addressed few code lintings
-
-### v0.0.10
-
-* Added previews to blog entries
-    - Updated atom.xml to show previews
-    - Updated index.html to show previews
-
-### v0.0.9
-
-* XML Atom Feeds
-
-### v0.0.8
-
-* Basic behaviour. Functional, simple blog
-
-## TO DO
-
-* Reload templates or entries when containing folders change
-
-* Extract first paragraph of entries so you can do a preview
-
-* Main page shows paginated entries
-
-* Add 404 page
-
-* Migrate `log` to `github.com/golang/glog`
-
-* Provide `DockerFile`
-
-* Github triggers to upload blog

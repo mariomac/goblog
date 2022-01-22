@@ -1,0 +1,74 @@
+# github.com/alecthomas/chroma v0.7.0
+## explicit; go 1.13
+github.com/alecthomas/chroma
+github.com/alecthomas/chroma/formatters/html
+github.com/alecthomas/chroma/lexers
+github.com/alecthomas/chroma/lexers/a
+github.com/alecthomas/chroma/lexers/b
+github.com/alecthomas/chroma/lexers/c
+github.com/alecthomas/chroma/lexers/circular
+github.com/alecthomas/chroma/lexers/d
+github.com/alecthomas/chroma/lexers/e
+github.com/alecthomas/chroma/lexers/f
+github.com/alecthomas/chroma/lexers/g
+github.com/alecthomas/chroma/lexers/h
+github.com/alecthomas/chroma/lexers/i
+github.com/alecthomas/chroma/lexers/internal
+github.com/alecthomas/chroma/lexers/j
+github.com/alecthomas/chroma/lexers/k
+github.com/alecthomas/chroma/lexers/l
+github.com/alecthomas/chroma/lexers/m
+github.com/alecthomas/chroma/lexers/n
+github.com/alecthomas/chroma/lexers/o
+github.com/alecthomas/chroma/lexers/p
+github.com/alecthomas/chroma/lexers/q
+github.com/alecthomas/chroma/lexers/r
+github.com/alecthomas/chroma/lexers/s
+github.com/alecthomas/chroma/lexers/t
+github.com/alecthomas/chroma/lexers/v
+github.com/alecthomas/chroma/lexers/w
+github.com/alecthomas/chroma/lexers/x
+github.com/alecthomas/chroma/lexers/y
+github.com/alecthomas/chroma/styles
+# github.com/caarlos0/env/v6 v6.9.1
+## explicit; go 1.17
+github.com/caarlos0/env/v6
+# github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964
+## explicit
+github.com/danwakefield/fnmatch
+# github.com/davecgh/go-spew v1.1.1
+## explicit
+github.com/davecgh/go-spew/spew
+# github.com/dlclark/regexp2 v1.1.6
+## explicit
+github.com/dlclark/regexp2
+github.com/dlclark/regexp2/syntax
+# github.com/pmezard/go-difflib v1.0.0
+## explicit
+github.com/pmezard/go-difflib/difflib
+# github.com/stretchr/testify v1.3.0
+## explicit
+github.com/stretchr/testify/assert
+github.com/stretchr/testify/require
+# github.com/yuin/goldmark v1.1.16
+## explicit; go 1.13
+github.com/yuin/goldmark
+github.com/yuin/goldmark/ast
+github.com/yuin/goldmark/parser
+github.com/yuin/goldmark/renderer
+github.com/yuin/goldmark/renderer/html
+github.com/yuin/goldmark/text
+github.com/yuin/goldmark/util
+# github.com/yuin/goldmark-highlighting v0.0.0-20191202084645-78f32c8dd6d5
+## explicit; go 1.13
+github.com/yuin/goldmark-highlighting
+# golang.org/x/net v0.0.0-20190628185345-da137c7871d7
+## explicit; go 1.11
+golang.org/x/net/html
+golang.org/x/net/html/atom
+# golang.org/x/tools v0.0.0-20190719005602-e377ae9d6386
+## explicit; go 1.11
+golang.org/x/tools/blog/atom
+# gopkg.in/yaml.v2 v2.4.0
+## explicit; go 1.15
+gopkg.in/yaml.v2

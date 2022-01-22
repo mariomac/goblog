@@ -1,0 +1,6 @@
+rootPath: /var/goblog/etc/macias.info
+httpsPort: 443
+httpPort: 80
+domain: macias.info
+tlsCertPath: /etc/letsencrypt/live/macias.info/fullchain.pem
+tlsKeyPath: /etc/letsencrypt/live/macias.info/privkey.pem

@@ -1,3 +1,5 @@
+# Example service file use for my own consumption
+#
 # To install goblog as a service:
 #
 # useradd goblog -s /sbin/nologin -M
@@ -25,17 +27,11 @@ Type=simple
 User=goblog
 Group=goblog
 LimitNOFILE=1024
-Environment=GOBLOG_ROOT=/var/goblog/etc/macias.info
-Environment=GOBLOG_DOMAIN=macias.info
-Environment=GOBLOG_HTTP_PORT=80
-Environment=GOBLOG_TLS_PORT=443
-Environment=GOBLOG_TLS_CERT=/etc/letsencrypt/live/macias.info/fullchain.pem
-Environment=GOBLOG_TLS_KEY=/etc/letsencrypt/live/macias.info/privkey.pem
 
 Restart=always
 RestartSec=3
 
-ExecStart=/usr/bin/goblog
+ExecStart=/usr/bin/goblog -cfg /var/goblog/etc/config.yml
 
 # make sure log directory exists and owned by syslog
 # TODO: consider using any other file
