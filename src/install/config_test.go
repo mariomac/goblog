@@ -10,6 +10,7 @@ import (
 
 func TestConfigOverride(t *testing.T) {
 	tmp, err := os.CreateTemp("", "testconfig")
+	require.NoError(t, err)
 	_, err = tmp.WriteString(`domain: blog.com
 httpsPort: 443
 httpPort: 80

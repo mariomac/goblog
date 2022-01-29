@@ -11,6 +11,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/mariomac/goblog/src/install"
+	"github.com/mariomac/goblog/src/legacy"
 	"log"
 	"net/http"
 	"os"
@@ -112,12 +113,19 @@ func main() {
 	mux.Handle(pathStatic, http.StripPrefix(pathStatic,
 		http.FileServer(http.Dir(cfg.RootPath+"/"+dirStatic))))
 
+	var globalHandler http.Handler
+	if len(cfg.Redirect) == 0 {
+		globalHandler = mux
+	} else {
+		globalHandler = legacy.NewRedirector(cfg.Redirect, mux)
+	}
+
 	log.Printf("Redirecting insecure traffic from port %v", cfg.InsecurePort)
 	go func() {
 		panic(http.ListenAndServe(fmt.Sprintf(":%d", cfg.InsecurePort),
-			conn.RedirectionHandler(cfg.Domain, cfg.TLSPort)))
+			conn.InsecureRedirection(cfg.Domain, cfg.TLSPort)))
 	}()
 
 	log.Printf("GoBlog is listening at port %v", cfg.TLSPort)
-	panic(conn.ListenAndServeTLS(cfg.TLSPort, cfg.TLSCertPath, cfg.TLSKeyPath, mux))
+	panic(conn.ListenAndServeTLS(cfg.TLSPort, cfg.TLSCertPath, cfg.TLSKeyPath, globalHandler))
 }

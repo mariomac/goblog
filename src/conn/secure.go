@@ -32,7 +32,7 @@ func ListenAndServeTLS(port int, cert, key string, handler http.Handler) error {
 	return server.ListenAndServeTLS(cert, key)
 }
 
-func RedirectionHandler(hostName string, redirectPort int) http.HandlerFunc {
+func InsecureRedirection(hostName string, redirectPort int) http.HandlerFunc {
 	return func(rw http.ResponseWriter, req *http.Request) {
 		oldURL := req.URL.String()
 		req.URL.Scheme = "https"

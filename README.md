@@ -17,7 +17,7 @@ go build -o goblog ./src
 ## Running
 
 ```
-./goblog
+./goblog -cfg ./sample/config.yml
 ```
 
 or

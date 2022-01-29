@@ -1,5 +1,10 @@
 ## Version history
 
+### next
+
+* Default root path is local folder
+* Added `redirect` YAML-only configuration option
+
 ### v0.2.0
 
 * HTTPS server

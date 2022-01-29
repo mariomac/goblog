@@ -1,0 +1,4 @@
+rootPath: ./sample
+domain: localhost
+redirect:
+  "/about.md": "/entry/about.md"
