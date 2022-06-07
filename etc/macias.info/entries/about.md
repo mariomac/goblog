@@ -195,7 +195,12 @@ Concurrency and Computation: Practice and Experience, Vol. 22 (14), pp. 1990-201
         
     
 ### Conference proceedings
-    
+
+* K. Meth, E. Raichstein, K. Barabash, R. Schaffer, J. Takvorian, M. Macías
+  [Smart network metrics derivation from flow logs](https://dl.acm.org/doi/10.1145/3534056.3535003) (poster).
+  15th ACM International Conference on Systems and Storage (SYSTOR'22).
+  Haifa, Israel. June 13-15, 2022
+
 * M. Canuto, R. Bosch, M. Macías, J. Guitart.
 [A methodology for full-system power modeling in heterogeneous data centers](/static/assets/papers/2016UCC.pdf).
 9th International Conference on Utility and Cloud Computing (UCC'16).
