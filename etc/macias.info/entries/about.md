@@ -104,6 +104,8 @@ Kubernetes...
 
 ## Talks and lectures
 
+* [Use of eBPF in OpenShift network observability](https://www.redhat.com/sysadmin/ebpf-openshift-network-observability)
+  * [Red Hat Summit](https://www.redhat.com/en/summit). May 10-11th, 2022
 * [The Go Concurrency Model: a tour on simplicity](https://github.com/mariomac/go-concurrency-tools)
   * [Assembler School](https://www.assemblerschool.com/). February 12th, 2020
 * [Pointers vs Values: digging into the Performance War](../static/assets/talks/202001go.pdf)    
@@ -196,7 +198,7 @@ Concurrency and Computation: Practice and Experience, Vol. 22 (14), pp. 1990-201
     
 ### Conference proceedings
 
-* K. Meth, E. Raichstein, K. Barabash, R. Schaffer, J. Takvorian, M. Macías
+* K. Meth, E. Raichstein, K. Barabash, R. Schaffer, J. Takvorian, M. Macías.
   [Smart network metrics derivation from flow logs](https://dl.acm.org/doi/10.1145/3534056.3535003) (poster).
   15th ACM International Conference on Systems and Storage (SYSTOR'22).
   Haifa, Israel. June 13-15, 2022
