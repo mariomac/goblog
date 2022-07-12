@@ -26,5 +26,5 @@ func TestGet(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Contains(t, string(loggedLine), `msg="hello!"`)
-	assert.Contains(t,  string(loggedLine), FieldFileName+"=logr/logr_test.go")
+	assert.Contains(t,  string(loggedLine), FieldComponent+"=logr/logr_test.go")
 }

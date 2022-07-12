@@ -59,7 +59,7 @@ func md2html(mdText []byte) template.HTML {
 	)
 	sb := strings.Builder{}
 	if err := markdown.Convert(mdText, &sb); err != nil {
-		// TODO: properly log/manage errors
+		// TODO: properly log/manage blogerr
 		return template.HTML(`<h1>Error parsing markdown</h1><p>` + err.Error() + `</p>`)
 	}
 	return template.HTML(sb.String())

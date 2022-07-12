@@ -3,17 +3,16 @@ package blog
 
 import (
 	"bytes"
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"regexp"
-	"sort"
 	"strconv"
 	"time"
 
 	"github.com/mariomac/goblog/src/logr"
 	"github.com/yuin/goldmark/renderer/html"
 
-	"github.com/mariomac/goblog/src/fs"
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting"
 	nethtml "golang.org/x/net/html"
@@ -24,83 +23,40 @@ var log = logr.Get()
 
 // Entry holds the information of a blog entry or page
 type Entry struct {
-	FileName string
+	FilePath string
 	Title    string
 	HTML     template.HTML
 	Preview  template.HTML
-	Time     *time.Time // may be nil, if it is a page
-}
-
-// Content holds the information of all the entries and pages of the blog
-type Content struct {
-	entries []Entry          // Timestamped entries, sorted from new to old
-	all     map[string]Entry // All the pages, mapped by its file name
+	Time     time.Time // may be zero, if it is a page
 }
 
 // YYYYMMDDHHMMsome-text_here.md
 var entryFormat = regexp.MustCompile(`[0-9]{12}[_\-a-zA-Z0-9]+\.md$`)
-var allFormat = regexp.MustCompile(`^[_\-a-zA-Z0-9]+\.md$`)
-var allFileFormat = regexp.MustCompile(`[_\-a-zA-Z0-9]+\.md$`)
 
-// GetEntries returns all the entries of the blog.
-func (blog *Content) GetEntries() []Entry {
-	return blog.entries
-}
+// LoadEntry loads and renders a blog entry given a file path
+func LoadEntry(file string) (*Entry, error) {
+	llog := log.WithField("file", file)
+	llog.Debug("loading blog Entry")
 
-// Get returned the entry corresponding to the given file name
-func (blog *Content) Get(fileName string) (Entry, bool) {
-	entry, ok := blog.all[fileName]
-	return entry, ok
-}
-
-// Load loads all the files in a folder and constructs the entries of the blog.
-func (blog *Content) Load(folder string) {
-	blog.entries = make([]Entry, 0)
-	blog.all = make(map[string]Entry, 0)
-
-	log.Printf("Scanning for entries in folder %s...", folder)
-	paths := fs.Search(folder, allFormat)
-	for _, path := range paths {
-
-		fileBody, err := ioutil.ReadFile(path)
-		if err != nil {
-			log.Printf("Error reading file %s: %s", path, err.Error())
-			continue
-		}
-
-		timestamped := entryFormat.FindString(path)
-		title, html, preview := getTitleBodyAndPreview(fileBody)
-
-		var fileName string
-		if len(timestamped) > 0 {
-			fileName = timestamped
-			time := extractTime(fileName)
-			log.Printf("Entry found: %s [%s]", path, fileName)
-			entry := Entry{
-				Time:     &time,
-				Title:    title,
-				FileName: fileName,
-				HTML:     html,
-				Preview:  preview,
-			}
-			blog.entries = append(blog.entries, entry)
-			blog.all[fileName] = entry
-		} else {
-			fileName = allFileFormat.FindString(path)
-			blog.all[fileName] = Entry{
-				Title:    title,
-				FileName: fileName,
-				HTML:     html,
-				Time:     nil,
-				Preview:  preview,
-			}
-			log.Printf("Page found: %s [%s]", path, fileName)
-		}
+	fileBody, err := ioutil.ReadFile(file)
+	if err != nil {
+		return nil, fmt.Errorf("error opening file: %w", err)
 	}
-	// sort entries by time in descending order
-	sort.SliceStable(blog.entries[:], func(i, j int) bool {
-		return blog.entries[i].Time.After(*blog.entries[j].Time)
-	})
+
+	// TODO: support parsing
+	timestamped := entryFormat.FindString(file)
+	var timestamp time.Time
+	if len(timestamped) > 0 {
+		timestamp = extractTime(timestamped)
+	}
+	title, html, preview := getTitleBodyAndPreview(fileBody)
+	return &Entry{
+		Time:     timestamp,
+		Title:    title,
+		FilePath: file,
+		HTML:     html,
+		Preview:  preview,
+	}, nil
 }
 
 // TODO: configure by env
@@ -129,7 +85,7 @@ func getTitleBodyAndPreview(mdBytes []byte) (string, template.HTML, template.HTM
 	)
 	htmlBytes := bytes.Buffer{}
 	if err := markdown.Convert(mdBytes, &htmlBytes); err != nil {
-		// TODO: properly log/manage errors
+		// TODO: properly log/manage blogerr
 		htmlBytes = bytes.Buffer{}
 		htmlBytes.WriteString(`<h1>Error parsing markdown</h1><p>` + err.Error() + `</p>`)
 	}
@@ -144,7 +100,7 @@ func getTitleBodyAndPreview(mdBytes []byte) (string, template.HTML, template.HTM
 
 	h1 := removeFirstH1(htmlNode)
 	title, _ := getText(h1)
-	log.Printf("Parsed title: %s", title)
+	log.Debugf("Parsed title: %s", title)
 
 	bodyBuf := new(bytes.Buffer)
 	nethtml.Render(bodyBuf, htmlNode)
@@ -156,7 +112,7 @@ func getTitleBodyAndPreview(mdBytes []byte) (string, template.HTML, template.HTM
 		nethtml.Render(previewBuf, firstParagraph)
 		preview = template.HTML(previewBuf.String())
 	} else {
-		preview = template.HTML("")
+		preview = ""
 	}
 
 	return title, body, preview

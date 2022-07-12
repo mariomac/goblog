@@ -1,7 +1,7 @@
 @startuml
 hide circle
 
-class PageTemplate {
+class Entry {
     FileName: string
     Title: string
     HTML: template.HTML
@@ -9,23 +9,24 @@ class PageTemplate {
     Time: time.Time?
 }
 
-class Entry {
-    MimeType: string
-    Bytes: []byte
+interface WebAsset {
+    MimeType(): string
+    Body(): []byte
 }
 
 TLSServer -> HTTPServer: wraps
 HTTPServer -> CachedHandler
+CachedHandler *--> "*" WebAsset: stores
 CachedHandler --> AssetLoader
-CachedHandler *-> "*" Entry
-AssetLoader ..> Asset: loads, based on URL, extension...
-Asset <|--> Index
-Asset <|--> Page
-Asset <|--> Atom
-Asset <|--> StaticFile
-Index --> PageTemplate
-Page --> PageTemplate
-Entry <. Asset : returns
-CachedHandler <.. AssetLoader  : invalidates entries (on file change)
+AssetLoader ..> WebAsset: <<creates>>
+WebAsset <|--> Index
+WebAsset <|--> Page
+WebAsset <|--> AtomXML
+WebAsset <|--> StaticFile
+
+Index ..>"*" Entry: loads/renders
+Page ..> Entry: loads/renders
+
+CachedHandler <. FileWatcher: invalidates
 
 @enduml
