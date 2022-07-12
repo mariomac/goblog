@@ -10,7 +10,7 @@ import (
 )
 
 // BuildAtomFeed builds an XML Atom feed from an ordered (from new to old) list of blog entries
-func BuildAtomFeed(bentries []blog.Entry, hostname string, entrypath string) string {
+func BuildAtomFeed(bentries []blog.Render, hostname string, entrypath string) string {
 	entries := make([]*atom.Entry, len(bentries))
 
 	for i, bentry := range bentries {

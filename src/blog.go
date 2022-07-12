@@ -48,7 +48,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request, fileName string, templa
 	log.Printf("viewHandler(_, _, %s, %s)", fileName, template)
 	entry, found := entries.Get(fileName)
 	if !found {
-		http.Error(w, "Entry not found "+fileName, http.StatusNotFound) // Todo: redirect or template 404
+		http.Error(w, "Render not found "+fileName, http.StatusNotFound) // Todo: redirect or template 404
 		return
 	}
 	templates.Render(w, template, entry)

@@ -15,7 +15,6 @@ import (
 const testResources = "../../testresources/testentries"
 
 func TestBlogContent_LoadEntries(t *testing.T) {
-
 	type testCase struct {
 		file string
 		title string
@@ -28,7 +27,7 @@ func TestBlogContent_LoadEntries(t *testing.T) {
 		{file: "hello.md", title: "Hello page!"},
 	} {
 		t.Run(tc.file, func(t *testing.T) {
-			entry, err := LoadEntry(path.Join(testResources, tc.file))
+			entry, err := RenderTemplate(path.Join(testResources, tc.file))
 			require.NoError(t, err)
 			assert.Equal(t, tc.title, entry.Title)
 			assert.Equal(t, path.Join(testResources, tc.file), entry.FilePath)
@@ -38,7 +37,7 @@ func TestBlogContent_LoadEntries(t *testing.T) {
 }
 
 func TestFileNotFound(t *testing.T) {
-	_, err := LoadEntry("foobar.md")
+	_, err := RenderTemplate("foobar.md")
 	require.True(t, errors.Is(err, fs.ErrNotExist))
 }
 

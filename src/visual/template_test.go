@@ -13,8 +13,8 @@ var tlog = logr.Get()
 
 const testResources = "../../testresources/testset1"
 
-func getEntries() []blog.Entry {
-	return make([]blog.Entry, 0)
+func getEntries() []blog.Render {
+	return make([]blog.Render, 0)
 }
 
 func TestTemplates_Load(t *testing.T) {

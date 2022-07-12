@@ -21,8 +21,8 @@ import (
 
 var log = logr.Get()
 
-// Entry holds the information of a blog entry or page
-type Entry struct {
+// Render holds the information of a blog entry or page, after being rendered from a template
+type Render struct {
 	FilePath string
 	Title    string
 	HTML     template.HTML
@@ -33,10 +33,10 @@ type Entry struct {
 // YYYYMMDDHHMMsome-text_here.md
 var entryFormat = regexp.MustCompile(`[0-9]{12}[_\-a-zA-Z0-9]+\.md$`)
 
-// LoadEntry loads and renders a blog entry given a file path
-func LoadEntry(file string) (*Entry, error) {
+// RenderTemplate loads and renders a blog entry given a file path
+func RenderTemplate(file string) (*Render, error) {
 	llog := log.WithField("file", file)
-	llog.Debug("loading blog Entry")
+	llog.Debug("loading blog Render")
 
 	fileBody, err := ioutil.ReadFile(file)
 	if err != nil {
@@ -49,12 +49,12 @@ func LoadEntry(file string) (*Entry, error) {
 	if len(timestamped) > 0 {
 		timestamp = extractTime(timestamped)
 	}
-	title, html, preview := getTitleBodyAndPreview(fileBody)
-	return &Entry{
+	title, htmlBody, preview := getTitleBodyAndPreview(fileBody)
+	return &Render{
 		Time:     timestamp,
 		Title:    title,
 		FilePath: file,
-		HTML:     html,
+		HTML:     htmlBody,
 		Preview:  preview,
 	}, nil
 }
