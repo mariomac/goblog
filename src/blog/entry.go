@@ -3,14 +3,15 @@ package blog
 
 import (
 	"bytes"
-	"github.com/yuin/goldmark/renderer/html"
 	"html/template"
 	"io/ioutil"
-	"log"
 	"regexp"
 	"sort"
 	"strconv"
 	"time"
+
+	"github.com/mariomac/goblog/src/logr"
+	"github.com/yuin/goldmark/renderer/html"
 
 	"github.com/mariomac/goblog/src/fs"
 	"github.com/yuin/goldmark"
@@ -18,6 +19,8 @@ import (
 	nethtml "golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
 )
+
+var log = logr.Get()
 
 // Entry holds the information of a blog entry or page
 type Entry struct {

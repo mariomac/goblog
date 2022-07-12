@@ -10,18 +10,21 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
-	"github.com/mariomac/goblog/src/install"
-	"github.com/mariomac/goblog/src/legacy"
-	"log"
 	"net/http"
 	"os"
 	"regexp"
+
+	"github.com/mariomac/goblog/src/install"
+	"github.com/mariomac/goblog/src/legacy"
+	"github.com/mariomac/goblog/src/logr"
 
 	"github.com/mariomac/goblog/src/blog"
 	"github.com/mariomac/goblog/src/conn"
 	"github.com/mariomac/goblog/src/feed"
 	"github.com/mariomac/goblog/src/visual"
 )
+
+var log = logr.Get()
 
 // Template names
 const templateIndex = "index"

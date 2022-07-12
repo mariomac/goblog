@@ -1,11 +1,15 @@
 package visual
 
-import "testing"
 import (
-	"log"
+	"testing"
 
+	"github.com/mariomac/goblog/src/logr"
+)
+import (
 	"github.com/mariomac/goblog/src/blog"
 )
+
+var tlog = logr.Get()
 
 const testResources = "../../testresources/testset1"
 
@@ -29,7 +33,7 @@ func TestTemplates_Load(t *testing.T) {
 	if len(expected) != len(actual) {
 		t.Errorf("Failed loading templates. Expected: %d. Got: %d", len(expected), len(actual))
 		for _, o := range actual {
-			log.Println(o.Name())
+			tlog.Println(o.Name())
 		}
 	}
 }

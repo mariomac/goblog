@@ -4,9 +4,12 @@ package conn
 import (
 	"crypto/tls"
 	"fmt"
-	"log"
 	"net/http"
+
+	"github.com/mariomac/goblog/src/logr"
 )
+
+var log = logr.Get()
 
 func ListenAndServeTLS(port int, cert, key string, handler http.Handler) error {
 	if key == "" || cert == "" {

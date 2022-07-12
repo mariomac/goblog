@@ -3,16 +3,18 @@ package visual
 
 import (
 	"html/template"
-	"log"
 	"net/http"
 	"regexp"
 	"strings"
 
 	"github.com/mariomac/goblog/src/blog"
 	"github.com/mariomac/goblog/src/fs"
+	"github.com/mariomac/goblog/src/logr"
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting"
 )
+
+var log = logr.Get()
 
 // Templates wraps and extends the functionality of Go's template.Template
 type Templates struct {

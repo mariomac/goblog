@@ -4,6 +4,7 @@
 
 * Default root path is local folder
 * Added `redirect` YAML-only configuration option
+* Replaced standard logger by logrus
 
 ### v0.2.0
 
