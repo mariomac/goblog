@@ -1,0 +1,27 @@
+@startuml
+hide circle
+
+class Entry {
+    FileName: string
+    Title: string
+    HTML: template.HTML
+    Preview: template.HTML
+    Time: time.Time?
+}
+
+Main ..> Templates: instantiates
+Main ..> TLSServer: instantiates
+TLSServer --> HTTPServer: wraps
+Main ..> Content: load from disk
+Templates -> Content: caches HTML render of
+HTTPServer --> IndexHandler
+HTTPServer --> AtomHandler
+HTTPServer --> PageHandler
+HTTPServer --> StaticHandler
+Content *--> "*" Entry
+
+IndexHandler --> Templates: renders
+PageHandler --> Templates: renders
+
+
+@enduml
