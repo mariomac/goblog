@@ -30,7 +30,7 @@ func TestBlogContent_LoadEntries(t *testing.T) {
 			entry, err := LoadEntry(path.Join(testResources, tc.file))
 			require.NoError(t, err)
 			assert.Equal(t, tc.title, entry.Title)
-			assert.Equal(t, path.Join(testResources, tc.file), entry.FilePath)
+			assert.Equal(t, tc.file, entry.FileName)
 			assert.Equal(t, tc.ts, entry.Time)
 		})
 	}

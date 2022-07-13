@@ -12,14 +12,14 @@ import (
 // all the files
 // The paths are returned in alphabetical order.
 // It excludes the directories.
-func Search(folder string, regexp *regexp.Regexp) []string {
-	paths := make([]string, 0, 32)
-	filepath.Walk(folder, func(path string, info os.FileInfo, err error) error {
+func Search(folder string, regexp *regexp.Regexp) ([]string, error) {
+	var paths []string
+	err := filepath.Walk(folder, func(path string, info os.FileInfo, err error) error {
 		// If there is any error, just ignores the file
 		if err == nil && !info.IsDir() && (regexp == nil || regexp.MatchString(info.Name())) {
 			paths = append(paths, path)
 		}
 		return nil
 	})
-	return paths
+	return paths, err
 }

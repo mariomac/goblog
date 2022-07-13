@@ -18,7 +18,7 @@ func BuildAtomFeed(bentries []blog.Entry, hostname string, entrypath string) str
 			Title: bentry.Title,
 			ID:    fmt.Sprint(bentry.Time.Unix()),
 			Link: []atom.Link{
-				{Href: "http://" + hostname + entrypath + bentry.FilePath},
+				{Href: "http://" + hostname + entrypath + bentry.FileName},
 			},
 			Published: atom.Time(*bentry.Time),
 			Summary: &atom.Text{

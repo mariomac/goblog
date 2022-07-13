@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"html/template"
 	"io/ioutil"
+	"path"
 	"regexp"
 	"strconv"
 	"time"
@@ -23,7 +24,7 @@ var log = logr.Get()
 
 // Entry holds the information of a blog entry or page, after being rendered from markdown to HTML
 type Entry struct {
-	FilePath string
+	FileName string
 	Title    string
 	HTML     template.HTML
 	Preview  template.HTML
@@ -31,29 +32,30 @@ type Entry struct {
 }
 
 // YYYYMMDDHHMMsome-text_here.md
-var entryFormat = regexp.MustCompile(`[0-9]{12}[_\-a-zA-Z0-9]+\.md$`)
+var entryFormat = regexp.MustCompile(`^[0-9]{12}[_\-a-zA-Z0-9]+\.md$`)
 
 // LoadEntry loads and renders a blog entry given a file path
-func LoadEntry(file string) (*Entry, error) {
-	llog := log.WithField("file", file)
+func LoadEntry(filePath string) (*Entry, error) {
+	llog := log.WithField("filePath", filePath)
 	llog.Debug("loading blog Entry")
 
-	fileBody, err := ioutil.ReadFile(file)
+	fileBody, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return nil, fmt.Errorf("error opening file: %w", err)
 	}
 
-	// TODO: support parsing
-	timestamped := entryFormat.FindString(file)
+	filename := path.Base(filePath)
+
 	var timestamp time.Time
-	if len(timestamped) > 0 {
-		timestamp = extractTime(timestamped)
+	// TODO: support tags parsing
+	if entryFormat.MatchString(filename) {
+		timestamp = extractTime(filename)
 	}
 	title, htmlBody, preview := getTitleBodyAndPreview(fileBody)
 	return &Entry{
 		Time:     timestamp,
 		Title:    title,
-		FilePath: file,
+		FileName: filename,
 		HTML:     htmlBody,
 		Preview:  preview,
 	}, nil
