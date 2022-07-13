@@ -3,19 +3,14 @@ package visual
 import (
 	"testing"
 
-	"github.com/mariomac/goblog/src/blog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 const testResources = "../../testresources/testset1"
 
-func getEntries() []*blog.Entry {
-	return nil
-}
-
 func TestTemplates_Load(t *testing.T) {
-	templater, err := LoadTemplates(testResources, getEntries)
+	templater, err := LoadTemplates(testResources)
 	require.NoError(t, err)
 
 	actual := map[string]struct{}{}

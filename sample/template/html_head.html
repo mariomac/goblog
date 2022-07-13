@@ -1,12 +1,5 @@
 {{ define "html_head" }}
-<head>
-    {{if .Title}}
-        <title>{{.Title}}. Blog template</title>
-    {{else}}
-        <title>Blog template</title>
-    {{end}}
     <link rel="stylesheet" type="text/css" href="/static/style.css">
     <link rel="alternate" type="application/atom+xml" title="Blog" href="/atom.xml" />
     <meta charset="UTF-8">
-</head>
 {{ end }}

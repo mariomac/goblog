@@ -36,10 +36,6 @@ func init() {
 }
 
 
-// Template names
-const templateIndex = "index"
-const templateEntry = "entry"
-
 // Directory names
 const dirTemplate = "template/"
 const dirEntry = "entries/"
@@ -73,10 +69,10 @@ func viewHandler(w http.ResponseWriter, _ *http.Request, fileName string) {
 
 func makeIndexHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		// TODO: pass entries here instead of embedding it as a "getTemplate" function
-		if err := templates.Render(visual.IndexTemplate, nil, w); err != nil {
+		// TODO: properly paginate entries
+		// TODO: render in an intermediate buffer so, if we detect an issue, we can redirect to an error page
+		if err := templates.Render(visual.IndexTemplate, entries.Sorted(0, math.MaxInt), w); err != nil {
 			log.WithError(err).Error("rendering index template")
-			w.WriteHeader(http.StatusInternalServerError)
 		}
 	}
 }
@@ -129,17 +125,13 @@ func main() {
 	atomxml := bytes.NewBufferString(
 		feed.BuildAtomFeed(entries.Sorted(0, math.MaxInt), cfg.Domain, pathEntry)).Bytes()
 
-	templates, err = visual.LoadTemplates(path.Join(cfg.RootPath, dirTemplate), func() []*blog.Entry {
-		// TODO: paginate well
-		return entries.Sorted(0, math.MaxInt)
-	})
+	templates, err = visual.LoadTemplates(path.Join(cfg.RootPath, dirTemplate))
 	if err != nil {
 		log.WithError(err).WithField("directory", path.Join(cfg.RootPath, dirTemplate)).
 			Fatal("can't load templates")
 	}
 
 	mux := http.NewServeMux()
-	mux.HandleFunc(pathIndex, makeIndexHandler())
 	mux.HandleFunc(pathAtom, func(writer http.ResponseWriter, request *http.Request) {
 		writer.Header().Add("Content-Type", "application/xml")
 		// TODO: handle error
@@ -148,6 +140,7 @@ func main() {
 	mux.HandleFunc(pathEntry, makePageHandler(pathEntry, viewHandler))
 	mux.Handle(pathStatic, http.StripPrefix(pathStatic,
 		http.FileServer(http.Dir(cfg.RootPath+"/"+dirStatic))))
+	mux.HandleFunc(pathIndex, makeIndexHandler())
 
 	var globalHandler http.Handler
 	if len(cfg.Redirect) == 0 {

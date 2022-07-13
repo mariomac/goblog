@@ -1,6 +1,9 @@
 <!-- Template for the main index page -->
 <html>
-{{ template "html_head" . }}
+<head>
+  <title>Blog template</title>
+  {{ template "html_head" }}
+</head>
 <body>
 {{ template "header" }}
 
@@ -16,7 +19,7 @@
 <!-- Some dynamic contents. E.g. Entries list: -->
 <h2 class="indexHeader">Latest entries</h2>
 
-{{ range entries}}
+{{ range . }}
   <h3><a href="/entry/{{.FileName}}">{{.Title}}</a></h3>
   <p>Posted on {{.Time.Month}}
       {{.Time.Day}}, {{.Time.Year}} at {{.Time.Hour}}:{{.Time.Minute}}</p>

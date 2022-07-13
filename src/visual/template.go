@@ -8,7 +8,6 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/mariomac/goblog/src/blog"
 	"github.com/mariomac/goblog/src/fs"
 	"github.com/mariomac/goblog/src/logr"
 	"github.com/sirupsen/logrus"
@@ -36,7 +35,6 @@ var validTemplate = regexp.MustCompile(`\.html$`)
 
 func LoadTemplates(
 	folder string,
-	indexEntries func() []*blog.Entry,
 ) (Templater, error) {
 	tlog := log.WithField("folder", folder)
 	tlog.Info("Scanning for templates")
@@ -51,7 +49,9 @@ func LoadTemplates(
 		}
 	}
 	templates, err := template.New("golog_templates").
-		Funcs(template.FuncMap{"entries": indexEntries, "md2html": md2html()}).
+		Funcs(template.FuncMap{
+			"md2html": md2html(),
+		}).
 		ParseFiles(templateFiles...)
 	if err != nil {
 		return Templater{}, fmt.Errorf("parsing template files: %w", err)
