@@ -1,7 +1,7 @@
 @startuml
 hide circle
 
-class Render {
+class Entry {
     FileName: string
     Title: string
     HTML: template.HTML
@@ -24,8 +24,8 @@ WebAsset <|--> Page
 WebAsset <|--> AtomXML
 WebAsset <|--> StaticFile
 
-Index ..>"*" Render: loads/renders
-Page ..> Render: loads/renders
+Index ..>"*" Entry: loads/renders
+Page ..> Entry: loads/renders
 
 CachedHandler <. FileWatcher: invalidates
 

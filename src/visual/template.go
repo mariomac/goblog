@@ -27,7 +27,7 @@ const templateExtension = ".html"
 
 // Load gets all the pre-loaded templates from a given folder, populated with the entries
 // returned by the getEntries function
-func (t *Templates) Load(folder string, getEntries func() []blog.Render) {
+func (t *Templates) Load(folder string, getEntries func() []blog.Entry) {
 	log.Printf("Scanning for templates in folder %s...\n", folder)
 
 	templateFiles := fs.Search(folder, validTemplate)
