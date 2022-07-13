@@ -37,8 +37,8 @@ func TestEmptySearchWrongFolder(t *testing.T) {
 func TestAllSearch(t *testing.T) {
 	found := Search(testResources, nil)
 	expected := []string{
-		"../../testresources/testset1/test1.html",
-		"../../testresources/testset1/test2.html",
+		"../../testresources/testset1/entry.html",
+		"../../testresources/testset1/index.html",
 		"../../testresources/testset1/testsub/thing.md",
 		"../../testresources/testset1/testsub/thing2.html",
 		"../../testresources/testset1/testsub2/thing3.html",

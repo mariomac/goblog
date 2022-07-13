@@ -10,7 +10,7 @@ import (
 )
 
 // BuildAtomFeed builds an XML Atom feed from an ordered (from new to old) list of blog entries
-func BuildAtomFeed(bentries []blog.Entry, hostname string, entrypath string) string {
+func BuildAtomFeed(bentries []*blog.Entry, hostname string, entrypath string) string {
 	entries := make([]*atom.Entry, len(bentries))
 
 	for i, bentry := range bentries {
@@ -20,7 +20,7 @@ func BuildAtomFeed(bentries []blog.Entry, hostname string, entrypath string) str
 			Link: []atom.Link{
 				{Href: "http://" + hostname + entrypath + bentry.FileName},
 			},
-			Published: atom.Time(*bentry.Time),
+			Published: atom.Time(bentry.Time),
 			Summary: &atom.Text{
 				Type: "text/html",
 				Body: string(bentry.Preview),
@@ -34,13 +34,14 @@ func BuildAtomFeed(bentries []blog.Entry, hostname string, entrypath string) str
 		Link: []atom.Link{
 			{Href: "http://" + hostname},
 		},
-		Updated: atom.Time(*bentries[0].Time),
+		Updated: atom.Time(bentries[0].Time),
 		Entry:   entries,
 	}
 
 	out := make([]byte, 0, 2048)
 	buf := bytes.NewBuffer(out)
 	encoder := xml.NewEncoder(buf)
+	// TODO: handle error
 	encoder.Encode(feed)
 	return buf.String()
 }

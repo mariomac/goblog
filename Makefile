@@ -25,4 +25,9 @@ fmt:
 	@echo "=== $(ASSETNAME) === [ fmt ]: formatting code..."
 	goimports -w ./src/
 
+sample: compile
+	@echo "=== $(ASSETNAME) === [ sample ]: running sample blog..."
+	bin/$(BINARY_NAME) -cfg sample/config.yml
+
+
 .PHONY: all build clean lint compile test fmt

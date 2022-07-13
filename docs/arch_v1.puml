@@ -9,10 +9,10 @@ class Entry {
     Time: time.Time?
 }
 
-Main ..> Templates: instantiates
-Main ..> TLSServer: instantiates
+Blog ..> Templates: instantiates
+Blog ..> TLSServer: instantiates
 TLSServer --> HTTPServer: wraps
-Main ..> Content: load from disk
+Blog ..> Content: load from disk
 Templates -> Content: caches HTML render of
 HTTPServer --> IndexHandler
 HTTPServer --> AtomHandler

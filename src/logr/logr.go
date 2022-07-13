@@ -13,7 +13,7 @@ const (
 )
 
 func Get() *logrus.Entry {
-	logger := logrus.New()
+	logger := logrus.StandardLogger()
 	logger.Out = os.Stdout
 	_, callerPath, _, ok := runtime.Caller(1)
 	if ok {

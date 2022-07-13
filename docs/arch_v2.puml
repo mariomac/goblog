@@ -24,8 +24,13 @@ WebAsset <|--> Page
 WebAsset <|--> AtomXML
 WebAsset <|--> StaticFile
 
-Index ..>"*" Entry: loads/renders
-Page ..> Entry: loads/renders
+Index --> Templater
+Page --> Templater
+
+Index --> Entries
+Page --> Entries
+
+Entries *-> "*" Entry
 
 CachedHandler <. FileWatcher: invalidates
 

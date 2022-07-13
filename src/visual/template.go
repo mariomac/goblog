@@ -2,65 +2,87 @@
 package visual
 
 import (
+	"fmt"
 	"html/template"
-	"net/http"
+	"io"
 	"regexp"
 	"strings"
 
 	"github.com/mariomac/goblog/src/blog"
 	"github.com/mariomac/goblog/src/fs"
 	"github.com/mariomac/goblog/src/logr"
+	"github.com/sirupsen/logrus"
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting"
 )
 
 var log = logr.Get()
 
-// Templates wraps and extends the functionality of Go's template.Template
-type Templates struct {
-	*template.Template
+type TemplateType string
+
+const (
+	EntryTemplate = "entry.html"
+	IndexTemplate = "index.html"
+)
+
+var mandatoryTemplates = []TemplateType{EntryTemplate, IndexTemplate}
+
+// Templater wraps and extends the functionality of Go's template
+type Templater struct {
+	templates *template.Template
 }
 
-var validTemplate = regexp.MustCompile(`.*\.html$`)
+var validTemplate = regexp.MustCompile(`\.html$`)
 
-const templateExtension = ".html"
+func LoadTemplates(
+	folder string,
+	indexEntries func() []*blog.Entry,
+) (Templater, error) {
+	tlog := log.WithField("folder", folder)
+	tlog.Info("Scanning for templates")
 
-// Load gets all the pre-loaded templates from a given folder, populated with the entries
-// returned by the getEntries function
-func (t *Templates) Load(folder string, getEntries func() []blog.Entry) {
-	log.Printf("Scanning for templates in folder %s...\n", folder)
-
-	templateFiles := fs.Search(folder, validTemplate)
-	for _, f := range templateFiles {
-		log.Printf("Template file found: %s\n", f)
-	}
-
-	t.Template = template.Must(
-		template.New("golog_templates").Funcs(
-			template.FuncMap{"entries": getEntries, "md2html": md2html}).ParseFiles(
-			templateFiles...))
-}
-
-// Render renders the given template, with the given data, through the http.ResponseWriter
-func (t *Templates) Render(w http.ResponseWriter, template string, data interface{}) {
-	err := t.Template.ExecuteTemplate(w, template+templateExtension, data)
+	templateFiles, err := fs.Search(folder, validTemplate)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return Templater{}, fmt.Errorf("scanning for templates in folder %s: %w", folder, err)
 	}
+	if tlog.Level <= logrus.DebugLevel {
+		for _, f := range templateFiles {
+			tlog.WithField("file", f).Debug("Template file found")
+		}
+	}
+	templates, err := template.New("golog_templates").
+		Funcs(template.FuncMap{"entries": indexEntries, "md2html": md2html()}).
+		ParseFiles(templateFiles...)
+	if err != nil {
+		return Templater{}, fmt.Errorf("parsing template files: %w", err)
+	}
+
+	for _, mt := range mandatoryTemplates {
+		if templates.Lookup(string(mt)) == nil {
+			return Templater{}, fmt.Errorf("missing mandatory template: %s", mt)
+		}
+	}
+
+	return Templater{templates: templates}, nil
+}
+
+func (t *Templater) Render(template TemplateType, data interface{}, dest io.Writer) error {
+	return t.templates.ExecuteTemplate(dest, string(template), data)
 }
 
 // TODO: remove
-func md2html(mdText []byte) template.HTML {
-	// TODO: proper caching of goldmark
+func md2html() func(mdText []byte) template.HTML {
 	markdown := goldmark.New(
 		goldmark.WithExtensions(
 			highlighting.Highlighting,
 		),
 	)
-	sb := strings.Builder{}
-	if err := markdown.Convert(mdText, &sb); err != nil {
-		// TODO: properly log/manage blogerr
-		return template.HTML(`<h1>Error parsing markdown</h1><p>` + err.Error() + `</p>`)
+	return func(mdText []byte) template.HTML {
+		sb := strings.Builder{}
+		if err := markdown.Convert(mdText, &sb); err != nil {
+			// TODO: properly log/manage blogerr
+			return template.HTML(`<h1>Error rendering content</h1><p>` + err.Error() + `</p>`)
+		}
+		return template.HTML(sb.String())
 	}
-	return template.HTML(sb.String())
 }

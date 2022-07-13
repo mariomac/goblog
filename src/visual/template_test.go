@@ -3,37 +3,34 @@ package visual
 import (
 	"testing"
 
-	"github.com/mariomac/goblog/src/logr"
-)
-import (
 	"github.com/mariomac/goblog/src/blog"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
-
-var tlog = logr.Get()
 
 const testResources = "../../testresources/testset1"
 
-func getEntries() []blog.Entry {
-	return make([]blog.Entry, 0)
+func getEntries() []*blog.Entry {
+	return nil
 }
 
 func TestTemplates_Load(t *testing.T) {
-	templates := Templates{}
-	templates.Load(testResources, getEntries)
+	templater, err := LoadTemplates(testResources, getEntries)
+	require.NoError(t, err)
 
-	expected := map[string]bool{
-		"golog_templates": true,
-		"thing2.html":     true, "thing3.html": true,
-		"testsub2/thing3": true, "testsub/thing2": true,
-		"test1.html": true, "test2.html": true,
+	actual := map[string]struct{}{}
+	for _, template := range templater.templates.Templates() {
+		actual[template.Name()] = struct{}{}
 	}
 
-	actual := templates.Templates()
+	assert.Equal(t, map[string]struct{}{
+		"golog_templates": {},
+		"thing2.html":     {},
+		"thing3.html":     {},
+		"testsub2/thing3": {},
+		"testsub/thing2":  {},
+		"entry.html":      {},
+		"index.html":      {},
+	}, actual)
 
-	if len(expected) != len(actual) {
-		t.Errorf("Failed loading templates. Expected: %d. Got: %d", len(expected), len(actual))
-		for _, o := range actual {
-			tlog.Println(o.Name())
-		}
-	}
 }

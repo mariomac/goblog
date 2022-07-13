@@ -14,16 +14,16 @@ or
 go build -o goblog ./src
 ```
 
-## Running
+## Running sample
 
 ```
-./goblog -cfg ./sample/config.yml
+make sample
 ```
 
 or
 
 ```
-./goblog -cfg /path/to/goblog.yml
+./goblog -cfg /path/to/goblog/config.yml
 ```
 
 ## Configuring
