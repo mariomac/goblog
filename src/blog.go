@@ -37,45 +37,12 @@ func init() {
 
 
 // Directory names
-const dirTemplate = "template/"
-const dirEntry = "entries/"
-const dirStatic = "static/"
 
-// Path names
-const pathStatic = "/static/"
-const pathEntry = "/entry/"
-const pathIndex = "/"
-const pathAtom = "/atom.xml"
+
+
 
 var entries blog.Entries
 var templates = visual.Templater{}
-
-func viewHandler(w http.ResponseWriter, _ *http.Request, fileName string) {
-	// TODO: extra fields. E.g. source IP
-	log.WithField("fileName", fileName).Debug("view handler")
-	entry, found := entries.Get(fileName)
-	if !found {
-		http.Error(w, "Entry not found "+fileName, http.StatusNotFound) // Todo: redirect or template 404
-		return
-	}
-	if err := templates.Render(visual.EntryTemplate, entry, w); err != nil {
-		log.WithFields(logrus.Fields{
-			logrus.ErrorKey: err,
-			"fileName": fileName,
-		}).Error("rendering entry template")
-		w.WriteHeader(http.StatusInternalServerError)
-	}
-}
-
-func makeIndexHandler() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		// TODO: properly paginate entries
-		// TODO: render in an intermediate buffer so, if we detect an issue, we can redirect to an error page
-		if err := templates.Render(visual.IndexTemplate, entries.Sorted(0, math.MaxInt), w); err != nil {
-			log.WithError(err).Error("rendering index template")
-		}
-	}
-}
 
 var validPagePath = regexp.MustCompile(`^([_\-a-zA-Z0-9]+)\.md$`)
 
@@ -115,21 +82,12 @@ func main() {
 	log.Print("Starting GoBlog...")
 
 	// Load blog entries
-	entries, err = blog.PreloadEntries(path.Join(cfg.RootPath, dirEntry))
-	if err != nil {
-		log.WithError(err).WithField("directory", path.Join(cfg.RootPath, dirEntry)).
-			Fatal("can't load log entries")
-	}
+
 
 	// Create Atom XML feed
 	atomxml := bytes.NewBufferString(
 		feed.BuildAtomFeed(entries.Sorted(0, math.MaxInt), cfg.Domain, pathEntry)).Bytes()
 
-	templates, err = visual.LoadTemplates(path.Join(cfg.RootPath, dirTemplate))
-	if err != nil {
-		log.WithError(err).WithField("directory", path.Join(cfg.RootPath, dirTemplate)).
-			Fatal("can't load templates")
-	}
 
 	mux := http.NewServeMux()
 	mux.HandleFunc(pathAtom, func(writer http.ResponseWriter, request *http.Request) {
@@ -138,8 +96,7 @@ func main() {
 		writer.Write(atomxml)
 	})
 	mux.HandleFunc(pathEntry, makePageHandler(pathEntry, viewHandler))
-	mux.Handle(pathStatic, http.StripPrefix(pathStatic,
-		http.FileServer(http.Dir(cfg.RootPath+"/"+dirStatic))))
+	mux.Handle(pathStatic, )
 	mux.HandleFunc(pathIndex, makeIndexHandler())
 
 	var globalHandler http.Handler

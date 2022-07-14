@@ -14,15 +14,18 @@ interface WebAsset {
     Body(): []byte
 }
 
+interface WebAssetGenerator {
+}
+
 TLSServer -> HTTPServer: wraps
 HTTPServer -> CachedHandler
-CachedHandler *--> "*" WebAsset: stores
-CachedHandler --> AssetLoader
-AssetLoader ..> WebAsset: <<creates>>
-WebAsset <|--> Index
-WebAsset <|--> Page
-WebAsset <|--> AtomXML
-WebAsset <|--> StaticFile
+WebAssetGenerator .> WebAsset: <<creates>>
+CachedHandler --> "*" WebAssetGenerator: "selects\nby route"
+CachedHandler --> "*" WebAsset: stores
+WebAssetGenerator <|--> Index
+WebAssetGenerator <|--> Page
+WebAssetGenerator <|--> AtomXML
+WebAssetGenerator <|--> StaticFile
 
 Index --> Templater
 Page --> Templater
