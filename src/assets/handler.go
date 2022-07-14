@@ -67,12 +67,11 @@ func NewCachedHandler(rootPath string, isTLS bool, hostName string) (CachedHandl
 }
 
 func (c *CachedHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
-	// TODO: test e.g. leading spaces in URL
 	// TODO: check cache
-	path := path.Clean(request.URL.Path)
+	fileUrlPath := path.Clean(request.URL.Path)
 	for _, r := range c.routes {
-		if strings.HasPrefix(path, r.Prefix) {
-			asset, err := r.Generator.Get(path)
+		if strings.HasPrefix(fileUrlPath, r.Prefix) {
+			asset, err := r.Generator.Get(fileUrlPath)
 			if err != nil {
 				switch err.(type) {
 				case errNotFound:

@@ -68,3 +68,35 @@ func TestAtom(t *testing.T) {
 		})
 	}
 }
+
+func TestFile(t *testing.T) {
+	s := testServer(t)
+	defer s.Close()
+
+	type testCase struct {
+		path string
+		expectedBody string
+		expectedMime string
+	}
+	for _, tc := range []testCase{
+		{
+			path: "static/style.css",
+			expectedMime: "text/css; charset=utf-8",
+			expectedBody: "h1 {color: red;}",
+	}, {
+			path: "static/text/foot.txt",
+			expectedMime: "text/plain; charset=utf-8",
+			expectedBody: "bar!",
+		}, {
+			path: "static/text/foot.txt?foo=bar",
+			expectedMime: "text/plain; charset=utf-8",
+			expectedBody: "bar!",
+		},
+	} {
+		t.Run(tc.path, func(t *testing.T) {
+			wa := doGet(t, s, tc.path)
+			assert.Equal(t, tc.expectedMime, wa.MimeType)
+			assert.Equal(t, tc.expectedBody, string(wa.Body))
+		})
+	}
+}
