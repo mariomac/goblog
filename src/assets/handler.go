@@ -43,7 +43,7 @@ type CachedHandler struct {
 	routes []route
 }
 
-func CreateCachedHandler(rootPath string, isTLS bool, hostName string) (CachedHandler, error) {
+func NewCachedHandler(rootPath string, isTLS bool, hostName string) (CachedHandler, error) {
 	entries, err := blog.PreloadEntries(path.Join(rootPath, dirEntry))
 	if err != nil {
 		return CachedHandler{}, fmt.Errorf("loading blog entries: %w", err)
@@ -51,7 +51,7 @@ func CreateCachedHandler(rootPath string, isTLS bool, hostName string) (CachedHa
 
 	templates, err := visual.LoadTemplates(path.Join(rootPath, dirTemplate))
 	if err != nil {
-		return CachedHandler{}, fmt.Errorf("loading templates: %w", err)
+		return CachedHandler{}, fmt.Errorf("loading template: %w", err)
 	}
 	protocol := "http://"
 	if isTLS {
@@ -69,7 +69,7 @@ func CreateCachedHandler(rootPath string, isTLS bool, hostName string) (CachedHa
 func (c *CachedHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 	// TODO: test e.g. leading spaces in URL
 	// TODO: check cache
-	path := request.URL.Path
+	path := path.Clean(request.URL.Path)
 	for _, r := range c.routes {
 		if strings.HasPrefix(path, r.Prefix) {
 			asset, err := r.Generator.Get(path)

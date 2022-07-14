@@ -1,0 +1,6 @@
+{{ range . }}
+<h3><a href="/entry/{{.FileName}}">{{.Title}}</a></h3>
+<p>Posted on {{.Time.Month}} {{.Time.Day}}, {{.Time.Year}} at {{.Time.Hour}}:{{.Time.Minute}}</p>
+<blockquote>{{.Preview}}</blockquote>
+<hr/>
+{{ end }}

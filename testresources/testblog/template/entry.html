@@ -1,0 +1,6 @@
+<h2>{{.Title}}</h2>
+{{if .Time}}
+<div>Posted on {{.Time.Month}} {{.Time.Day}}, {{.Time.Year}} at {{.Time.Hour}}:{{.Time.Minute}}</div>
+{{end}}
+<!-- Entry HTML-rendered contents -->
+{{.HTML}}

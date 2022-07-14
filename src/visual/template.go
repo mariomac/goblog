@@ -1,4 +1,4 @@
-// Package visual holds the presentation layer of the blog (this is, templates)
+// Package visual holds the presentation layer of the blog (this is, template)
 package visual
 
 import (
@@ -37,11 +37,11 @@ func LoadTemplates(
 	folder string,
 ) (Templater, error) {
 	tlog := log.WithField("folder", folder)
-	tlog.Info("Scanning for templates")
+	tlog.Info("Scanning for template")
 
 	templateFiles, err := fs.Search(folder, validTemplate)
 	if err != nil {
-		return Templater{}, fmt.Errorf("scanning for templates in folder %s: %w", folder, err)
+		return Templater{}, fmt.Errorf("scanning for template in folder %s: %w", folder, err)
 	}
 	if tlog.Level <= logrus.DebugLevel {
 		for _, f := range templateFiles {

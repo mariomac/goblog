@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-const testResources = "../../testresources/testentries"
+const testResources = "../../testresources/testblog/entries"
 
 func TestBlogContent_LoadEntries(t *testing.T) {
 	type testCase struct {
