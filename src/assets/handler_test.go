@@ -3,6 +3,7 @@ package assets
 import (
 	"io"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -99,4 +100,25 @@ func TestFile(t *testing.T) {
 			assert.Equal(t, tc.expectedBody, string(wa.Body))
 		})
 	}
+}
+
+func TestIndex(t *testing.T) {
+	s := testServer(t)
+	defer s.Close()
+
+	wa := doGet(t, s, "")
+	assert.Equal(t, "text/html; charset=utf-8", wa.MimeType)
+	assert.Equal(t, strings.Trim(`
+<h3><a href="/entry/201710281345_gurbai.md">Gurbai!</a></h3>
+<p>Posted on October 28, 2017 at 13:45</p>
+<p>Gurbai!</p>
+
+<h3><a href="/entry/201709281345_hello-my-frens.md">Hello my frens!</a></h3>
+<p>Posted on September 28, 2017 at 13:45</p>
+<p><img src="/static/img.png" alt="Image"/></p>
+
+<h3><a href="/entry/201610281345_hello_guy.md">Hello guy!</a></h3>
+<p>Posted on October 28, 2016 at 13:45</p>
+<p>Paragraph of hello guy</p>
+`, " \n\r"), strings.Trim(string(wa.Body), " \n\r"))
 }
