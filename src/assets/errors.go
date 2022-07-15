@@ -19,5 +19,3 @@ func (i internalError) Error() string {
 func (i internalError) Unwrap() error {
 	return i.cause
 }
-
-

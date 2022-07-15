@@ -15,8 +15,8 @@ var anyPageFormat = regexp.MustCompile(`\.md$`)
 
 type Entries struct {
 	pageSize int
-	sorted []*Entry        // only timestamped entries, sorted from new to old
-	all map[string]*Entry // all the entries and pages, accessible by FileName
+	sorted   []*Entry          // only timestamped entries, sorted from new to old
+	all      map[string]*Entry // all the entries and pages, accessible by FileName
 }
 
 func (e *Entries) Sorted(pageNum, pageSize int) []*Entry {
@@ -31,8 +31,8 @@ func (e *Entries) Sorted(pageNum, pageSize int) []*Entry {
 	return e.sorted[startIdx:endIdx]
 }
 
-func  (e *Entries) Get(fileName string) (*Entry, bool) {
-	entry, ok :=  e.all[fileName]
+func (e *Entries) Get(fileName string) (*Entry, bool) {
+	entry, ok := e.all[fileName]
 	return entry, ok
 }
 

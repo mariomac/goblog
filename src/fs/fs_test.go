@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"regexp"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 func equals(a []string, b []string) bool {
@@ -21,21 +23,24 @@ func equals(a []string, b []string) bool {
 const testResources = "../../testresources/testset1"
 
 func TestEmptySearchNoMatches(t *testing.T) {
-	found := Search(testResources, regexp.MustCompile("^inexistingfile$"))
+	found, err := Search(testResources, regexp.MustCompile("^inexistingfile$"))
+	require.NoError(t, err)
 	if len(found) != 0 {
 		t.Errorf("Search should be empty, but got: %s", fmt.Sprint(found))
 	}
 }
 
 func TestEmptySearchWrongFolder(t *testing.T) {
-	found := Search("wrongfolderhere", nil)
+	found, err := Search("wrongfolderhere", nil)
+	require.NoError(t, err)
 	if len(found) != 0 {
 		t.Errorf("Search should be empty, but got: %s", fmt.Sprint(found))
 	}
 }
 
 func TestAllSearch(t *testing.T) {
-	found := Search(testResources, nil)
+	found, err := Search(testResources, nil)
+	require.NoError(t, err)
 	expected := []string{
 		"../../testresources/testset1/entry.html",
 		"../../testresources/testset1/index.html",
@@ -52,7 +57,8 @@ func TestAllSearch(t *testing.T) {
 }
 
 func TestMarkdownSearch(t *testing.T) {
-	found := Search(testResources, regexp.MustCompile(`\.md$`))
+	found, err := Search(testResources, regexp.MustCompile(`\.md$`))
+	require.NoError(t, err)
 	expected := []string{
 		"../../testresources/testset1/testsub/thing.md",
 		"../../testresources/testset1/testsub2/thing4.md",

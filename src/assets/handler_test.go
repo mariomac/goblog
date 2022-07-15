@@ -13,20 +13,20 @@ import (
 const testBlog = "../../testresources/testblog"
 
 func testServer(t *testing.T) *httptest.Server {
-	ch, err := NewCachedHandler(testBlog, false, "www.superblog.com")
+	ch, err := NewCachedHandler(testBlog, false, "www.superblog.com", 100000)
 	require.NoError(t, err)
 
-	return httptest.NewServer(&ch)
+	return httptest.NewServer(ch)
 }
 
 func doGet(t *testing.T, srv *httptest.Server, path string) WebAsset {
-	resp, err := srv.Client().Get(srv.URL+"/"+path)
+	resp, err := srv.Client().Get(srv.URL + "/" + path)
 	require.NoError(t, err)
 	body, err := io.ReadAll(resp.Body)
 	require.NoError(t, err)
 	return WebAsset{
 		MimeType: resp.Header.Get("Content-Type"),
-		Body: body,
+		Body:     body,
 	}
 }
 
@@ -34,7 +34,7 @@ func TestAtom(t *testing.T) {
 	s := testServer(t)
 	defer s.Close()
 
-	for _, path := range []string {"/atom.xml", "atom.xml", "/atom.xml?some=stuff", "atom.xml?some=stuff"} {
+	for _, path := range []string{"/atom.xml", "atom.xml", "/atom.xml?some=stuff", "atom.xml?some=stuff"} {
 		t.Run(path, func(t *testing.T) {
 			wa := doGet(t, s, path)
 
@@ -75,21 +75,21 @@ func TestFile(t *testing.T) {
 	defer s.Close()
 
 	type testCase struct {
-		path string
+		path         string
 		expectedBody string
 		expectedMime string
 	}
 	for _, tc := range []testCase{
 		{
-			path: "static/style.css",
+			path:         "static/style.css",
 			expectedMime: "text/css; charset=utf-8",
 			expectedBody: "h1 {color: red;}",
-	}, {
-			path: "static/text/foot.txt",
+		}, {
+			path:         "static/text/foot.txt",
 			expectedMime: "text/plain; charset=utf-8",
 			expectedBody: "bar!",
 		}, {
-			path: "static/text/foot.txt?foo=bar",
+			path:         "static/text/foot.txt?foo=bar",
 			expectedMime: "text/plain; charset=utf-8",
 			expectedBody: "bar!",
 		},
@@ -128,7 +128,7 @@ func TestEntryPage(t *testing.T) {
 	s := testServer(t)
 	defer s.Close()
 	type testCase struct {
-		path string
+		path         string
 		expectedBody string
 	}
 	for _, tc := range []testCase{

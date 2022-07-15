@@ -16,9 +16,9 @@ const testResources = "../../testresources/testblog/entries"
 
 func TestBlogContent_LoadEntries(t *testing.T) {
 	type testCase struct {
-		file string
+		file  string
 		title string
-		ts time.Time
+		ts    time.Time
 	}
 	for _, tc := range []testCase{
 		{file: "201710281345_gurbai.md", title: "Gurbai!", ts: time.Date(2017, 10, 28, 13, 45, 0, 0, location)},

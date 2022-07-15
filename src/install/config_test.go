@@ -22,7 +22,7 @@ httpPort: 80
 	cfg, err := ReadConfig(tmp.Name())
 	require.NoError(t, err)
 	// verify that YAML overrides defaults and Env overrides YAML
-	assert.Equal(t, "./sample", cfg.RootPath)
+	assert.Equal(t, "./", cfg.RootPath)
 	assert.Equal(t, "blog.com", cfg.Domain)
 	assert.Equal(t, 443, cfg.TLSPort)
 	assert.Equal(t, 81, cfg.InsecurePort)

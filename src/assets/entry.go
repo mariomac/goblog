@@ -16,8 +16,8 @@ const (
 
 var elog = logr.Get()
 
-type EntryGenerator struct{
-	entries *blog.Entries
+type EntryGenerator struct {
+	entries   *blog.Entries
 	templates visual.Templater
 }
 
@@ -32,14 +32,13 @@ func (e *EntryGenerator) Get(urlPath string) (*WebAsset, error) {
 	if err := e.templates.Render(visual.EntryTemplate, entry, &body); err != nil {
 		elog.WithFields(logrus.Fields{
 			logrus.ErrorKey: err,
-			"urlPath": urlPath,
-			"fileName": file,
+			"urlPath":       urlPath,
+			"fileName":      file,
 		}).Error("rendering entry template")
 		return nil, internalError{cause: fmt.Errorf("rendering entry template: %w", err)}
 	}
 	return &WebAsset{
 		MimeType: entryMimeType,
-		Body: body.Bytes(),
+		Body:     body.Bytes(),
 	}, nil
 }
-

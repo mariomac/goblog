@@ -50,7 +50,7 @@ func main() {
 
 	log.Print("Starting GoBlog...")
 	// TODO: allow insecure traffic
-	mux, err := assets.NewCachedHandler(cfg.RootPath, true, cfg.Domain)
+	mux, err := assets.NewCachedHandler(cfg.RootPath, true, cfg.Domain, cfg.CacheSizeBytes)
 	if err != nil {
 		log.WithFields(logrus.Fields{
 			logrus.ErrorKey: err,

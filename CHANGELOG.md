@@ -5,6 +5,7 @@
 * Default root path is local folder
 * Added `redirect` YAML-only configuration option
 * Replaced standard logger by logrus
+* Web cache configurable with "GOBLOG_CACHE_SIZE_BYTES" yaml:"cacheSizeBytes"`
 * Breaking changes:
   * In entry templates `{{ if .Time }}` must be replaced by `{{ if not .Time.IsZero }}`
   * Index templates will fail if they contain the `{{ if .Time }}` directive

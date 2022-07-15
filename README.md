@@ -57,6 +57,9 @@ Environment variables take precedence over YAML configuration.
 * env: `GOBLOG_TLS_KEY`, yaml: `tlsKeyPath`
   * Paths of the TLS certificate and key for HTTPS serving
   * Default: empty
+* env: `GOBLOG_CACHE_SIZE_BYTES`, yaml:`cacheSizeBytes`
+  * Size, in bytes, of the HTTP cache to minimize disk loads and template renderings
+  * Default: 32MB
 
 TODO: explain `redirect` map in yaml.
 

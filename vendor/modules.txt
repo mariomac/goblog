@@ -43,14 +43,17 @@ github.com/davecgh/go-spew/spew
 ## explicit
 github.com/dlclark/regexp2
 github.com/dlclark/regexp2/syntax
+# github.com/mariomac/guara v0.0.0-20220617140441-a74253bb0c8b
+## explicit; go 1.18
+github.com/mariomac/guara/pkg/cache
 # github.com/pmezard/go-difflib v1.0.0
 ## explicit
 github.com/pmezard/go-difflib/difflib
 # github.com/sirupsen/logrus v1.8.1
 ## explicit; go 1.13
 github.com/sirupsen/logrus
-# github.com/stretchr/testify v1.3.0
-## explicit
+# github.com/stretchr/testify v1.7.1
+## explicit; go 1.13
 github.com/stretchr/testify/assert
 github.com/stretchr/testify/require
 # github.com/yuin/goldmark v1.1.16
@@ -80,3 +83,6 @@ golang.org/x/tools/blog/atom
 # gopkg.in/yaml.v2 v2.4.0
 ## explicit; go 1.15
 gopkg.in/yaml.v2
+# gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
+## explicit
+gopkg.in/yaml.v3

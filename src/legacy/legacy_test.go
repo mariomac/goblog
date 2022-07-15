@@ -1,12 +1,13 @@
 package legacy
 
 import (
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestRedirector(t *testing.T) {
@@ -30,7 +31,7 @@ func TestRedirector(t *testing.T) {
 	r, err := hc.Get(server.URL + "/foo.html")
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusMovedPermanently, r.StatusCode)
-	assert.Equal(t, server.URL+"/bar.html", r.Header["Location"][0])
+	assert.Equal(t, "/bar.html", r.Header["Location"][0])
 
 	// consulting any other path will forward the request to the underlying handler
 	r, err = hc.Get(server.URL + "/index.html")
