@@ -122,3 +122,57 @@ func TestIndex(t *testing.T) {
 <p>Paragraph of hello guy</p>
 `, " \n\r"), strings.Trim(string(wa.Body), " \n\r"))
 }
+
+// TODO: remove <html><head></head><body> and </body></html> from HTML generation
+func TestEntryPage(t *testing.T) {
+	s := testServer(t)
+	defer s.Close()
+	type testCase struct {
+		path string
+		expectedBody string
+	}
+	for _, tc := range []testCase{
+		{
+			path: "/entry/201610281345_hello_guy.md",
+			expectedBody: `<h2>Hello guy!</h2>
+
+<div>Posted on October 28, 2016 at 13:45</div>
+
+
+<html><head></head><body>
+<p>Paragraph of hello guy</p>
+<p>This text is going to be ignored in the index.</p>
+</body></html>`,
+		},
+		{
+			path: "/entry/201710281345_gurbai.md",
+			expectedBody: `<h2>Gurbai!</h2>
+
+<div>Posted on October 28, 2017 at 13:45</div>
+
+
+<html><head></head><body>
+<p>Gurbai!</p>
+</body></html>`,
+		},
+		{
+			path: "/entry/gurbai.md",
+			expectedBody: `<h2>Gurbai page!</h2>
+
+
+<html><head></head><body>
+<p>Gurbai!</p>
+</body></html>`,
+		},
+	} {
+		t.Run(tc.path, func(t *testing.T) {
+			wa := doGet(t, s, tc.path)
+			assert.Equal(t, "text/html; charset=utf-8", wa.MimeType)
+			assert.Equal(t,
+				strings.Trim(tc.expectedBody, " \n\r"),
+				strings.Trim(string(wa.Body), " \n\r"))
+		})
+	}
+}
+
+// TODO: test404, testInternalServerError

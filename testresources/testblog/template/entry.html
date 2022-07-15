@@ -1,5 +1,5 @@
 <h2>{{.Title}}</h2>
-{{if .Time}}
+{{if not .Time.IsZero}}
 <div>Posted on {{.Time.Month}} {{.Time.Day}}, {{.Time.Year}} at {{.Time.Hour}}:{{.Time.Minute}}</div>
 {{end}}
 <!-- Entry HTML-rendered contents -->
