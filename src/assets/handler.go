@@ -67,6 +67,10 @@ func NewCachedHandler(rootPath string, isTLS bool, hostName string) (*CachedHand
 }
 
 func (c *CachedHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
+	alog := alog.WithFields(logrus.Fields{
+		"url": request.URL,
+		"remoteAddr": request.RemoteAddr,
+	})
 	// TODO: check cache
 	fileUrlPath := path.Clean(request.URL.Path)
 	for _, r := range c.routes {
@@ -85,7 +89,6 @@ func (c *CachedHandler) ServeHTTP(writer http.ResponseWriter, request *http.Requ
 			if _, err := writer.Write(asset.Body); err != nil {
 				alog.WithFields(logrus.Fields{
 					logrus.ErrorKey: err,
-					"url":           request.URL,
 					"contentType":   asset.MimeType,
 				}).Error("couldn't write response")
 			}
