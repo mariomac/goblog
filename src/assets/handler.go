@@ -1,6 +1,7 @@
 package assets
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"path"
@@ -22,6 +23,8 @@ const (
 	dirTemplate = "template/"
 	dirEntry    = "entries/"
 )
+
+var unsupportedMethodErr = errors.New("unsupported method")
 
 var alog = logr.Get()
 
@@ -68,9 +71,15 @@ func NewCachedHandler(rootPath string, isTLS bool, hostName string) (*CachedHand
 
 func (c *CachedHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 	alog := alog.WithFields(logrus.Fields{
+		"method": request.Method,
 		"url": request.URL,
 		"remoteAddr": request.RemoteAddr,
 	})
+	alog.Debug("new request")
+	if request.Method != http.MethodGet {
+		writeErr(http.StatusBadRequest, unsupportedMethodErr, writer, request)
+		return
+	}
 	// TODO: check cache
 	fileUrlPath := path.Clean(request.URL.Path)
 	for _, r := range c.routes {

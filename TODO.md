@@ -7,3 +7,4 @@
 * Add github hooks. Reload blogs from hooks.
 * Read linked images from markdown folder (for an easier edition).
 * Markdown Tags processing. Adding entry tags to header
+* Support Favicon
