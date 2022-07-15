@@ -1,18 +1,10 @@
 {{ define "html_head" }}
-<head>
-
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Mario Macias' handcrafted blog">
     <meta name="author" content="Mario Macias">
-    <meta name="robots" content="index, follow" />
-
-    {{if .Title}}
-        <title>{{.Title}}. Mario Macias' handcrafted blog</title>
-    {{else}}
-        <title>Mario Macias' handcrafted blog</title>
-    {{end}}
+    <meta name="robots" content="index, follow"/>
 
     <link rel="alternate" type="application/atom+xml" title="Blog"
           href="/atom.xml"/>
@@ -21,7 +13,8 @@
     <link href="/static/css/styles.css" rel="stylesheet">
 
     <!-- custom fonts -->
-    <link href="/static/vend/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/vend/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
           rel='stylesheet' type='text/css'>
 
@@ -30,13 +23,15 @@
     <script async
             src="https://www.googletagmanager.com/gtag/js?id=UA-113884635-1"></script>
     <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+      window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'UA-113884635-1');
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+
+      gtag('config', 'UA-113884635-1');
 
     </script>
-
-</head>
 {{ end }}

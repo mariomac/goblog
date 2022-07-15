@@ -43,21 +43,21 @@ type CachedHandler struct {
 	routes []route
 }
 
-func NewCachedHandler(rootPath string, isTLS bool, hostName string) (CachedHandler, error) {
+func NewCachedHandler(rootPath string, isTLS bool, hostName string) (*CachedHandler, error) {
 	entries, err := blog.PreloadEntries(path.Join(rootPath, dirEntry))
 	if err != nil {
-		return CachedHandler{}, fmt.Errorf("loading blog entries: %w", err)
+		return nil, fmt.Errorf("loading blog entries: %w", err)
 	}
 
 	templates, err := visual.LoadTemplates(path.Join(rootPath, dirTemplate))
 	if err != nil {
-		return CachedHandler{}, fmt.Errorf("loading template: %w", err)
+		return nil, fmt.Errorf("loading template: %w", err)
 	}
 	protocol := "http://"
 	if isTLS {
 		protocol = "https://"
 	}
-	return CachedHandler{routes: []route{
+	return &CachedHandler{routes: []route{
 		{Prefix: pathStatic, Generator: &FileAssetGenerator{rootPath: rootPath}},
 		{Prefix: pathEntry, Generator: &EntryGenerator{templates: templates, entries: &entries}},
 		{Prefix: pathAtom, Generator: &AtomGenerator{

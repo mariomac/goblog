@@ -5,6 +5,9 @@
 * Default root path is local folder
 * Added `redirect` YAML-only configuration option
 * Replaced standard logger by logrus
+* Breaking changes:
+  * In entry templates `{{ if .Time }}` must be replaced by `{{ if not .Time.IsZero }}`
+  * Index templates will fail if they contain the `{{ if .Time }}` directive
 
 ### v0.2.0
 

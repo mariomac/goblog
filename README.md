@@ -26,6 +26,12 @@ or
 ./goblog -cfg /path/to/goblog/config.yml
 ```
 
+If you want to run a local copy of [my own blog at macias.info](https://macias.info), you can run:
+
+```
+GOBLOG_ROOT=./etc/macias.info make sample
+```
+
 ## Configuring
 
 Default configuration can be overridden by a YAML file config and/or Environment variables.
@@ -51,6 +57,8 @@ Environment variables take precedence over YAML configuration.
 * env: `GOBLOG_TLS_KEY`, yaml: `tlsKeyPath`
   * Paths of the TLS certificate and key for HTTPS serving
   * Default: empty
+
+TODO: explain `redirect` map in yaml.
 
 ## Blog Structure
 
@@ -90,15 +98,3 @@ The markdown file MUST contain a First-level header (e.g. `# Post title`), that 
 as title of the entry in the entry heading and links.
 
 At this early stage of the blog, you *MUST* restart the blog process before changes are visible. 
-
-## Environment variables
-
-* `GOBLOG_DOMAIN` (default: value returned by `os.Hostname()`)
-    * The domain of your blog (for Atom XML feeds)
-
-* `GOBLOG_PORT` (default: 8080)
-    * The port where the HTTP service listens
-
-* `GOBLOG_ROOT` (default: `../sample`)
-    * The root folder of the blog contents
-    

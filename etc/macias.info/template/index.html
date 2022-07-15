@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{{ template "html_head" . }}
+<head>
+    <title>Mario Macias' handcrafted blog</title>
+    {{ template "html_head" . }}
+</head>
 
 <body>
 {{ template "navbar" }}
@@ -17,7 +20,7 @@
 
 <!-- Main Content -->
 <section id="entries">
-    {{ range entries}}
+    {{ range .}}
       <hr/>
       <article>
         <h2 class="post-title">

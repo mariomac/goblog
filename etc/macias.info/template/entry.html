@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{{ template "html_head" . }}
-
+<head>
+  <title>{{.Title}}. Mario Macias' handcrafted blog</title>
+  {{ template "html_head" . }}
+</head>
 <body>
-
 {{ template "navbar" }}
-
 <!-- Page Header -->
 <header>
   <h1>{{.Title}}</h1>
   <!--h2 class="subheading">Problems look mighty small from 150 miles up</h2-->
-    {{if .Time}}
+    {{if not .Time.IsZero}}
       <p>Posted on {{.Time.Month}} {{.Time.Day}}
         , {{.Time.Year}}</p>
     {{end}}
@@ -23,11 +23,13 @@
   <section class="article-body">
       {{.HTML}}
   </section>
+  {{if not .Time.IsZero}}
   <!-- disqus -->
   <hr>
   <section>
     <div id="disqus_thread"></div>
   </section>
+  {{end}}
 </article>
 
 <hr>
