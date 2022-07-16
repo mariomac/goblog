@@ -8,7 +8,7 @@ import (
 	"github.com/yuin/goldmark/util"
 )
 
-// A BaseInline struct implements the Node interface.
+// A BaseInline struct implements the Node interface partialliy.
 type BaseInline struct {
 	BaseNode
 }
@@ -170,7 +170,7 @@ func NewText() *Text {
 	}
 }
 
-// NewTextSegment returns a new Text node with the given source potision.
+// NewTextSegment returns a new Text node with the given source position.
 func NewTextSegment(v textm.Segment) *Text {
 	return &Text{
 		BaseInline: BaseInline{},
@@ -467,7 +467,7 @@ type AutoLink struct {
 // Inline implements Inline.Inline.
 func (n *AutoLink) Inline() {}
 
-// Dump implenets Node.Dump
+// Dump implements Node.Dump
 func (n *AutoLink) Dump(source []byte, level int) {
 	segment := n.value.Segment
 	m := map[string]string{

@@ -318,6 +318,7 @@ func (r *Renderer) renderHTMLBlock(w util.BufWriter, source []byte, node ast.Nod
 var ListAttributeFilter = GlobalAttributeFilter.Extend(
 	[]byte("start"),
 	[]byte("reversed"),
+	[]byte("type"),
 )
 
 func (r *Renderer) renderList(w util.BufWriter, source []byte, node ast.Node, entering bool) (ast.WalkStatus, error) {
@@ -399,8 +400,11 @@ func (r *Renderer) renderTextBlock(w util.BufWriter, source []byte, n ast.Node, 
 
 // ThematicAttributeFilter defines attribute names which hr elements can have.
 var ThematicAttributeFilter = GlobalAttributeFilter.Extend(
-	[]byte("align"),
-	[]byte("color"),
+	[]byte("align"),   // [Deprecated]
+	[]byte("color"),   // [Not Standardized]
+	[]byte("noshade"), // [Deprecated]
+	[]byte("size"),    // [Deprecated]
+	[]byte("width"),   // [Deprecated]
 )
 
 func (r *Renderer) renderThematicBreak(w util.BufWriter, source []byte, n ast.Node, entering bool) (ast.WalkStatus, error) {
@@ -561,7 +565,7 @@ func (r *Renderer) renderImage(w util.BufWriter, source []byte, node ast.Node, e
 		_, _ = w.Write(util.EscapeHTML(util.URLEscape(n.Destination, true)))
 	}
 	_, _ = w.WriteString(`" alt="`)
-	_, _ = w.Write(n.Text(source))
+	_, _ = w.Write(util.EscapeHTML(n.Text(source)))
 	_ = w.WriteByte('"')
 	if n.Title != nil {
 		_, _ = w.WriteString(` title="`)
@@ -657,13 +661,13 @@ func RenderAttributes(w util.BufWriter, node ast.Node, filter util.BytesFilter) 
 	}
 }
 
-// A Writer interface wirtes textual contents to a writer.
+// A Writer interface writes textual contents to a writer.
 type Writer interface {
 	// Write writes the given source to writer with resolving references and unescaping
 	// backslash escaped characters.
 	Write(writer util.BufWriter, source []byte)
 
-	// RawWrite wirtes the given source to writer without resolving references and
+	// RawWrite writes the given source to writer without resolving references and
 	// unescaping backslash escaped characters.
 	RawWrite(writer util.BufWriter, source []byte)
 }

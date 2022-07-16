@@ -48,33 +48,50 @@ type route struct {
 }
 
 type CachedHandler struct {
-	assets *cache.LRU[string, *WebAsset]
-	routes []route
+	rootPath      string
+	hostName      string
+	maxCacheBytes int
+	tls           bool
+	assets        *cache.LRU[string, *WebAsset]
+	routes        []route
 }
 
 func NewCachedHandler(rootPath string, isTLS bool, hostName string, maxCacheBytes int) (*CachedHandler, error) {
-	entries, err := blog.PreloadEntries(path.Join(rootPath, dirEntry))
+	cc := &CachedHandler{
+		rootPath:      rootPath,
+		hostName:      hostName,
+		tls:           isTLS,
+		maxCacheBytes: maxCacheBytes,
+	}
+	if err := cc.Reload(); err != nil {
+		return nil, fmt.Errorf("loading resources: %w", err)
+	}
+	return cc, nil
+}
+
+func (c *CachedHandler) Reload() error {
+	entries, err := blog.PreloadEntries(path.Join(c.rootPath, dirEntry))
 	if err != nil {
-		return nil, fmt.Errorf("loading blog entries: %w", err)
+		return fmt.Errorf("loading blog entries: %w", err)
 	}
 
-	templates, err := visual.LoadTemplates(path.Join(rootPath, dirTemplate))
+	templates, err := visual.LoadTemplates(path.Join(c.rootPath, dirTemplate))
 	if err != nil {
-		return nil, fmt.Errorf("loading template: %w", err)
+		return fmt.Errorf("loading template: %w", err)
 	}
 	protocol := "http://"
-	if isTLS {
+	if c.tls {
 		protocol = "https://"
 	}
-	return &CachedHandler{
-		assets: cache.NewLRU[string, *WebAsset](maxCacheBytes),
-		routes: []route{
-			{Prefix: pathStatic, Generator: &FileAssetGenerator{rootPath: rootPath}},
-			{Prefix: pathEntry, Generator: &EntryGenerator{templates: templates, entries: &entries}},
-			{Prefix: pathAtom, Generator: &AtomGenerator{
-				urlProtocol: protocol, hostName: hostName, entryPath: pathEntry, entries: &entries}},
-			{Prefix: pathIndex, Generator: &IndexGenerator{entries: &entries, templates: &templates}},
-		}}, nil
+	c.assets = cache.NewLRU[string, *WebAsset](c.maxCacheBytes)
+	c.routes = []route{
+		{Prefix: pathStatic, Generator: &FileAssetGenerator{rootPath: c.rootPath}},
+		{Prefix: pathEntry, Generator: &EntryGenerator{templates: templates, entries: &entries}},
+		{Prefix: pathAtom, Generator: &AtomGenerator{
+			urlProtocol: protocol, hostName: c.hostName, entryPath: pathEntry, entries: &entries}},
+		{Prefix: pathIndex, Generator: &IndexGenerator{entries: &entries, templates: &templates}},
+	}
+	return nil
 }
 
 func (c *CachedHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {

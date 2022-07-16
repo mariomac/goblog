@@ -3,11 +3,15 @@ package assets
 import (
 	"io"
 	"net/http/httptest"
+	"os"
+	"path"
 	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	tools "github.com/floscodes/golang-tools"
 )
 
 const testBlog = "../../testresources/testblog"
@@ -173,6 +177,73 @@ func TestEntryPage(t *testing.T) {
 				strings.Trim(string(wa.Body), " \n\r"))
 		})
 	}
+}
+
+func TestReload(t *testing.T) {
+	// copy the entire blog folder into a temporary folder for later overwriting
+	tmpDir, err := os.MkdirTemp("", "reload_test")
+	require.NoError(t, err)
+	blogDir := path.Join(tmpDir, "blog")
+	require.NoError(t, tools.CopyDir(testBlog, blogDir))
+
+	ch, err := NewCachedHandler(blogDir, false, "www.superblog.com", 100000)
+	require.NoError(t, err)
+
+	s := httptest.NewServer(ch)
+	defer s.Close()
+
+	expectedHelloGuyBody := `<h2>Hello guy!</h2>
+
+<div>Posted on October 28, 2016 at 13:45</div>
+
+
+<html><head></head><body>
+<p>Paragraph of hello guy</p>
+<p>This text is going to be ignored in the index.</p>
+</body></html>`
+
+	wa := doGet(t, s, "/entry/201610281345_hello_guy.md")
+	assert.Equal(t,
+		expectedHelloGuyBody,
+		strings.Trim(string(wa.Body), " \n"))
+
+	// append a line to an entry
+	entryFile, err := os.OpenFile(
+		path.Join(blogDir, "entries", "201610281345_hello_guy.md"), os.O_WRONLY|os.O_APPEND, 0666)
+	require.NoError(t, err)
+	_, err = entryFile.Write([]byte("\nthis should have been updated!"))
+	require.NoError(t, err)
+	require.NoError(t, entryFile.Close())
+	// also modify the template
+	templateFile, err := os.OpenFile(
+		path.Join(blogDir, "template", "entry.html"), os.O_WRONLY|os.O_APPEND, 0666)
+	require.NoError(t, err)
+	_, err = templateFile.Write([]byte("\n<footer>Added to the template</footer>"))
+	require.NoError(t, err)
+	require.NoError(t, templateFile.Close())
+
+	// even if templates and entries files have been updated, they still return the same
+	// because their previous values are cached
+	wa = doGet(t, s, "/entry/201610281345_hello_guy.md")
+	assert.Equal(t,
+		expectedHelloGuyBody,
+		strings.Trim(string(wa.Body), " \n"))
+
+	// when cache is reloaded, the entries are updated
+	require.NoError(t, ch.Reload())
+	wa = doGet(t, s, "/entry/201610281345_hello_guy.md")
+	assert.Equal(t, `<h2>Hello guy!</h2>
+
+<div>Posted on October 28, 2016 at 13:45</div>
+
+
+<html><head></head><body>
+<p>Paragraph of hello guy</p>
+<p>This text is going to be ignored in the index.</p>
+<p>this should have been updated!</p>
+</body></html>
+<footer>Added to the template</footer>`,
+		strings.Trim(string(wa.Body), " \n"))
 }
 
 // TODO: test404, testInternalServerError

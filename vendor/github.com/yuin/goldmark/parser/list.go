@@ -164,21 +164,9 @@ func (b *listParser) Continue(node ast.Node, reader text.Reader, pc Context) Sta
 		if node.ChildCount() == 1 && node.LastChild().ChildCount() == 0 {
 			return Close
 		}
+
+		reader.Advance(len(line)-1)
 		return Continue | HasChildren
-	}
-	// Thematic Breaks take precedence over lists
-	if isThematicBreak(line, reader.LineOffset()) {
-		isHeading := false
-		last := pc.LastOpenedBlock().Node
-		if ast.IsParagraph(last) {
-			c, ok := matchesSetextHeadingBar(line)
-			if ok && c == '-' {
-				isHeading = true
-			}
-		}
-		if !isHeading {
-			return Close
-		}
 	}
 
 	// "offset" means a width that bar indicates.
@@ -200,6 +188,21 @@ func (b *listParser) Continue(node ast.Node, reader text.Reader, pc Context) Sta
 				if !list.CanContinue(marker, typ == orderedList) {
 					return Close
 				}
+				// Thematic Breaks take precedence over lists
+				if isThematicBreak(line[match[3]-1:], 0) {
+					isHeading := false
+					last := pc.LastOpenedBlock().Node
+					if ast.IsParagraph(last) {
+						c, ok := matchesSetextHeadingBar(line[match[3]-1:])
+						if ok && c == '-' {
+							isHeading = true
+						}
+					}
+					if !isHeading {
+						return Close
+					}
+				}
+
 				return Continue | HasChildren
 			}
 		}

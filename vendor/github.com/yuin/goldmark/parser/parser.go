@@ -138,6 +138,9 @@ type Context interface {
 	// Get returns a value associated with the given key.
 	Get(ContextKey) interface{}
 
+	// ComputeIfAbsent computes a value if a value associated with the given key is absent and returns the value.
+	ComputeIfAbsent(ContextKey, func() interface{}) interface{}
+
 	// Set sets the given value to the context.
 	Set(ContextKey, interface{})
 
@@ -196,6 +199,9 @@ type Context interface {
 
 	// LastOpenedBlock returns a last node that is currently in parsing.
 	LastOpenedBlock() Block
+
+	// IsInLinkLabel returns true if current position seems to be in link label.
+	IsInLinkLabel() bool
 }
 
 // A ContextConfig struct is a data structure that holds configuration of the Context.
@@ -247,6 +253,15 @@ func NewContext(options ...ContextOption) Context {
 
 func (p *parseContext) Get(key ContextKey) interface{} {
 	return p.store[key]
+}
+
+func (p *parseContext) ComputeIfAbsent(key ContextKey, f func() interface{}) interface{} {
+	v := p.store[key]
+	if v == nil {
+		v = f()
+		p.store[key] = v
+	}
+	return v
 }
 
 func (p *parseContext) Set(key ContextKey, value interface{}) {
@@ -378,6 +393,11 @@ func (p *parseContext) LastOpenedBlock() Block {
 	return Block{}
 }
 
+func (p *parseContext) IsInLinkLabel() bool {
+	tlist := p.Get(linkLabelStateKey)
+	return tlist != nil
+}
+
 // State represents parser's state.
 // State is designed to use as a bit flag.
 type State int
@@ -451,7 +471,7 @@ type Parser interface {
 	// Parse parses the given Markdown text into AST nodes.
 	Parse(reader text.Reader, opts ...ParseOption) ast.Node
 
-	// AddOption adds the given option to thie parser.
+	// AddOption adds the given option to this parser.
 	AddOptions(...Option)
 }
 
@@ -497,7 +517,7 @@ type BlockParser interface {
 	// Close will be called when the parser returns Close.
 	Close(node ast.Node, reader text.Reader, pc Context)
 
-	// CanInterruptParagraph returns true if the parser can interrupt pargraphs,
+	// CanInterruptParagraph returns true if the parser can interrupt paragraphs,
 	// otherwise false.
 	CanInterruptParagraph() bool
 
@@ -991,8 +1011,9 @@ type lineStat struct {
 }
 
 func isBlankLine(lineNum, level int, stats []lineStat) bool {
-	ret := false
+	ret := true
 	for i := len(stats) - 1 - level; i >= 0; i-- {
+		ret = false
 		s := stats[i]
 		if s.lineNum == lineNum {
 			if s.level < level && s.isBlank {

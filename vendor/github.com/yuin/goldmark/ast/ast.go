@@ -45,11 +45,6 @@ type Attribute struct {
 	Value interface{}
 }
 
-var attrNameIDS = []byte("#")
-var attrNameID = []byte("id")
-var attrNameClassS = []byte(".")
-var attrNameClass = []byte("class")
-
 // A Node interface defines basic AST node functionalities.
 type Node interface {
 	// Type returns a type of this node.
@@ -116,6 +111,11 @@ type Node interface {
 	// tail of the children.
 	InsertAfter(self, v1, insertee Node)
 
+	// OwnerDocument returns this node's owner document.
+	// If this node is not a child of the Document node, OwnerDocument
+	// returns nil.
+	OwnerDocument() *Document
+
 	// Dump dumps an AST tree structure to stdout.
 	// This function completely aimed for debugging.
 	// level is a indent level. Implementer should indent informations with
@@ -169,7 +169,7 @@ type Node interface {
 	RemoveAttributes()
 }
 
-// A BaseNode struct implements the Node interface.
+// A BaseNode struct implements the Node interface partialliy.
 type BaseNode struct {
 	firstChild Node
 	lastChild  Node
@@ -236,10 +236,12 @@ func (n *BaseNode) RemoveChild(self, v Node) {
 
 // RemoveChildren implements Node.RemoveChildren .
 func (n *BaseNode) RemoveChildren(self Node) {
-	for c := n.firstChild; c != nil; c = c.NextSibling() {
+	for c := n.firstChild; c != nil; {
 		c.SetParent(nil)
 		c.SetPreviousSibling(nil)
+		next := c.NextSibling()
 		c.SetNextSibling(nil)
+		c = next
 	}
 	n.firstChild = nil
 	n.lastChild = nil
@@ -356,6 +358,22 @@ func (n *BaseNode) InsertBefore(self, v1, insertee Node) {
 	}
 }
 
+// OwnerDocument implements Node.OwnerDocument
+func (n *BaseNode) OwnerDocument() *Document {
+	d := n.Parent()
+	for {
+		p := d.Parent()
+		if p == nil {
+			if v, ok := d.(*Document); ok {
+				return v
+			}
+			break
+		}
+		d = p
+	}
+	return nil
+}
+
 // Text implements Node.Text  .
 func (n *BaseNode) Text(source []byte) []byte {
 	var buf bytes.Buffer
@@ -466,20 +484,25 @@ type Walker func(n Node, entering bool) (WalkStatus, error)
 
 // Walk walks a AST tree by the depth first search algorithm.
 func Walk(n Node, walker Walker) error {
+	_, err := walkHelper(n, walker)
+	return err
+}
+
+func walkHelper(n Node, walker Walker) (WalkStatus, error) {
 	status, err := walker(n, true)
 	if err != nil || status == WalkStop {
-		return err
+		return status, err
 	}
 	if status != WalkSkipChildren {
 		for c := n.FirstChild(); c != nil; c = c.NextSibling() {
-			if err = Walk(c, walker); err != nil {
-				return err
+			if st, err := walkHelper(c, walker); err != nil || st == WalkStop {
+				return WalkStop, err
 			}
 		}
 	}
 	status, err = walker(n, false)
 	if err != nil || status == WalkStop {
-		return err
+		return WalkStop, err
 	}
-	return nil
+	return WalkContinue, nil
 }

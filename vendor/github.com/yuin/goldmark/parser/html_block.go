@@ -77,7 +77,7 @@ var allowedBlockTags = map[string]bool{
 }
 
 var htmlBlockType1OpenRegexp = regexp.MustCompile(`(?i)^[ ]{0,3}<(script|pre|style)(?:\s.*|>.*|/>.*|)\n?$`)
-var htmlBlockType1CloseRegexp = regexp.MustCompile(`(?i)^[ ]{0,3}(?:[^ ].*|)</(?:script|pre|style)>.*`)
+var htmlBlockType1CloseRegexp = regexp.MustCompile(`(?i)^.*</(?:script|pre|style)>.*`)
 
 var htmlBlockType2OpenRegexp = regexp.MustCompile(`^[ ]{0,3}<!\-\-`)
 var htmlBlockType2Close = []byte{'-', '-', '>'}
@@ -93,7 +93,7 @@ var htmlBlockType5Close = []byte{']', ']', '>'}
 
 var htmlBlockType6Regexp = regexp.MustCompile(`^[ ]{0,3}</?([a-zA-Z0-9]+)(?:\s.*|>.*|/>.*|)\n?$`)
 
-var htmlBlockType7Regexp = regexp.MustCompile(`^[ ]{0,3}<(/)?([a-zA-Z0-9]+)(` + attributePattern + `*)(:?>|/>)\s*\n?$`)
+var htmlBlockType7Regexp = regexp.MustCompile(`^[ ]{0,3}<(/)?([a-zA-Z0-9\-]+)(` + attributePattern + `*)(:?>|/>)\s*\n?$`)
 
 type htmlBlockParser struct {
 }

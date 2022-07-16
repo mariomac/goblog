@@ -2,7 +2,6 @@ package parser
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 
 	"github.com/yuin/goldmark/ast"
@@ -113,8 +112,6 @@ func (s *linkParser) Trigger() []byte {
 	return []byte{'!', '[', ']'}
 }
 
-var linkDestinationRegexp = regexp.MustCompile(`\s*([^\s].+)`)
-var linkTitleRegexp = regexp.MustCompile(`\s+(\)|["'\(].+)`)
 var linkBottom = NewContextKey()
 
 func (s *linkParser) Parse(parent ast.Node, block text.Reader, pc Context) ast.Node {
@@ -144,11 +141,6 @@ func (s *linkParser) Parse(parent ast.Node, block text.Reader, pc Context) ast.N
 	block.Advance(1)
 	removeLinkLabelState(pc, last)
 	if s.containsLink(last) { // a link in a link text is not allowed
-		ast.MergeOrReplaceTextSegment(last.Parent(), last, last.Segment)
-		return nil
-	}
-	labelValue := block.Value(text.NewSegment(last.Segment.Start+1, segment.Start))
-	if util.IsBlank(labelValue) && !last.IsImage {
 		ast.MergeOrReplaceTextSegment(last.Parent(), last, last.Segment)
 		return nil
 	}
@@ -298,20 +290,17 @@ func (s *linkParser) parseLink(parent ast.Node, last *linkLabelState, block text
 func parseLinkDestination(block text.Reader) ([]byte, bool) {
 	block.SkipSpaces()
 	line, _ := block.PeekLine()
-	buf := []byte{}
 	if block.Peek() == '<' {
 		i := 1
 		for i < len(line) {
 			c := line[i]
 			if c == '\\' && i < len(line)-1 && util.IsPunct(line[i+1]) {
-				buf = append(buf, '\\', line[i+1])
 				i += 2
 				continue
 			} else if c == '>' {
 				block.Advance(i + 1)
 				return line[1:i], true
 			}
-			buf = append(buf, c)
 			i++
 		}
 		return nil, false
@@ -321,7 +310,6 @@ func parseLinkDestination(block text.Reader) ([]byte, bool) {
 	for i < len(line) {
 		c := line[i]
 		if c == '\\' && i < len(line)-1 && util.IsPunct(line[i+1]) {
-			buf = append(buf, '\\', line[i+1])
 			i += 2
 			continue
 		} else if c == '(' {
@@ -334,7 +322,6 @@ func parseLinkDestination(block text.Reader) ([]byte, bool) {
 		} else if util.IsSpace(c) {
 			break
 		}
-		buf = append(buf, c)
 		i++
 	}
 	block.Advance(i)
@@ -351,14 +338,31 @@ func parseLinkTitle(block text.Reader) ([]byte, bool) {
 	if opener == '(' {
 		closer = ')'
 	}
-	line, _ := block.PeekLine()
-	pos := util.FindClosure(line[1:], opener, closer, false, true)
-	if pos < 0 {
-		return nil, false
+	savedLine, savedPosition := block.Position()
+	var title []byte
+	for i := 0; ; i++ {
+		line, _ := block.PeekLine()
+		if line == nil {
+			block.SetPosition(savedLine, savedPosition)
+			return nil, false
+		}
+		offset := 0
+		if i == 0 {
+			offset = 1
+		}
+		pos := util.FindClosure(line[offset:], opener, closer, false, true)
+		if pos < 0 {
+			title = append(title, line[offset:]...)
+			block.AdvanceLine()
+			continue
+		}
+		pos += offset + 1 // 1: closer
+		block.Advance(pos)
+		if i == 0 { // avoid allocating new slice
+			return line[offset : pos-1], true
+		}
+		return append(title, line[offset:pos-1]...), true
 	}
-	pos += 2 // opener + closer
-	block.Advance(pos)
-	return line[1 : pos-1], true
 }
 
 func (s *linkParser) CloseBlock(parent ast.Node, block text.Reader, pc Context) {
