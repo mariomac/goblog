@@ -13,6 +13,7 @@ import (
 	"os"
 
 	"github.com/mariomac/goblog/src/assets"
+	"github.com/mariomac/goblog/src/fs"
 	"github.com/mariomac/goblog/src/install"
 	"github.com/mariomac/goblog/src/legacy"
 	"github.com/mariomac/goblog/src/logr"
@@ -57,6 +58,11 @@ func main() {
 			"rootPath":      cfg.RootPath,
 			"domain":        cfg.Domain,
 		}).Fatal("can't start blog handler")
+	}
+
+	if err := fs.NotifyChanges(cfg.RootPath, mux.Reload); err != nil {
+		log.WithError(err).Warn("could not listen for file changes. Your blog won't be " +
+			"automatically updated if you change any file")
 	}
 
 	var globalHandler http.Handler

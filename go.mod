@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/caarlos0/env/v6 v6.9.1
 	github.com/floscodes/golang-tools v0.0.0-20210816125844-1d6c9227bad8
+	github.com/fsnotify/fsnotify v1.5.4
 	github.com/mariomac/guara v0.0.0-20220617140441-a74253bb0c8b
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.7.1
