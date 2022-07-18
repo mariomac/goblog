@@ -37,7 +37,7 @@ func Search(folder string, regexp *regexp.Regexp) ([]string, error) {
 // it will wait the grace period before notifying the listener. More events during that period
 // will be ignored
 // TODO: make configurable
-const gracePeriod = 5 * time.Second
+const gracePeriod = 2 * time.Second
 
 func NotifyChanges(folder string, listener func() error) error {
 	nlog := log.WithField("folder", folder)

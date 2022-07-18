@@ -8,3 +8,5 @@
 * Read linked images from markdown folder (for an easier edition).
 * Markdown Tags processing. Adding entry tags to header
 * Support Favicon
+* Don't need to set hours in file timestamps
+* 

@@ -9,6 +9,7 @@
 * Breaking changes:
   * In entry templates `{{ if .Time }}` must be replaced by `{{ if not .Time.IsZero }}`
   * Index templates will fail if they contain the `{{ if .Time }}` directive
+* Invalidating web cache
 
 ### v0.2.0
 
