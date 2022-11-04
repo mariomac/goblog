@@ -1,6 +1,6 @@
 ## Version history
 
-### next
+### v1.0.0
 
 * Default root path is local folder
 * Added `redirect` YAML-only configuration option

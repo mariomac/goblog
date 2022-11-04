@@ -21,9 +21,8 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 ### Senior Software Engineer at [Red Hat](http://www.redhat.com). 2021-now
 
 * Openshift Network observability team
-* Flow collection protocols: IPFIX, Netflow...
+* Deep dive into [eBPF CO-RE](https://github.com/netobserv/netobserv-ebpf-agent)
 * Deep dive into Kubernetes concepts: Custom Resource Definitions, Operators, Controllers...
-* Contributions to open source projects
 
 ### Senior Software Engineer at [New Relic](http://www.newrelic.com). 2017-2021
 
