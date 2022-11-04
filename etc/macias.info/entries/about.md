@@ -9,7 +9,7 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 * [Ph.D.](/static/assets/others/phdthesis.pdf) in Computer Architecture
 * Senior software engineer at [Red Hat](http://www.redhat.com) since 2021
 * [University](https://www.upc.edu) teacher since 2009 to 2019
-* Spanish book writer: [Programación en Go](https://www.marcombo.com/programacion-en-go-9788426732330/) (2020),
+* Spanish book writer: [Programación en Go (2nd edition)](https://www.marcombo.com/programacion-en-go-2ed-9788426734495/) (2022),
   [Introducción a Apache Spark](http://www.editorialuoc.cat/introduccion-a-apache-spark_2) (2015),
   Del bit a la Nube (2014, free on [Google](https://play.google.com/store/books/details/Mario_Macías_Lloret_Del_bit_a_la_Nube?id=rYk3BAAAQBAJ) /
     [Kindle](http://www.amazon.es/dp/B00MEMB6YQ) /
