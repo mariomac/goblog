@@ -26,7 +26,7 @@ func (e *EntryGenerator) Get(urlPath string) (*WebAsset, error) {
 	// TODO: extra fields. E.g. source IP
 	entry, found := e.entries.Get(file)
 	if !found {
-		return nil, errNotFound{url: urlPath}
+		return nil, errNotFound{}
 	}
 	body := bytes.Buffer{}
 	if err := e.templates.Render(visual.EntryTemplate, entry, &body); err != nil {

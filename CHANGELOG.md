@@ -1,5 +1,12 @@
 ## Version history
 
+### v2.x
+
+#### Breaking changes
+
+* In index template, you can't iterate entries anymore with
+  `{{ range . }}` but you need to use `{{ range .Entries }}`.
+
 ### v1.0.0
 
 * Default root path is local folder

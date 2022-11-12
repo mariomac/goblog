@@ -1,0 +1,4 @@
+rootPath: ./etc/macias.info
+domain: localhost
+redirect:
+  "/about.md": "/entry/about.md"

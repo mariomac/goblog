@@ -14,11 +14,12 @@ var elog = logr.Get()
 var anyPageFormat = regexp.MustCompile(`\.md$`)
 
 type Entries struct {
-	pageSize int
 	sorted   []*Entry          // only timestamped entries, sorted from new to old
 	all      map[string]*Entry // all the entries and pages, accessible by FileName
 }
 
+// Sorted returns the list of entries belonging to the page num (starting by 0 as first page)
+// and the number of entries per page
 func (e *Entries) Sorted(pageNum, pageSize int) []*Entry {
 	startIdx := pageNum * pageSize
 	if startIdx >= len(e.sorted) {
@@ -34,6 +35,10 @@ func (e *Entries) Sorted(pageNum, pageSize int) []*Entry {
 func (e *Entries) Get(fileName string) (*Entry, bool) {
 	entry, ok := e.all[fileName]
 	return entry, ok
+}
+
+func (e *Entries) Len() int {
+	return len(e.sorted)
 }
 
 func PreloadEntries(directory string) (Entries, error) {

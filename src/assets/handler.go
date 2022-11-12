@@ -39,6 +39,8 @@ func (w *WebAsset) SizeBytes() int {
 }
 
 type webAssetGenerator interface {
+	// Get returns a webasset given the urlPath. The urlPath function removed the parent route
+	// that led to the given asset generator
 	Get(urlPath string) (*WebAsset, error)
 }
 
@@ -56,6 +58,9 @@ type CachedHandler struct {
 	routes        []route
 }
 
+const entriesPerPage = 5
+
+// TODO pass "routedHandler" as argument and remove router logic from here
 func NewCachedHandler(rootPath string, isTLS bool, hostName string, maxCacheBytes int) (*CachedHandler, error) {
 	cc := &CachedHandler{
 		rootPath:      rootPath,
@@ -89,7 +94,7 @@ func (c *CachedHandler) Reload() error {
 		{Prefix: pathEntry, Generator: &EntryGenerator{templates: templates, entries: &entries}},
 		{Prefix: pathAtom, Generator: &AtomGenerator{
 			urlProtocol: protocol, hostName: c.hostName, entryPath: pathEntry, entries: &entries}},
-		{Prefix: pathIndex, Generator: &IndexGenerator{entries: &entries, templates: &templates}},
+		{Prefix: pathIndex, Generator: &IndexGenerator{entries: &entries, templates: &templates, entriesPerPage: entriesPerPage}},
 	}
 	return nil
 }
@@ -114,10 +119,11 @@ func (c *CachedHandler) ServeHTTP(writer http.ResponseWriter, request *http.Requ
 	}
 	for _, r := range c.routes {
 		if strings.HasPrefix(fileUrlPath, r.Prefix) {
-			asset, err := r.Generator.Get(fileUrlPath)
+			asset, err := r.Generator.Get(fileUrlPath[len(r.Prefix):])
 			if err != nil {
-				switch err.(type) {
+				switch e := err.(type) {
 				case errNotFound:
+					e.url = fileUrlPath
 					writeErr(http.StatusNotFound, err, writer, request)
 				default:
 					writeErr(http.StatusInternalServerError, err, writer, request)

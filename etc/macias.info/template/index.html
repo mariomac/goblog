@@ -20,7 +20,7 @@
 
 <!-- Main Content -->
 <section id="entries">
-    {{ range .}}
+    {{ range .Entries }}
       <hr/>
       <article>
         <h2 class="post-title">
@@ -36,6 +36,22 @@
 </section>
 
 <hr>
+
+<!-- pager info -->
+<hr/>
+{{ if gt .TotalPages 1}}
+  <p>Page {{ .CurrentPage }} out of {{ .TotalPages }}</p>
+  <p>
+      {{ if ne .PreviousPage 0 }}
+        <a href="/{{.PreviousPage}}">Previous</a>
+      {{ end }}
+      {{ if lt .CurrentPage .TotalPages }}
+        <a href="/{{.NextPage}}">Next</a>
+      {{ end }}
+  </p>
+{{ end }}
+
+
 
 {{ template "footer" }}
 

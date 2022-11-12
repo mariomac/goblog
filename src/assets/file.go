@@ -19,15 +19,14 @@ type FileAssetGenerator struct {
 }
 
 func (f *FileAssetGenerator) Get(urlPath string) (*WebAsset, error) {
-	// replacing "/" by system separator is only needed for Windows:
-	// todo: isolate in a windows-only function
-	relPath := strings.Split(urlPath[len(pathStatic):], "/")
+
+	relPath := strings.Split(urlPath, "/")
 	absPath := path.Join(append([]string{f.rootPath, dirStatic}, relPath...)...)
 
 	fileBytes, err := os.ReadFile(absPath)
 	if err != nil {
 		if errors.Is(err, fs.ErrNotExist) {
-			return nil, errNotFound{url: urlPath}
+			return nil, errNotFound{}
 		} else {
 			return nil, internalError{cause: fmt.Errorf("reading file %q: %w", urlPath, err)}
 		}
