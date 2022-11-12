@@ -17,6 +17,7 @@ type Config struct {
 	TLSKeyPath     string            `env:"GOBLOG_TLS_KEY" yaml:"tlsKeyPath"`
 	Redirect       map[string]string `env:"GOBLOG_REDIRECT" yaml:"redirect"`
 	CacheSizeBytes int               `env:"GOBLOG_CACHE_SIZE_BYTES" yaml:"cacheSizeBytes"`
+	EntriesPerPage int               `env:"GOBLOG_ENTRIES_PER_PAGE" yaml:"entriesPerPage"`
 }
 
 // ReadConfig gets a Config object from the environment and the provided yamlPath (optional)
@@ -29,6 +30,7 @@ func ReadConfig(yamlPath string) (Config, error) {
 		TLSKeyPath:     "",
 		TLSCertPath:    "",
 		CacheSizeBytes: 32 * 1024 * 1024, // 32 MB
+		EntriesPerPage: 5,
 	}
 
 	// override them with YAML

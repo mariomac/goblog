@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>Mario Macias' handcrafted blog</title>
-    {{ template "html_head" . }}
+  <title>Mario Macias' handcrafted blog</title>
+  {{ template "html_head" . }}
 </head>
 
 <body>
@@ -14,43 +14,48 @@
   <h1 class="blog-title">My handcrafted blog</h1>
   <div class="coletilla">
     <a href="http://github.com/mariomac/goblog" target="_blank">Written from scratch</a> in Go because
-      I'm too lazy to read the Hugo docs.
+    I'm too lazy to read the Hugo docs.
   </div>
 </header>
 
 <!-- Main Content -->
 <section id="entries">
-    {{ range .Entries }}
-      <hr/>
-      <article>
-        <h2 class="post-title">
-          <a href="/entry/{{.FileName}}">{{.Title}}</a>
-        </h2>
-        <p class="post-meta"><a href="/entry/{{.FileName}}">Posted on {{.Time.Month}} {{.Time.Day}}
-            , {{.Time.Year}}</a> (<a href="http://macias.info/entry/{{.FileName}}#disqus_thread"></a>)</p>
-        <p class="post-subtitle">
-            {{.Preview}}
-        </p>
-      </article>
-    {{ end }}
+  {{ range .Entries }}
+  <hr/>
+  <article>
+    <h2 class="post-title">
+      <a href="/entry/{{.FileName}}">{{.Title}}</a>
+    </h2>
+    <p class="post-meta"><a href="/entry/{{.FileName}}">Posted on {{.Time.Month}} {{.Time.Day}}
+      , {{.Time.Year}}</a> (<a href="http://macias.info/entry/{{.FileName}}#disqus_thread"></a>)</p>
+    <p class="post-subtitle">
+      {{.Preview}}
+    </p>
+  </article>
+  {{ end }}
 </section>
 
 <hr>
 
 <!-- pager info -->
-<hr/>
 {{ if gt .TotalPages 1}}
-  <p>Page {{ .CurrentPage }} out of {{ .TotalPages }}</p>
-  <p>
-      {{ if ne .PreviousPage 0 }}
-        <a href="/{{.PreviousPage}}">Previous</a>
-      {{ end }}
-      {{ if lt .CurrentPage .TotalPages }}
-        <a href="/{{.NextPage}}">Next</a>
-      {{ end }}
-  </p>
+<div class="pagination">
+<div class="paginationContents">
+  <div class="pageInfo">Page {{ .CurrentPage }} out of {{ .TotalPages }}</div>
+  {{ if ne .PreviousPage 0 }}
+  <div class="pageButton pageLeftButton">
+    <a href="/{{.PreviousPage}}">Previous</a>
+  </div>
+  {{ end }}
+  {{ if lt .CurrentPage .TotalPages }}
+  <div class="pageButton pageRightButton">
+    <a href="/{{.NextPage}}">Next</a>
+  </div>
+  {{ end }}
+</div>
+</div>
+<hr/>
 {{ end }}
-
 
 
 {{ template "footer" }}

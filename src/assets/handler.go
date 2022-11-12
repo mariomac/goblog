@@ -3,6 +3,7 @@ package assets
 import (
 	"errors"
 	"fmt"
+	"github.com/mariomac/goblog/src/install"
 	"net/http"
 	"path"
 	"strings"
@@ -50,23 +51,20 @@ type route struct {
 }
 
 type CachedHandler struct {
-	rootPath      string
-	hostName      string
-	maxCacheBytes int
-	tls           bool
-	assets        *cache.LRU[string, *WebAsset]
-	routes        []route
+	config *install.Config
+	tls    bool
+	assets *cache.LRU[string, *WebAsset]
+	routes []route
 }
 
-const entriesPerPage = 5
-
 // TODO pass "routedHandler" as argument and remove router logic from here
-func NewCachedHandler(rootPath string, isTLS bool, hostName string, maxCacheBytes int) (*CachedHandler, error) {
+func NewCachedHandler(
+	cfg *install.Config,
+	isTLS bool, // todo: move to install config and make configurable
+) (*CachedHandler, error) {
 	cc := &CachedHandler{
-		rootPath:      rootPath,
-		hostName:      hostName,
-		tls:           isTLS,
-		maxCacheBytes: maxCacheBytes,
+		config: cfg,
+		tls:    isTLS,
 	}
 	if err := cc.Reload(); err != nil {
 		return nil, fmt.Errorf("loading resources: %w", err)
@@ -75,12 +73,12 @@ func NewCachedHandler(rootPath string, isTLS bool, hostName string, maxCacheByte
 }
 
 func (c *CachedHandler) Reload() error {
-	entries, err := blog.PreloadEntries(path.Join(c.rootPath, dirEntry))
+	entries, err := blog.PreloadEntries(path.Join(c.config.RootPath, dirEntry))
 	if err != nil {
 		return fmt.Errorf("loading blog entries: %w", err)
 	}
 
-	templates, err := visual.LoadTemplates(path.Join(c.rootPath, dirTemplate))
+	templates, err := visual.LoadTemplates(path.Join(c.config.RootPath, dirTemplate))
 	if err != nil {
 		return fmt.Errorf("loading template: %w", err)
 	}
@@ -88,13 +86,13 @@ func (c *CachedHandler) Reload() error {
 	if c.tls {
 		protocol = "https://"
 	}
-	c.assets = cache.NewLRU[string, *WebAsset](c.maxCacheBytes)
+	c.assets = cache.NewLRU[string, *WebAsset](c.config.CacheSizeBytes)
 	c.routes = []route{
-		{Prefix: pathStatic, Generator: &FileAssetGenerator{rootPath: c.rootPath}},
+		{Prefix: pathStatic, Generator: &FileAssetGenerator{rootPath: c.config.RootPath}},
 		{Prefix: pathEntry, Generator: &EntryGenerator{templates: templates, entries: &entries}},
 		{Prefix: pathAtom, Generator: &AtomGenerator{
-			urlProtocol: protocol, hostName: c.hostName, entryPath: pathEntry, entries: &entries}},
-		{Prefix: pathIndex, Generator: &IndexGenerator{entries: &entries, templates: &templates, entriesPerPage: entriesPerPage}},
+			urlProtocol: protocol, hostName: c.config.Domain, entryPath: pathEntry, entries: &entries}},
+		{Prefix: pathIndex, Generator: &IndexGenerator{entries: &entries, templates: &templates, entriesPerPage: c.config.EntriesPerPage}},
 	}
 	return nil
 }

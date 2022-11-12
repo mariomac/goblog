@@ -204,3 +204,37 @@ nav > #nav-check {
         padding: 10px 10px 10px 10px;
     }
 }
+
+.pagination {
+    display: flex;
+}
+
+.paginationContents {
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+
+.pagination .pageInfo {
+    padding-left: 3px;
+    padding-right: 3px;
+    margin: 3px;
+}
+
+.pagination .pageButton > a {
+    text-decoration: none;
+    border-radius: 3px;
+    margin: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    color: #fff;
+    background-color: #4d4d4d;
+}
+
+.pagination .pageLeftButton {
+    float: left;
+}
+
+.pagination .pageRightButton {
+    float: right;
+}
