@@ -22,7 +22,7 @@ type EntryGenerator struct {
 }
 
 func (e *EntryGenerator) Get(urlPath string) (*WebAsset, error) {
-	file := urlPath[len(pathEntry):]
+	file := urlPath
 	// TODO: extra fields. E.g. source IP
 	entry, found := e.entries.Get(file)
 	if !found {
