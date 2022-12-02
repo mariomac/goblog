@@ -3,10 +3,11 @@ package assets
 import (
 	"errors"
 	"fmt"
-	"github.com/mariomac/goblog/src/install"
 	"net/http"
 	"path"
 	"strings"
+
+	"github.com/mariomac/goblog/src/install"
 
 	"github.com/mariomac/goblog/src/blog"
 	"github.com/mariomac/goblog/src/logr"

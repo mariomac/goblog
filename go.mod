@@ -9,18 +9,17 @@ require (
 	github.com/mariomac/guara v0.0.0-20220617140441-a74253bb0c8b
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.7.1
-	github.com/yuin/goldmark v1.3.5
-	github.com/yuin/goldmark-highlighting v0.0.0-20191202084645-78f32c8dd6d5
+	github.com/yuin/goldmark v1.5.3
+	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20220924101305-151362477c87
 	golang.org/x/net v0.0.0-20211216030914-fe4d6282115f
 	golang.org/x/tools v0.1.5
 	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
-	github.com/alecthomas/chroma v0.7.0 // indirect
-	github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964 // indirect
+	github.com/alecthomas/chroma/v2 v2.2.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/dlclark/regexp2 v1.1.6 // indirect
+	github.com/dlclark/regexp2 v1.7.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect

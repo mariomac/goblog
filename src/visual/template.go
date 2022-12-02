@@ -12,7 +12,7 @@ import (
 	"github.com/mariomac/goblog/src/logr"
 	"github.com/sirupsen/logrus"
 	"github.com/yuin/goldmark"
-	highlighting "github.com/yuin/goldmark-highlighting"
+	highlighting "github.com/yuin/goldmark-highlighting/v2"
 )
 
 var log = logr.Get()

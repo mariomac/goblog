@@ -2,4 +2,4 @@ rootPath: ./etc/macias.info
 domain: localhost
 redirect:
   "/about.md": "/entry/about.md"
-#entriesPerPage: 10
+entriesPerPage: 10

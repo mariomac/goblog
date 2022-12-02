@@ -15,7 +15,8 @@ import (
 	"github.com/yuin/goldmark/renderer/html"
 
 	"github.com/yuin/goldmark"
-	highlighting "github.com/yuin/goldmark-highlighting"
+	highlighting "github.com/yuin/goldmark-highlighting/v2"
+	"github.com/yuin/goldmark/extension"
 	nethtml "golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
 )
@@ -79,9 +80,11 @@ func getTitleBodyAndPreview(mdBytes []byte) (string, template.HTML, template.HTM
 	// TODO: proper caching of goldmark
 	markdown := goldmark.New(
 		goldmark.WithExtensions(
+			extension.Table,
 			highlighting.NewHighlighting(
 				highlighting.WithStyle("tango"),
 			),
+
 		),
 		goldmark.WithRendererOptions(html.WithUnsafe()),
 	)

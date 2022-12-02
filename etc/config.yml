@@ -4,5 +4,6 @@ httpPort: 80
 domain: macias.info
 tlsCertPath: /etc/letsencrypt/live/macias.info/fullchain.pem
 tlsKeyPath: /etc/letsencrypt/live/macias.info/privkey.pem
+entriesPerPage: 10
 redirect:
   "/about.md": "/entry/about.md"

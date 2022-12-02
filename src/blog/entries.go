@@ -14,8 +14,8 @@ var elog = logr.Get()
 var anyPageFormat = regexp.MustCompile(`\.md$`)
 
 type Entries struct {
-	sorted   []*Entry          // only timestamped entries, sorted from new to old
-	all      map[string]*Entry // all the entries and pages, accessible by FileName
+	sorted []*Entry          // only timestamped entries, sorted from new to old
+	all    map[string]*Entry // all the entries and pages, accessible by FileName
 }
 
 // Sorted returns the list of entries belonging to the page num (starting by 0 as first page)

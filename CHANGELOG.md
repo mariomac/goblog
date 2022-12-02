@@ -2,6 +2,9 @@
 
 ### v2.x
 
+* Updated goldmark rendering.
+* Support github-flavored tables.
+
 #### Breaking changes
 
 * In index template, you can't iterate entries anymore with
