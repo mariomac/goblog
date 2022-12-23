@@ -5,7 +5,7 @@
 * Markdown Tags processing. Adding entry tags to header
 * Support Favicon
 * Don't need to set hours in file timestamps
-
+* Block IPs by range
 
 ## Save bandwidth of my blog
 

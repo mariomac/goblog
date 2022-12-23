@@ -26,6 +26,7 @@ func ClientRateLimitHandler(inner http.HandlerFunc, maxReqs int, period, clientE
 		if !limiter.Accept(rAddr[:li]) {
 			rw.WriteHeader(http.StatusTooManyRequests)
 			rw.Header().Add("Retry-After", retryAfterVal)
+			// TODO: log rejection
 		} else {
 			inner(rw, req)
 		}
