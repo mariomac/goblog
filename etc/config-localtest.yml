@@ -3,3 +3,5 @@ domain: localhost
 redirect:
   "/about.md": "/entry/about.md"
 entriesPerPage: 10
+maxRequests:
+  number: 60

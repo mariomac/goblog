@@ -18,7 +18,8 @@ interface WebAssetGenerator {
 }
 
 TLSServer -> HTTPServer: wraps
-HTTPServer -> CachedHandler
+HTTPServer -> RateLimiter
+RateLimiter -> CachedHandler
 WebAssetGenerator .> WebAsset: <<creates>>
 CachedHandler --> "*" WebAssetGenerator: "selects\nby route"
 CachedHandler --> "*" WebAsset: stores

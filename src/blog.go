@@ -65,11 +65,16 @@ func main() {
 			"automatically updated if you change any file")
 	}
 
-	var globalHandler http.Handler
+	var globalHandler http.HandlerFunc
 	if len(cfg.Redirect) == 0 {
-		globalHandler = mux
+		globalHandler = mux.ServeHTTP
 	} else {
-		globalHandler = legacy.NewRedirector(cfg.Redirect, mux)
+		globalHandler = legacy.NewRedirector(cfg.Redirect, mux).ServeHTTP
+	}
+
+	if cfg.MaxRequests.Number > 0 && cfg.MaxRequests.Period > 0 {
+		globalHandler = conn.ClientRateLimitHandler(globalHandler,
+			cfg.MaxRequests.Number, cfg.MaxRequests.Period, cfg.MaxRequests.Period)
 	}
 
 	log.Printf("Redirecting insecure traffic from port %v", cfg.InsecurePort)

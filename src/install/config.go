@@ -1,11 +1,17 @@
 package install
 
 import (
-	"io/ioutil"
+	"os"
+	"time"
 
 	"github.com/caarlos0/env/v6"
 	"gopkg.in/yaml.v2"
 )
+
+type MaxRequestsCfg struct {
+	Number int           `env:"GOBLOG_MAX_REQUESTS_NUMBER" yaml:"number"`
+	Period time.Duration `env:"GOBLOG_MAX_REQUESTS_PERIOD" yaml:"period"`
+}
 
 // Config of the blog installation. Via file or env vars.
 type Config struct {
@@ -18,6 +24,7 @@ type Config struct {
 	Redirect       map[string]string `env:"GOBLOG_REDIRECT" yaml:"redirect"`
 	CacheSizeBytes int               `env:"GOBLOG_CACHE_SIZE_BYTES" yaml:"cacheSizeBytes"`
 	EntriesPerPage int               `env:"GOBLOG_ENTRIES_PER_PAGE" yaml:"entriesPerPage"`
+	MaxRequests    MaxRequestsCfg    `yaml:"maxRequests"`
 }
 
 // ReadConfig gets a Config object from the environment and the provided yamlPath (optional)
@@ -31,11 +38,14 @@ func ReadConfig(yamlPath string) (Config, error) {
 		TLSCertPath:    "",
 		CacheSizeBytes: 32 * 1024 * 1024, // 32 MB
 		EntriesPerPage: 5,
+		MaxRequests: MaxRequestsCfg{
+			Period: time.Minute,
+		},
 	}
 
 	// override them with YAML
 	if yamlPath != "" {
-		yf, err := ioutil.ReadFile(yamlPath)
+		yf, err := os.ReadFile(yamlPath)
 		if err != nil {
 			return cfg, err
 		}

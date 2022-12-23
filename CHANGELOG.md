@@ -2,6 +2,7 @@
 
 ### v2.x
 
+* Added configurable per-client rate limiter
 * Updated goldmark rendering.
 * Support github-flavored tables.
 
