@@ -7,7 +7,7 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 ## TL; DR; (highlights)
 
 * [Ph.D.](/static/assets/others/phdthesis.pdf) in Computer Architecture
-* Senior software engineer at [Red Hat](http://www.redhat.com) since 2021
+* Senior software engineer at [Grafana Labs](https://grafana.com/) since 2023
 * [University](https://www.upc.edu) teacher since 2009 to 2019
 * Spanish book writer: [Programación en Go (2nd edition)](https://www.marcombo.com/programacion-en-go-2ed-9788426734495/) (2022),
   [Introducción a Apache Spark](http://www.editorialuoc.cat/introduccion-a-apache-spark_2) (2015),
@@ -18,7 +18,11 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## Professional Experience
 
-### Senior Software Engineer at [Red Hat](http://www.redhat.com). 2021-now
+### Senior Software Engineer at [Grafana Labs](https://grafana.com/). 2023-
+
+* Joining the eBPF squad of the Application Observability team
+
+### Senior Software Engineer at [Red Hat](http://www.redhat.com). 2021-2023
 
 * Openshift Network observability team
 * Deep dive into [eBPF CO-RE](https://github.com/netobserv/netobserv-ebpf-agent)
