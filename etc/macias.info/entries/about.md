@@ -108,7 +108,7 @@ Kubernetes...
 ## Talks and lectures
 
 * [Grafana Beyla: Instrumenta tu aplicación sin añadir una sola línea de código](../static/assets/talks/2023/09beylameetup.pdf)
-  * [Grafana and Friends Barcelona Meetup](https://www.meetup.com/es-ES/grafana-friends-barcelona-democratize-observability/). September 1th, 2023
+  * [Grafana and Friends Barcelona Meetup](https://www.meetup.com/es-ES/grafana-friends-barcelona-democratize-observability/). September 19th, 2023
 * [Use of eBPF in OpenShift network observability](https://www.redhat.com/sysadmin/ebpf-openshift-network-observability)
   * [Red Hat Summit](https://www.redhat.com/en/summit). May 10-11th, 2022
 * [The Go Concurrency Model: a tour on simplicity](https://github.com/mariomac/go-concurrency-tools)
