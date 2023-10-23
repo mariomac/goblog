@@ -16,11 +16,40 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
     [iTunes](https://itunes.apple.com/es/book/del-bit-a-la-nube/id910102199))
 * Enthusiast speaker
 
+## Talks and lectures
+
+* [Zero-code application metrics with eBPF and Prometheus](../static/assets/talks/2023/2023-09-promcon-beyla.pdf)
+  / [Video (2:17:00)](https://youtu.be/pKYhMTJgJUU?t=8220)
+    * [Promcon EU 2023](https://promcon.io/2023-berlin/). Berlin, Germany. September 28-29, 2023
+* [Lies, damned lies, and request times](../static/assets/talks/2023/2023-09-promcon-lightning.pdf)
+  (lightning talk) / [Video  (7:47:00)](https://youtu.be/ymR57Q0qqg4?t=28020)
+    * [Promcon EU 2023](https://promcon.io/2023-berlin/). Berlin, Germany. September 28-29, 2023
+* [Grafana Beyla: Instrumenta tu aplicación sin añadir una sola línea de código](../static/assets/talks/2023/09beylameetup.pdf)
+    * [Grafana and Friends Barcelona Meetup](https://www.meetup.com/es-ES/grafana-friends-barcelona-democratize-observability/). September 19th, 2023
+* [Use of eBPF in OpenShift network observability](https://www.redhat.com/sysadmin/ebpf-openshift-network-observability)
+    * [Red Hat Summit](https://www.redhat.com/en/summit). May 10-11th, 2022
+* [The Go Concurrency Model: a tour on simplicity](https://github.com/mariomac/go-concurrency-tools)
+    * [Assembler School](https://www.assemblerschool.com/). February 12th, 2020
+* [Pointers vs Values: digging into the Performance War](../static/assets/talks/202001go.pdf)
+    * [Barcelona Golang Meetup](https://www.meetup.com/es-ES/Golang-Barcelona/). January 29th, 2020
+* [Summoning the Go memory manager](/static/assets/talks/201901go/index.html)
+    * [Barcelona Golang Meetup](https://www.meetup.com/es-ES/Golang-Barcelona/). January 31st, 2019
+* [Servicios de Supercomputación](/static/assets/talks/BSC_general.pdf)
+    * [Barcelona Supercomputing Center](http://www.bsc.es). February 12th, 2015
+    * [Barcelona Supercomputing Center](http://www.bsc.es). October 30th, 2015
+* [La tecnología detrás del Big Data](/static/assets/talks/BigData.pdf)
+    * [Centre de Cultura Contemporània de Barcelona](https://www.cccb.org/en). September 9th, 2014
+    * [Barcelona Supercomputing Center](http://www.bsc.es). December 16th, 2014
+* *Big Data: ¿Qué hay de big?*
+    * [Barcelona Supercomputing Center](http://www.bsc.es). June 11th, 2014
+    * [Barcelona Supercomputing Center](http://www.bsc.es). July 10th, 2014
+
 ## Professional Experience
 
 ### Senior Software Engineer at [Grafana Labs](https://grafana.com/). 2023-
 
 * Joining the eBPF squad of the Application Observability team
+* Developed [Grafana Beyla](https://github.com/grafana/beyla) from scratch
 
 ### Senior Software Engineer at [Red Hat](http://www.redhat.com). 2021-2023
 
@@ -104,34 +133,6 @@ Kubernetes...
 * Master's degree in *Computer Engineering*. [Universitat Autònoma de Barcelona](http://www.uab.cat). 2005
 
 * Bachelor's degree in *Computer Engineering*. [Universitat Autònoma de Barcelona](http://www.uab.cat). 2002
-
-## Talks and lectures
-
-* [Zero-code application metrics with eBPF and Prometheus](../static/assets/talks/2023/2023-09-promcon-beyla.pdf)
-  / [Video (2:17:00)](https://youtu.be/pKYhMTJgJUU?t=8220) 
-  * [Promcon EU 2023](https://promcon.io/2023-berlin/). Berlin, Germany. September 28-29, 2023
-* [Lies, damned lies, and request times](../static/assets/talks/2023/2023-09-promcon-lightning.pdf)
-  (lightning talk) / [Video  (7:47:00)](https://youtu.be/ymR57Q0qqg4?t=28020)
-  * [Promcon EU 2023](https://promcon.io/2023-berlin/). Berlin, Germany. September 28-29, 2023
-* [Grafana Beyla: Instrumenta tu aplicación sin añadir una sola línea de código](../static/assets/talks/2023/09beylameetup.pdf)
-  * [Grafana and Friends Barcelona Meetup](https://www.meetup.com/es-ES/grafana-friends-barcelona-democratize-observability/). September 19th, 2023
-* [Use of eBPF in OpenShift network observability](https://www.redhat.com/sysadmin/ebpf-openshift-network-observability)
-  * [Red Hat Summit](https://www.redhat.com/en/summit). May 10-11th, 2022
-* [The Go Concurrency Model: a tour on simplicity](https://github.com/mariomac/go-concurrency-tools)
-  * [Assembler School](https://www.assemblerschool.com/). February 12th, 2020
-* [Pointers vs Values: digging into the Performance War](../static/assets/talks/202001go.pdf)    
-  * [Barcelona Golang Meetup](https://www.meetup.com/es-ES/Golang-Barcelona/). January 29th, 2020
-* [Summoning the Go memory manager](/static/assets/talks/201901go/index.html)   
-  * [Barcelona Golang Meetup](https://www.meetup.com/es-ES/Golang-Barcelona/). January 31st, 2019              
-* [Servicios de Supercomputación](/static/assets/talks/BSC_general.pdf)
-  * [Barcelona Supercomputing Center](http://www.bsc.es). February 12th, 2015
-  * [Barcelona Supercomputing Center](http://www.bsc.es). October 30th, 2015      
-* [La tecnología detrás del Big Data](/static/assets/talks/BigData.pdf)
-  * [Centre de Cultura Contemporània de Barcelona](https://www.cccb.org/en). September 9th, 2014
-  * [Barcelona Supercomputing Center](http://www.bsc.es). December 16th, 2014
-* *Big Data: ¿Qué hay de big?*    
-  * [Barcelona Supercomputing Center](http://www.bsc.es). June 11th, 2014
-  * [Barcelona Supercomputing Center](http://www.bsc.es). July 10th, 2014
 
 ## Teaching
 
