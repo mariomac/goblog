@@ -107,6 +107,12 @@ Kubernetes...
 
 ## Talks and lectures
 
+* [Zero-code application metrics with eBPF and Prometheus](../static/assets/talks/2023/2023-09-promcon-beyla.pdf)
+  / [Video (2:17:00)](https://youtu.be/pKYhMTJgJUU?t=8220) 
+  * [Promcon EU 2023](https://promcon.io/2023-berlin/). Berlin, Germany. September 28-29, 2023
+* [Lies, damned lies, and request times](../static/assets/talks/2023/2023-09-promcon-lightning.pdf)
+  (lightning talk) / [Video  (7:47:00)](https://youtu.be/ymR57Q0qqg4?t=28020)
+  * [Promcon EU 2023](https://promcon.io/2023-berlin/). Berlin, Germany. September 28-29, 2023
 * [Grafana Beyla: Instrumenta tu aplicación sin añadir una sola línea de código](../static/assets/talks/2023/09beylameetup.pdf)
   * [Grafana and Friends Barcelona Meetup](https://www.meetup.com/es-ES/grafana-friends-barcelona-democratize-observability/). September 19th, 2023
 * [Use of eBPF in OpenShift network observability](https://www.redhat.com/sysadmin/ebpf-openshift-network-observability)
