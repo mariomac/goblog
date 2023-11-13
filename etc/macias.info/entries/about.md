@@ -18,6 +18,8 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## Talks and lectures
 
+* [OpenTelemetry metrics for Python without the remorse i.e. with eBPF](../static/assets/talks/2023/2023-11-pycon-beyla.pdf)
+    * [PyCon Ireland 2023](https://python.ie/pycon-2023/). Dublin, Ireland. November 11-12, 2023.
 * [Zero-code application metrics with eBPF and Prometheus](../static/assets/talks/2023/2023-09-promcon-beyla.pdf)
   / [Video (2:17:00)](https://youtu.be/pKYhMTJgJUU?t=8220)
     * [Promcon EU 2023](https://promcon.io/2023-berlin/). Berlin, Germany. September 28-29, 2023
