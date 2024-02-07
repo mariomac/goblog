@@ -18,6 +18,8 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## Talks and lectures
 
+* [Instrumenting distributed traces with eBPF](https://ftp.fau.de/fosdem/2024/ua2220/fosdem-2024-3499-implementing-distributed-traces-with-ebpf.av1.webm)
+    * [FOSDEM 2024](https://fosdem.org/2024/). Brussels, Belgium. February 4-5, 2024.
 * [OpenTelemetry metrics for Python without the remorse i.e. with eBPF](../static/assets/talks/2023/2023-11-pycon-beyla.pdf)
     * [PyCon Ireland 2023](https://python.ie/pycon-2023/). Dublin, Ireland. November 11-12, 2023.
 * [Zero-code application metrics with eBPF and Prometheus](../static/assets/talks/2023/2023-09-promcon-beyla.pdf)
