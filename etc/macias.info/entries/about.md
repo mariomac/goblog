@@ -18,6 +18,8 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## Talks and lectures
 
+* [Curveballs: Learnings from Instrumenting Managed Runtime Applications with eBPF](../static/assets/talks/2024/2024-03-kubecon-curveballs.pdf)
+    * [Cilium+eBPF day](https://colocatedeventseu2024.sched.com/type/Cilium+%2B+eBPF+Day). Event co-located with [KubeCon+CloudNativeCon Europe](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/). Paris, France. March 19, 2024.
 * [Instrumenting distributed traces with eBPF](https://ftp.fau.de/fosdem/2024/ua2220/fosdem-2024-3499-implementing-distributed-traces-with-ebpf.av1.webm)
     * [FOSDEM 2024](https://fosdem.org/2024/). Brussels, Belgium. February 4-5, 2024.
 * [OpenTelemetry metrics for Python without the remorse i.e. with eBPF](../static/assets/talks/2023/2023-11-pycon-beyla.pdf)
