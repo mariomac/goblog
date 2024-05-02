@@ -18,6 +18,8 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## Talks and lectures
 
+* [Grafana Beyla: Zero-code distributed traces and metrics for your microservices with eBPF](https://www.youtube.com/watch?v=Fe4MG1UxAl4)
+    * [GrafanaCON 2024](https://grafana.com/about/events/grafanacon/2024/). Amsterdam, Netherlands. April 9th, 2024.
 * [Curveballs: Learnings from Instrumenting Managed Runtime Applications with eBPF](../static/assets/talks/2024/2024-03-kubecon-curveballs.pdf)
     * [Cilium+eBPF day](https://colocatedeventseu2024.sched.com/type/Cilium+%2B+eBPF+Day). Event co-located with [KubeCon+CloudNativeCon Europe](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/). Paris, France. March 19, 2024.
 * [Instrumenting distributed traces with eBPF](https://ftp.fau.de/fosdem/2024/ua2220/fosdem-2024-3499-implementing-distributed-traces-with-ebpf.av1.webm)
