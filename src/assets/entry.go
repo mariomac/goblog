@@ -7,14 +7,11 @@ import (
 	"github.com/mariomac/goblog/src/blog"
 	"github.com/mariomac/goblog/src/logr"
 	"github.com/mariomac/goblog/src/visual"
-	"github.com/sirupsen/logrus"
 )
 
 const (
 	entryMimeType = indexMimeType
 )
-
-var elog = logr.Get()
 
 type EntryGenerator struct {
 	entries   *blog.Entries
@@ -30,11 +27,11 @@ func (e *EntryGenerator) Get(urlPath string) (*WebAsset, error) {
 	}
 	body := bytes.Buffer{}
 	if err := e.templates.Render(visual.EntryTemplate, entry, &body); err != nil {
-		elog.WithFields(logrus.Fields{
-			logrus.ErrorKey: err,
-			"urlPath":       urlPath,
-			"fileName":      file,
-		}).Error("rendering entry template")
+		logr.Get().Error("rendering entry template",
+			"error", err,
+			"urlPath", urlPath,
+			"fileName", file,
+		)
 		return nil, internalError{cause: fmt.Errorf("rendering entry template: %w", err)}
 	}
 	return &WebAsset{

@@ -1,12 +1,15 @@
 package blog
 
 import (
+	"log/slog"
 	"testing"
 	"time"
 
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/mariomac/goblog/src/logr"
 )
 
 func TestBlogContent_LoadAll(t *testing.T) {
@@ -48,7 +51,7 @@ func TestBlogContent_LoadAll(t *testing.T) {
 }
 
 func TestPager(t *testing.T) {
-	logrus.SetLevel(logrus.DebugLevel)
+	logr.Init(slog.LevelDebug)
 	entries := Entries{sorted: []*Entry{
 		{Time: time.Date(2021, 10, 12, 0, 0, 0, 0, location)},
 		{Time: time.Date(2021, 10, 11, 0, 0, 0, 0, location)},

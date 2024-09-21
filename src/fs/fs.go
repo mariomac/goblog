@@ -4,6 +4,7 @@ package fs
 import (
 	"fmt"
 	"io/fs"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -11,11 +12,9 @@ import (
 	"time"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/mariomac/goblog/src/logr"
-	"github.com/sirupsen/logrus"
-)
 
-var log = logr.Get()
+	"github.com/mariomac/goblog/src/logr"
+)
 
 // Search returns the paths of all the files contained in the folder and subfolders of the path whose
 // file name matches with the regular expression. If the regular expression is nil, it returns
@@ -40,7 +39,7 @@ func Search(folder string, regexp *regexp.Regexp) ([]string, error) {
 const gracePeriod = 2 * time.Second
 
 func NotifyChanges(folder string, listener func() error) error {
-	nlog := log.WithField("folder", folder)
+	nlog := logr.Get().With("folder", folder)
 	nlog.Info("start file changes notifier")
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
@@ -51,11 +50,11 @@ func NotifyChanges(folder string, listener func() error) error {
 		if !d.IsDir() {
 			return nil
 		}
-		nlog.WithFields(logrus.Fields{
-			"path":        path,
-			"dirEntry":    d.Name(),
-			"receivedErr": err,
-		}).Debug("adding directory entry to notifier")
+		nlog.Debug("adding directory entry to notifier",
+			"path", path,
+			"dirEntry", d.Name(),
+			"receivedErr", err,
+		)
 		if err := watcher.Add(path); err != nil {
 			return fmt.Errorf("adding folder %s: %w", path, err)
 		}
@@ -67,7 +66,7 @@ func NotifyChanges(folder string, listener func() error) error {
 	return nil
 }
 
-func processEvents(watcher *fsnotify.Watcher, nlog *logrus.Entry, listener func() error) {
+func processEvents(watcher *fsnotify.Watcher, nlog *slog.Logger, listener func() error) {
 	defer watcher.Close()
 	ignoreEvents := int64(0)
 	for {
@@ -79,22 +78,22 @@ func processEvents(watcher *fsnotify.Watcher, nlog *logrus.Entry, listener func(
 				return
 			}
 			if atomic.CompareAndSwapInt64(&ignoreEvents, 0, 1) {
-				nlog.WithFields(logrus.Fields{
-					"event":       event,
-					"gracePeriod": gracePeriod,
-				}).Info("reloading blog after grace period")
+				nlog.Info("reloading blog after grace period",
+					"event", event,
+					"gracePeriod", gracePeriod,
+				)
 				time.AfterFunc(gracePeriod, func() {
 					if err := listener(); err != nil {
-						nlog.WithError(err).Error("couldn't reload blog")
+						nlog.Error("couldn't reload blog", "error", err)
 					}
 					// accept events again
 					atomic.StoreInt64(&ignoreEvents, 0)
 				})
 			} else {
-				nlog.WithFields(logrus.Fields{
-					"event":       event,
-					"gracePeriod": gracePeriod,
-				}).Debug("still in grace period. Ignoring event")
+				nlog.Debug("still in grace period. Ignoring event",
+					"event", event,
+					"gracePeriod", gracePeriod,
+				)
 			}
 		case err, ok := <-watcher.Errors:
 			if !ok {
@@ -102,7 +101,7 @@ func processEvents(watcher *fsnotify.Watcher, nlog *logrus.Entry, listener func(
 					" Your blog won't be automatically updated after file changes")
 				return
 			}
-			nlog.WithError(err).Error("error during file watching")
+			nlog.Error("error during file watching", "error", err)
 		}
 	}
 }

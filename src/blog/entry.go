@@ -10,18 +10,17 @@ import (
 	"regexp"
 	"strconv"
 	"time"
-
-	"github.com/mariomac/goblog/src/logr"
-	"github.com/yuin/goldmark/renderer/html"
+	_ "time/tzdata"
 
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting/v2"
 	"github.com/yuin/goldmark/extension"
+	"github.com/yuin/goldmark/renderer/html"
 	nethtml "golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
-)
 
-var log = logr.Get()
+	"github.com/mariomac/goblog/src/logr"
+)
 
 // Entry holds the information of a blog entry or page, after being rendered from markdown to HTML
 type Entry struct {
@@ -37,7 +36,7 @@ var entryFormat = regexp.MustCompile(`^[0-9]{12}[_\-a-zA-Z0-9]+\.md$`)
 
 // LoadEntry loads and renders a blog entry given a file path
 func LoadEntry(filePath string) (*Entry, error) {
-	llog := log.WithField("filePath", filePath)
+	llog := logr.Get().With("filePath", filePath)
 	llog.Debug("loading blog Entry")
 
 	fileBody, err := ioutil.ReadFile(filePath)
@@ -84,7 +83,6 @@ func getTitleBodyAndPreview(mdBytes []byte) (string, template.HTML, template.HTM
 			highlighting.NewHighlighting(
 				highlighting.WithStyle("tango"),
 			),
-
 		),
 		goldmark.WithRendererOptions(html.WithUnsafe()),
 	)
@@ -105,7 +103,7 @@ func getTitleBodyAndPreview(mdBytes []byte) (string, template.HTML, template.HTM
 
 	h1 := removeFirstH1(htmlNode)
 	title, _ := getText(h1)
-	log.Debugf("Parsed title: %s", title)
+	logr.Get().Debug("Parsed title", "title", title)
 
 	bodyBuf := new(bytes.Buffer)
 	nethtml.Render(bodyBuf, htmlNode)

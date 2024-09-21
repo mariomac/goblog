@@ -4,16 +4,15 @@ package conn
 import (
 	"crypto/tls"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/mariomac/goblog/src/logr"
 )
 
-var log = logr.Get()
-
 func ListenAndServeTLS(port int, cert, key string, handler http.Handler) error {
 	if key == "" || cert == "" {
-		log.Println("creating insecure local certificates for localhost development only")
+		logr.Get().Warn("creating insecure local certificates for localhost development only")
 		cert, key = createLocalCerts()
 	}
 	cfg := &tls.Config{

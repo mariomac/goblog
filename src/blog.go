@@ -13,22 +13,12 @@ import (
 	"os"
 
 	"github.com/mariomac/goblog/src/assets"
+	"github.com/mariomac/goblog/src/conn"
 	"github.com/mariomac/goblog/src/fs"
 	"github.com/mariomac/goblog/src/install"
 	"github.com/mariomac/goblog/src/legacy"
 	"github.com/mariomac/goblog/src/logr"
-	"github.com/sirupsen/logrus"
-
-	"github.com/mariomac/goblog/src/conn"
 )
-
-var log *logrus.Entry
-
-func init() {
-	// TODO: make log level configurable
-	logrus.SetLevel(logrus.DebugLevel)
-	log = logr.Get()
-}
 
 func main() {
 	cfgPath := flag.String("cfg", "", "Path of the YAML configuration file")
@@ -46,23 +36,25 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	logr.Init(cfg.LogLevel)
+	log := logr.Get()
+	log.Debug("configuration loaded", "config", fmt.Sprintf("%#v", cfg))
 
-	log.Printf("Configuration: %#v", cfg)
-
-	log.Print("Starting GoBlog...")
+	log.Info("Starting GoBlog...")
 	// TODO: allow insecure traffic
 	mux, err := assets.NewCachedHandler(&cfg, true)
 	if err != nil {
-		log.WithFields(logrus.Fields{
-			logrus.ErrorKey: err,
-			"rootPath":      cfg.RootPath,
-			"domain":        cfg.Domain,
-		}).Fatal("can't start blog handler")
+		log.Error("can't start blog handler. ABORTING",
+			"error", err,
+			"rootPath", cfg.RootPath,
+			"domain", cfg.Domain,
+		)
+		os.Exit(1)
 	}
 
 	if err := fs.NotifyChanges(cfg.RootPath, mux.Reload); err != nil {
-		log.WithError(err).Warn("could not listen for file changes. Your blog won't be " +
-			"automatically updated if you change any file")
+		log.Warn("could not listen for file changes. Your blog won't be "+
+			"automatically updated if you change any file", "error", err)
 	}
 
 	var globalHandler http.HandlerFunc
@@ -77,12 +69,21 @@ func main() {
 			cfg.MaxRequests.Number, cfg.MaxRequests.Period, cfg.MaxRequests.Period)
 	}
 
-	log.Printf("Redirecting insecure traffic from port %v", cfg.InsecurePort)
 	go func() {
-		panic(http.ListenAndServe(fmt.Sprintf(":%d", cfg.InsecurePort),
-			conn.InsecureRedirection(cfg.Domain, cfg.TLSPort)))
+		if cfg.HTTPSRedirect {
+			log.Info("Redirecting insecure traffic",
+				"srcPort", cfg.InsecurePort, "dstPort", cfg.TLSPort)
+			panic(http.ListenAndServe(fmt.Sprintf(":%d", cfg.InsecurePort),
+				conn.InsecureRedirection(cfg.Domain, cfg.TLSPort)))
+		} else if cfg.InsecurePort > 0 {
+			log.Info("Working with insecure port", "port", cfg.InsecurePort)
+			panic(http.ListenAndServe(fmt.Sprintf(":%d", cfg.InsecurePort), globalHandler))
+		}
 	}()
 
-	log.Printf("GoBlog is listening at port %v", cfg.TLSPort)
-	panic(conn.ListenAndServeTLS(cfg.TLSPort, cfg.TLSCertPath, cfg.TLSKeyPath, globalHandler))
+	if cfg.TLSPort > 0 {
+		log.Info("Working with secure port", "port", cfg.TLSPort)
+		panic(conn.ListenAndServeTLS(cfg.TLSPort, cfg.TLSCertPath, cfg.TLSKeyPath, globalHandler))
+	}
+	<-make(chan struct{})
 }

@@ -1,25 +1,21 @@
 package logr
 
 import (
+	"log/slog"
 	"os"
-	"path"
-	"runtime"
-
-	"github.com/sirupsen/logrus"
 )
 
 const (
 	FieldComponent = "component"
 )
 
-func Get() *logrus.Entry {
-	logger := logrus.StandardLogger()
-	logger.Out = os.Stdout
-	_, callerPath, _, ok := runtime.Caller(1)
-	if ok {
-		dir, file := path.Split(callerPath)
-		return logger.WithField(FieldComponent, path.Join(path.Base(dir), file))
-	} else {
-		return logger.WithFields(logrus.Fields{})
-	}
+func Init(level slog.Level) {
+	slog.SetDefault(slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+		AddSource: level <= slog.LevelDebug,
+		Level:     level,
+	})))
+}
+
+func Get() *slog.Logger {
+	return slog.Default()
 }

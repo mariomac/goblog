@@ -5,6 +5,9 @@
 * Added configurable per-client rate limiter
 * Updated goldmark rendering.
 * Support github-flavored tables.
+* HTTPS is not mandatory but optional. HTTP can be configured
+  either for redirecting to HTTPS or for serving the blog.
+* Configure Log level
 
 #### Breaking changes
 

@@ -3,17 +3,18 @@ package assets
 import (
 	"errors"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"path"
 	"strings"
 
 	"github.com/mariomac/goblog/src/install"
 
+	"github.com/mariomac/guara/pkg/cache"
+
 	"github.com/mariomac/goblog/src/blog"
 	"github.com/mariomac/goblog/src/logr"
 	"github.com/mariomac/goblog/src/visual"
-	"github.com/mariomac/guara/pkg/cache"
-	"github.com/sirupsen/logrus"
 )
 
 // Path names
@@ -28,8 +29,6 @@ const (
 )
 
 var unsupportedMethodErr = errors.New("unsupported method")
-
-var alog = logr.Get()
 
 type WebAsset struct {
 	MimeType string
@@ -100,14 +99,14 @@ func (c *CachedHandler) Reload() error {
 
 func (c *CachedHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 	// TODO: instrument cache size in bytes
-	alog := alog.WithFields(logrus.Fields{
-		"method":     request.Method,
-		"url":        request.URL,
-		"remoteAddr": request.RemoteAddr,
-	})
+	alog := logr.Get().With(
+		"method", request.Method,
+		"url", request.URL,
+		"remoteAddr", request.RemoteAddr,
+	)
 	alog.Debug("new request")
 	if request.Method != http.MethodGet {
-		writeErr(http.StatusBadRequest, unsupportedMethodErr, writer, request)
+		writeErr(http.StatusBadRequest, unsupportedMethodErr, writer, alog)
 		return
 	}
 	fileUrlPath := path.Clean(request.URL.Path)
@@ -123,9 +122,9 @@ func (c *CachedHandler) ServeHTTP(writer http.ResponseWriter, request *http.Requ
 				switch e := err.(type) {
 				case errNotFound:
 					e.url = fileUrlPath
-					writeErr(http.StatusNotFound, err, writer, request)
+					writeErr(http.StatusNotFound, err, writer, alog)
 				default:
-					writeErr(http.StatusInternalServerError, err, writer, request)
+					writeErr(http.StatusInternalServerError, err, writer, alog)
 				}
 				return
 			}
@@ -134,28 +133,27 @@ func (c *CachedHandler) ServeHTTP(writer http.ResponseWriter, request *http.Requ
 			return
 		}
 	}
-	writeErr(http.StatusNotFound, errNotFound{url: request.URL.String()}, writer, request)
+	writeErr(http.StatusNotFound, errNotFound{url: request.URL.String()}, writer, alog)
 }
 
-func writeAsset(writer http.ResponseWriter, asset *WebAsset, alog *logrus.Entry) {
+func writeAsset(writer http.ResponseWriter, asset *WebAsset, alog *slog.Logger) {
 	writer.Header().Set("Content-Type", asset.MimeType)
 	if _, err := writer.Write(asset.Body); err != nil {
-		alog.WithFields(logrus.Fields{
-			logrus.ErrorKey: err,
-			"contentType":   asset.MimeType,
-		}).Error("couldn't write response")
+		alog.Error("couldn't write response",
+			"error", err,
+			"contentType", asset.MimeType,
+		)
 	}
 }
 
-func writeErr(code int, err error, writer http.ResponseWriter, request *http.Request) {
+func writeErr(code int, err error, writer http.ResponseWriter, alog *slog.Logger) {
 	// TODO: provide a proper internal error page
 	writer.WriteHeader(code)
 	if _, werr := writer.Write([]byte(err.Error())); werr != nil {
-		alog.WithFields(logrus.Fields{
-			logrus.ErrorKey: werr,
-			"cause":         err,
-			"url":           request.URL,
-			"statusCode":    code,
-		}).Warn("couldn't write response error message")
+		alog.Warn("couldn't write response error message",
+			"error", werr,
+			"cause", err,
+			"statusCode", code,
+		)
 	}
 }

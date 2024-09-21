@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"container/list"
 	"fmt"
-	"github.com/mariomac/guara/pkg/rate"
 	"hash/fnv"
 	"math"
 	"net/http"
 	"sync"
+
+	"github.com/mariomac/guara/pkg/rate"
 
 	"time"
 )
@@ -33,14 +34,13 @@ func ClientRateLimitHandler(inner http.HandlerFunc, maxReqs int, period, clientE
 	}
 }
 
-
 // To avoid storing all the possible IPs, we hash it to 65K concurrent IPs
 // TODO: make size configurable for larger sites
 type IPHash uint16
 
 type Limiter struct {
 	maxReqs float64
-	period time.Duration
+	period  time.Duration
 
 	cache *TimedLRU[IPHash, *rate.Accepter, bool]
 }
@@ -48,8 +48,8 @@ type Limiter struct {
 func NewLimiter(maxReqs int, period, clientExpiry time.Duration) *Limiter {
 	return &Limiter{
 		maxReqs: float64(maxReqs),
-		period: period,
-		cache: NewTimedLRU[IPHash, *rate.Accepter, bool](clientExpiry),
+		period:  period,
+		cache:   NewTimedLRU[IPHash, *rate.Accepter, bool](clientExpiry),
 	}
 }
 
@@ -61,7 +61,7 @@ func (l *Limiter) Accept(ip []byte) bool {
 	hasher := fnv.New32()
 	_, _ = hasher.Write(ip)
 	hash32 := hasher.Sum32()
-	ipHash := IPHash(hash32 >> 16 ^ hash32)
+	ipHash := IPHash(hash32>>16 ^ hash32)
 
 	return l.cache.QueryUpdateOrCreate(ipHash, func(r **rate.Accepter) bool {
 		return (*r).Accept()
@@ -70,26 +70,24 @@ func (l *Limiter) Accept(ip []byte) bool {
 	})
 }
 
-
-
 type TimedLRU[K comparable, V, Q any] struct {
-	mt sync.Mutex
+	mt      sync.Mutex
 	maxTime time.Duration
-	ll           *list.List
-	cache        map[K]*list.Element
+	ll      *list.List
+	cache   map[K]*list.Element
 }
 
 type entry[K comparable, V any] struct {
-	key   K
-	value V
+	key      K
+	value    V
 	lastTime time.Time
 }
 
 func NewTimedLRU[K comparable, V, Q any](maxTime time.Duration) *TimedLRU[K, V, Q] {
 	return &TimedLRU[K, V, Q]{
 		maxTime: maxTime,
-		ll:           list.New(),
-		cache:        map[K]*list.Element{},
+		ll:      list.New(),
+		cache:   map[K]*list.Element{},
 	}
 }
 

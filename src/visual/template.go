@@ -2,20 +2,20 @@
 package visual
 
 import (
+	"context"
 	"fmt"
 	"html/template"
 	"io"
+	"log/slog"
 	"regexp"
 	"strings"
 
-	"github.com/mariomac/goblog/src/fs"
-	"github.com/mariomac/goblog/src/logr"
-	"github.com/sirupsen/logrus"
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting/v2"
-)
 
-var log = logr.Get()
+	"github.com/mariomac/goblog/src/fs"
+	"github.com/mariomac/goblog/src/logr"
+)
 
 type TemplateType string
 
@@ -36,16 +36,16 @@ var validTemplate = regexp.MustCompile(`\.html$`)
 func LoadTemplates(
 	folder string,
 ) (Templater, error) {
-	tlog := log.WithField("folder", folder)
+	tlog := logr.Get().With("folder", folder)
 	tlog.Info("Scanning for template")
 
 	templateFiles, err := fs.Search(folder, validTemplate)
 	if err != nil {
 		return Templater{}, fmt.Errorf("scanning for template in folder %s: %w", folder, err)
 	}
-	if tlog.Level <= logrus.DebugLevel {
+	if tlog.Enabled(context.TODO(), slog.LevelDebug) {
 		for _, f := range templateFiles {
-			tlog.WithField("file", f).Debug("Template file found")
+			tlog.Debug("Template file found", "file", f)
 		}
 	}
 	templates, err := template.New("golog_templates").

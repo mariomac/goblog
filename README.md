@@ -45,11 +45,15 @@ Environment variables take precedence over YAML configuration.
   * The root folder of the blog contens (see [Blog Structure](#blog-structure))
   * Default: `./sample`
 * env: `GOBLOG_HTTPS_PORT`, yaml: `httpsPort`
-  * Port to serve the secure HTTPS content.
+  * Port to serve the secure HTTPS content. If set to <0, HTTPS will be disabled.
   * Default: `8443`
 * env: `GOBLOG_HTTP_PORT`, yaml: `httpPort`
-  * Port to listen for any HTTP request and redirect it to its HTTPS-equivalent URL
+  * Port to listen for any HTTP request. If set to <0, HTTP will be disabled.
   * Default: `8080`
+* env: `GOBLOG_HTTPS_REDIRECT`, yaml: `httpsRedirect`
+  * If set to `true`, any HTTP request will be redirected to HTTPS. If set to `false`, content is served
+    directed in an insecure port.
+  * Default: `true`
 * env: `GOBLOG_DOMAIN`, yaml: `domain`
   * Domain/hostname/IP where the blog is going to be visible from
   * Default: `localhost`

@@ -2,31 +2,32 @@ package conn
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"net"
 	"runtime"
 	"sync"
 	"sync/atomic"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNewLimiter(t *testing.T) {
-	l := NewLimiter(60, 100 * time.Millisecond, time.Minute)
+	l := NewLimiter(60, 100*time.Millisecond, time.Minute)
 
-	ip1 := net.IPv4(1,2,3,4)
-	ip2 := net.IPv4(4,3,2,1)
+	ip1 := net.IPv4(1, 2, 3, 4)
+	ip2 := net.IPv4(4, 3, 2, 1)
 
 	start := time.Now()
 
 	// should accept all the queries as long as there are less than 60/100ms
-	for time.Now().Sub(start) < 30 * time.Millisecond {
+	for time.Now().Sub(start) < 30*time.Millisecond {
 		assert.True(t, l.Accept(ip1))
 		time.Sleep(time.Millisecond)
 	}
 	// should end up rejecting queries
 	last := true
-	for time.Now().Sub(start) < 90 * time.Millisecond {
+	for time.Now().Sub(start) < 90*time.Millisecond {
 		last = last && l.Accept(ip1)
 	}
 	assert.False(t, last)
@@ -36,7 +37,7 @@ func TestNewLimiter(t *testing.T) {
 
 	// after some time, there is more room to get enough queries
 	start = time.Now()
-	for i := 0 ; i < 10 ; i++ {
+	for i := 0; i < 10; i++ {
 		assert.True(t, l.Accept(ip1))
 		assert.True(t, l.Accept(ip2))
 		time.Sleep(time.Millisecond)
@@ -54,7 +55,7 @@ func TestTimedLRU(t *testing.T) {
 		*i = *i + "-"
 		return len(*i)
 	}
-	cr := func () (string, int) {
+	cr := func() (string, int) {
 		return "", 0
 	}
 	assert.Equal(t, 0, tlru.QueryUpdateOrCreate("hi", qu, cr))
@@ -84,12 +85,12 @@ func TestTimedLRU_ConcurrencyRaces(t *testing.T) {
 	tlru := NewTimedLRU[string, int64, bool](time.Second)
 	wg := sync.WaitGroup{}
 	wg.Add(4)
-	for i:= 0 ; i < 4 ; i++ {
+	for i := 0; i < 4; i++ {
 		thread := i
 		go func() {
 			start := time.Now()
 			defer wg.Done()
-			for time.Now().Sub(start) < 100 * time.Millisecond {
+			for time.Now().Sub(start) < 100*time.Millisecond {
 				clk := clock()
 				key := fmt.Sprint(clk.UnixMilli())
 				tlru.QueryUpdateOrCreate(key, func(v *int64) bool {
@@ -102,10 +103,10 @@ func TestTimedLRU_ConcurrencyRaces(t *testing.T) {
 				runtime.Gosched()
 			}
 			if thread == 0 {
-				atomic.StoreInt64(&timeBias, int64(950 * time.Millisecond))
+				atomic.StoreInt64(&timeBias, int64(950*time.Millisecond))
 				tlru.RemoveOldItems()
 			} else {
-				for time.Now().Sub(start) < 200 * time.Millisecond {
+				for time.Now().Sub(start) < 200*time.Millisecond {
 					clk := clock()
 					key := fmt.Sprint(clk.UnixMilli())
 					tlru.QueryUpdateOrCreate(key, func(v *int64) bool {

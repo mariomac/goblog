@@ -9,8 +9,6 @@ import (
 	"github.com/mariomac/goblog/src/logr"
 )
 
-var elog = logr.Get()
-
 var anyPageFormat = regexp.MustCompile(`\.md$`)
 
 type Entries struct {
@@ -43,7 +41,7 @@ func (e *Entries) Len() int {
 
 func PreloadEntries(directory string) (Entries, error) {
 	e := Entries{all: map[string]*Entry{}}
-	plog := elog.WithField("dir", directory)
+	plog := logr.Get().With("dir", directory)
 	plog.Info("loading all blog entries and pages")
 
 	files, err := fs.Search(directory, anyPageFormat)
@@ -51,10 +49,10 @@ func PreloadEntries(directory string) (Entries, error) {
 		return e, fmt.Errorf("loading pages from directory %s: %w", directory, err)
 	}
 	for _, file := range files {
-		plog.WithField("filePath", file).Debug("found file entry")
+		plog.With("filePath", file).Debug("found file entry")
 		entry, err := LoadEntry(file)
 		if err != nil {
-			plog.WithError(err).Warn("can't load blog entry. Ignoring")
+			plog.Warn("can't load blog entry. Ignoring", "error", err)
 			continue
 		}
 		e.all[entry.FileName] = entry

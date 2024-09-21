@@ -1,6 +1,7 @@
 package install
 
 import (
+	"log/slog"
 	"os"
 	"time"
 
@@ -16,8 +17,10 @@ type MaxRequestsCfg struct {
 // Config of the blog installation. Via file or env vars.
 type Config struct {
 	RootPath       string            `env:"GOBLOG_ROOT" yaml:"rootPath"`
+	LogLevel       slog.Level        `env:"GOBLOG_LOG_LEVEL" yaml:"logLevel"`
 	TLSPort        int               `env:"GOBLOG_HTTPS_PORT" yaml:"httpsPort"`
 	InsecurePort   int               `env:"GOBLOG_HTTP_PORT" yaml:"httpPort"`
+	HTTPSRedirect  bool              `env:"GOBLOG_HTTPS_REDIRECT" yaml:"httpsRedirect"`
 	Domain         string            `env:"GOBLOG_DOMAIN" yaml:"domain"`
 	TLSCertPath    string            `env:"GOBLOG_TLS_CERT" yaml:"tlsCertPath"`
 	TLSKeyPath     string            `env:"GOBLOG_TLS_KEY" yaml:"tlsKeyPath"`
@@ -34,6 +37,7 @@ func ReadConfig(yamlPath string) (Config, error) {
 		RootPath:       "./",
 		TLSPort:        8443,
 		InsecurePort:   8080,
+		HTTPSRedirect:  true,
 		TLSKeyPath:     "",
 		TLSCertPath:    "",
 		CacheSizeBytes: 32 * 1024 * 1024, // 32 MB
@@ -41,6 +45,8 @@ func ReadConfig(yamlPath string) (Config, error) {
 		MaxRequests: MaxRequestsCfg{
 			Period: time.Minute,
 		},
+		Domain:   "localhost",
+		LogLevel: slog.LevelInfo,
 	}
 
 	// override them with YAML
