@@ -34,7 +34,7 @@ type Config struct {
 func ReadConfig(yamlPath string) (Config, error) {
 	// default values
 	cfg := Config{
-		RootPath:       "./",
+		RootPath:       "./sample",
 		TLSPort:        8443,
 		InsecurePort:   8080,
 		HTTPSRedirect:  true,
