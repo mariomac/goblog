@@ -42,7 +42,7 @@ environment variable.
 Environment variables take precedence over YAML configuration.
 
 * env: `GOBLOG_ROOT`, yaml: `rootPath`
-  * The root folder of the blog contens (see [Blog Structure](#blog-structure))
+  * The root folder of the blog contents (see [Blog Structure](#blog-structure))
   * Default: `./sample`
 * env: `GOBLOG_HTTPS_PORT`, yaml: `httpsPort`
   * Port to serve the secure HTTPS content. If set to <0, HTTPS will be disabled.
@@ -77,7 +77,7 @@ The Root contents folders is structured as follows:
 * `entries` subfolder contains MarkDown entries for each entry of the blog.
     * Entries whose file name starts with a timestamp `YYYYMMDDHHMMname.md` will be automatically added to the
       index.
-    
+
     * Entries whose file name starts with other pattern will be treated as pages, and will need to link
       them manually in the template or another entry.
 
@@ -91,7 +91,7 @@ The Root contents folders is structured as follows:
 
 Put static assets in `static/` folder. They will be accessible through the `/static/` URL path.
 
-Put blog entries in `entries/` folder as MarkDown documents. They will be accessible through the 
+Put blog entries in `entries/` folder as MarkDown documents. They will be accessible through the
 `/entry/` URL path (without extension).
 
 Edit blog template files under the `template/` folder.
@@ -104,4 +104,4 @@ will create an entry created at November 28th, 2017 at 13:30.
 The markdown file MUST contain a First-level header (e.g. `# Post title`), that will be used
 as title of the entry in the entry heading and links.
 
-At this early stage of the blog, you *MUST* restart the blog process before changes are visible. 
+At this early stage of the blog, you *MUST* restart the blog process before changes are visible.
