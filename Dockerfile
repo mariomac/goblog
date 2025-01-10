@@ -14,5 +14,5 @@ FROM alpine:latest
 
 WORKDIR /
 COPY --from=builder /goblog/goblog /goblog
-COPY --from=builder ./goblog/sample ./sample
+COPY --from=builder ./goblog/sample ./
 ENTRYPOINT ["/goblog"]
