@@ -1,0 +1,14 @@
+*.iml
+*.ipr
+*.iws
+*.md
+**/.DS_Store
+.git
+.gitignore
+.idea
+Dockerfile
+README.md
+bin/
+coverage.xml
+etc/
+vendor/
