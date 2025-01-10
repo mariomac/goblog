@@ -1,7 +1,9 @@
 # First stage: Compile Go appllication
 FROM golang:1.23 AS builder
 
-ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+ARG TARGETARCH
+
+ENV CGO_ENABLED=0 GOOS=linux GOARCH=$TARGETARCH
 WORKDIR /goblog
 COPY go.mod go.sum ./
 RUN go mod download
