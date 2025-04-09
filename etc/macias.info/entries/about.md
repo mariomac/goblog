@@ -18,6 +18,10 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## Talks and lectures
 
+* [Using eBPF for non-invasive, instantnetwork monitoring](../static/assets/talks/2025/2025-04-kubecon-network-monitoring.pdf)
+    * [KubeCon+CloudNativeCon Europe](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/). London, United Kingdom. April 4th, 2025.
+* [C.A.L.L.I.N.G. now I'm calling you, calling you now](../static/assets/talks/2025/2025-04-kubecon-calling-now-calling-you.pdf)
+    * [KubeCon+CloudNativeCon Europe](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/). London, United Kingdom. April 4th, 2025.
 * [Grafana Beyla: Zero-code distributed traces and metrics for your microservices with eBPF](https://www.youtube.com/watch?v=Fe4MG1UxAl4)
     * [GrafanaCON 2024](https://grafana.com/about/events/grafanacon/2024/). Amsterdam, Netherlands. April 9th, 2024.
 * [Curveballs: Learnings from Instrumenting Managed Runtime Applications with eBPF](../static/assets/talks/2024/2024-03-kubecon-curveballs.pdf)
