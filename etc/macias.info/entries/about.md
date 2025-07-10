@@ -18,6 +18,10 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## Talks and lectures
 
+* [From PIDs to Pods: the life cycle of an eBPF-autoinstrumented application](../static/assets/talks/2025/2025-07-devbcn-from-pids-to-pods.pdf)
+    * [DevBCN: the Barcelona Developers Conference 2025](https://www.devbcn.com/). Barcelona, Spain. July 9th, 2025.
+* [Slash your cloud network costs with eBFP network monitoring](../static/assets/talks/2025/2025-07-netuk-multi-zone-network-monitoring.pdf)
+    * [NetUK2](https://indico.netuk.org/event/2/). London, United Kingdom. July 7th, 2025.
 * [Using eBPF for non-invasive, instantnetwork monitoring](https://www.youtube.com/watch?v=HV3Nb_wUro4) [(Slides)](../static/assets/talks/2025/2025-04-kubecon-network-monitoring.pdf)
     * [KubeCon+CloudNativeCon Europe](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/). London, United Kingdom. April 4th, 2025.
 * [C.A.L.L.I.N.G. now I'm calling you, calling you now](https://www.youtube.com/watch?v=p52nxvo6hXk) [(Slides)](../static/assets/talks/2025/2025-04-kubecon-calling-now-calling-you.pdf)
