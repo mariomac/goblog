@@ -6,19 +6,17 @@ we compared the performance and features of several Go functional stream librari
 Since then, the Go standard library has added the [iter package](https://pkg.go.dev/iter),
 which defines a foundation for iterators, as well as many other packages allowing
 to manipulate [slices](https://pkg.go.dev/slices) and [maps](https://pkg.go.dev/maps)
-in a functional way.
+in a functional style.
 
 After the new additions to the standard library, most programmers might feel
-discouraged from using a 3rd-party stream library if the standard library packages
-already provide a concise way of manipulating slices and maps that already
-cover most of their use cases.
+discouraged from using a third-party stream library if the standard library packages
+already provide a concise way of manipulating slices and maps.
 
 In an effort to keep the [gostream library](https://github.com/mariomac/gostream)
-up to date with the latest Go idioms, while still providing some extra
-convenience methods and features that are not yet covered by the standard library,
-the version 0.10.0 of [gostream](https://github.com/mariomac/gostream) introduced
+up to date with the latest Go idioms,
+the version 0.10.1 of [gostream](https://github.com/mariomac/gostream) introduced
 new functions and methods to let it work together with the [iter package](https://pkg.go.dev/iter),
-and the rest of packages using it.
+and the rest of the packages using it.
 
 ## The core of the `iter` package: `iter.Seq`
 
@@ -91,8 +89,15 @@ All together: map[Cat:meeeow Dog:wow wow! Frog:ribbit!]
 ```
 
 ## Why keep using `gostream`?
-// PERFORMANCE COMPARISON gostream vs stdlib!
-Differences: lazyness & infinite streams
+
+Despite the powerful additions to the Go standard library, `gostream` still
+provides unique advantages including lazy evaluation and support for
+infinite streams, along with additional convenience methods not yet covered
+by the standard library (for example, map-reduce operations).
+
+However, do not use `gostream` just because it's elegant and cool 😎, if you
+don't feel it might provide any benefit that justifies adding a new dependency
+to your code.
 
 ## Connecting `gostream` library with the `iter` package
 
@@ -117,7 +122,7 @@ Output:
 [ONE TWO THREE]
 ```
 
-The `streams.OfSeq2` function will take an `iter.Seq2[K, V]` as input and will
+The `stream.OfSeq2` function will take an `iter.Seq2[K, V]` as input and will
 create a `stream.Stream[item.Pair[K, V]]`:
 
 ```go
@@ -141,11 +146,11 @@ three is 3
 ### How to iterate a `stream.Stream[T]`
 
 Before integrating [gostream](https://github.com/mariomac/gostream) with the
-standard `iter` package, the unique way to iterate a `Stream` was to use the
-`.ForEach` method (in addition to other collection Methods that internally
-iterated the streams, for example `.ToSlice`, `.Count`, `.AnyMatch` and so on).
+standard `iter` package, the only way to iterate a `Stream` was to use the
+`.ForEach` method (in addition to other collection methods that internally
+iterate the streams, for example `.ToSlice`, `.Count`, `.AnyMatch` and so on).
 
-Last version of `gostream` provides the following helper functions for iterating
+The latest version of `gostream` provides the following helper functions for iterating
 a stream.
 
 #### Iterating sequential streams
@@ -185,7 +190,7 @@ oneToFive[4] = 5
 
 #### Iterating key-value streams
 
-If your stream is: `stream.Stream[item.Pair[K, V]`, you can pass it to the
+If your stream is: `stream.Stream[item.Pair[K, V]]`, you can pass it to the
 `stream.Seq2` function so you can iterate it in a `for ... range` loop via an
 iterator where the key element is the `item.Pair` key type `K` and the value
 element is the value type `V`:
@@ -220,7 +225,7 @@ standard Go packages provide functions either accepting or returning both
 
 You can use the aforementioned `gostream` methods
 for instantiating streams from standard iterators (`stream.OfSeq`,
-`stream.OfSec2`) to connect the outputs of the Go standard libraries as inputs
+`stream.OfSeq2`) to connect the outputs of the Go standard libraries as inputs
 to `gostream`.
 
 Inversely, you can use the `gostream` methods and functions for creating 
@@ -232,7 +237,7 @@ For example:
 ```go
 animalSounds := map[string]string{"dog": "woof", "cat": "meow", "cow": "moo"}
 
-// returns an item.Seq[string]
+// returns an iter.Seq[string]
 animals := maps.Keys(animalSounds)
 
 // 1. transform the iterator to a stream
