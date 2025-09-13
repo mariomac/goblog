@@ -24,10 +24,25 @@
       {{.HTML}}
   </section>
   {{if not .Time.IsZero}}
-  <!-- disqus -->
+  <!-- giscus comment sections -->
   <hr>
   <section>
-    <div id="disqus_thread"></div>
+    <script src="https://giscus.app/client.js"
+            data-repo="mariomac/blog-giscuss"
+            data-repo-id="R_kgDOPvHv7w"
+            data-category="General"
+            data-category-id="DIC_kwDOPvHv784CvZVC"
+            data-mapping="title"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
   </section>
   {{end}}
 </article>
