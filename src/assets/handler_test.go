@@ -8,6 +8,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/mariomac/goblog/src/install"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -17,7 +18,11 @@ import (
 const testBlog = "../../testresources/testblog"
 
 func testServer(t *testing.T) *httptest.Server {
-	ch, err := NewCachedHandler(testBlog, false, "www.superblog.com", 100000)
+	ch, err := NewCachedHandler(&install.Config{
+		RootPath:       testBlog,
+		Domain:         "www.superblog.com",
+		EntriesPerPage: 100000,
+	}, false)
 	require.NoError(t, err)
 
 	return httptest.NewServer(ch)
@@ -186,7 +191,11 @@ func TestReload(t *testing.T) {
 	blogDir := path.Join(tmpDir, "blog")
 	require.NoError(t, tools.CopyDir(testBlog, blogDir))
 
-	ch, err := NewCachedHandler(blogDir, false, "www.superblog.com", 100000)
+	ch, err := NewCachedHandler(&install.Config{
+		RootPath:       testBlog,
+		Domain:         "www.superblog.com",
+		EntriesPerPage: 100000,
+	}, false)
 	require.NoError(t, err)
 
 	s := httptest.NewServer(ch)

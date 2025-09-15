@@ -1,23 +1,73 @@
 {{ define "html_head" }}
-    <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Mario Macias' handcrafted blog">
-    <meta name="author" content="Mario Macias">
-    <meta name="robots" content="index, follow"/>
+<meta charset="utf-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Mario Macias' handcrafted blog">
+<meta name="author" content="Mario Macias">
+<meta name="robots" content="index, follow"/>
 
-    <link rel="alternate" type="application/atom+xml" title="Blog"
-          href="/atom.xml"/>
+<link rel="alternate" type="application/atom+xml" title="Blog"
+      href="/atom.xml"/>
 
-    <!-- Page styles -->
-    <link href="/static/css/styles.css" rel="stylesheet">
+<!-- Page styles -->
+<link href="/static/css/styles.css" rel="stylesheet">
 
-    <!-- custom fonts -->
-    <link href="/static/vend/font-awesome/css/font-awesome.min.css" rel="stylesheet"
-          type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-          rel='stylesheet' type='text/css'>
+<!-- custom fonts -->
+<link href="/static/vend/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+      type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+      rel='stylesheet' type='text/css'>
 
-    <!-- Umami analytics -->
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="427aa0db-2e2f-4eb9-a950-697288d3bbb7"></script>
+<!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="427aa0db-2e2f-4eb9-a950-697288d3bbb7"></script>
+
+<!-- Giscus discussions -->
+<script language="JavaScript">
+    document.addEventListener('DOMContentLoaded', async function () {
+        // get all discussions from GH repo: TODO check if they are paginated
+        let discussions = undefined;
+        try {
+            // Search for discussions in the blog-giscuss repository
+            const searchUrl = `https://api.github.com/repos/mariomac/blog-giscuss/discussions`;
+            const response = await fetch(searchUrl);
+
+            if (!response.ok) {
+                console.warn(`Failed to fetch discussions: ${response.status}`);
+            } else {
+                discussions = await response.json();
+            }
+        } catch (error) {
+            console.error(`Error fetching discussion for ${fileName}:`, error);
+            discussions = undefined;
+        }
+
+        // Find all anchor tags with the specific pattern
+        const anchors = document.querySelectorAll('a[href$="#giscus_thread"]');
+        for (const anchor of anchors) {
+            const href = anchor.getAttribute('href');
+            if (discussions === undefined) continue;
+
+            // Extract filename from the href pattern
+            const match = href.match(/http:\/\/macias\.info\/(.+?)\.md#giscus_thread/);
+            if (!match) continue;
+
+            const fileName = match[1];
+            // Find discussion with title matching the fileName
+            const matchingDiscussion = discussions.find(discussion =>
+                discussion.title === fileName
+            );
+
+            if (matchingDiscussion) {
+                // Get the number of comments
+                const commentCount = matchingDiscussion.comments;
+
+                // Update the anchor content with comment count
+                anchor.textContent = commentCount === 1 ? '1 comment' : `${commentCount} comments`;
+            } else {
+                // No discussion found
+                anchor.textContent = '0 comments';
+            }
+        }
+    });
+</script>
 {{ end }}
