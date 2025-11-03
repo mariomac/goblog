@@ -6,15 +6,16 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## TL; DR; (highlights)
 
-* [Ph.D.](/static/assets/others/phdthesis.pdf) in Computer Architecture
-* Senior software engineer at [Grafana Labs](https://grafana.com/) since 2023
-* [University](https://www.upc.edu) teacher since 2009 to 2019
+* Principal software engineer at [Grafana Labs](https://grafana.com/)
+* [OpenTelemetry eBPF Instrumentation](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation) maintainer
 * Spanish book writer: [Programación en Go (2nd edition)](https://www.amazon.es/Programaci-C3-B3n-2ed-MARIO-MAC-C3-8DAS-LLORET-dp-8426734499/dp/8426734499/) (2022),
   [Introducción a Apache Spark](http://www.editorialuoc.cat/introduccion-a-apache-spark_2) (2015),
   Del bit a la Nube (2014, free on [Google](https://play.google.com/store/books/details/Mario_Macías_Lloret_Del_bit_a_la_Nube?id=rYk3BAAAQBAJ) /
     [Kindle](http://www.amazon.es/dp/B00MEMB6YQ) /
     [iTunes](https://itunes.apple.com/es/book/del-bit-a-la-nube/id910102199))
 * Enthusiast speaker
+* [University](https://www.upc.edu) teacher since 2009 to 2019
+* [Ph.D.](/static/assets/others/phdthesis.pdf) in Computer Architecture
 
 ## Talks and lectures
 
@@ -62,10 +63,11 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## Professional Experience
 
-### Senior Software Engineer at [Grafana Labs](https://grafana.com/). 2023-
+### Principal Software Engineer (2025-), Staff Software Engineer (2023-2025) at [Grafana Labs](https://grafana.com/)
 
-* Joining the eBPF squad of the Application Observability team
-* Developed [Grafana Beyla](https://github.com/grafana/beyla) from scratch
+* eBPF squad at the Observability department
+* [Grafana Beyla](https://github.com/grafana/beyla) co-creator and contributor
+* Donated and maintaining the [OpenTelemetry eBPF Instrumentation](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation) project
 
 ### Senior Software Engineer at [Red Hat](http://www.redhat.com). 2021-2023
 
