@@ -19,6 +19,10 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## Talks and lectures
 
+* [Implementando OpenTelemetry con Grafana Cloud](Implementando OpenTelemetry con Grafana Cloud)
+    * ObservabilityCon on the Road. Madrid, Spain. November 2025.
+* [Observing Dark Matter with OpenTelemetry](https://www.youtube.com/watch?v=pfBw4g1LdAM)
+    * KubeCon + CloudNativeCon North America. Atlanta, US. November 10-13, 2025.
 * [From PIDs to Pods: the life cycle of an eBPF-autoinstrumented application](https://www.youtube.com/watch?v=KcrH21UMFk8) [(Slides)](../static/assets/talks/2025/2025-07-devbcn-from-pids-to-pods.pdf)
     * [DevBCN: the Barcelona Developers Conference 2025](https://www.devbcn.com/). Barcelona, Spain. July 9th, 2025.
 * [Slash your cloud network costs with eBFP network monitoring](../static/assets/talks/2025/2025-07-netuk-multi-zone-network-monitoring.pdf)
@@ -66,8 +70,8 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 ### Principal Software Engineer (2025-), Staff Software Engineer (2023-2025) at [Grafana Labs](https://grafana.com/)
 
 * eBPF squad at the Observability department
+* Maintainer of the [OpenTelemetry eBPF Instrumentation](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation) project
 * [Grafana Beyla](https://github.com/grafana/beyla) co-creator and contributor
-* Donated and maintaining the [OpenTelemetry eBPF Instrumentation](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation) project
 
 ### Senior Software Engineer at [Red Hat](http://www.redhat.com). 2021-2023
 
