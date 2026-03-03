@@ -19,7 +19,7 @@ language in my [MSX computer](https://en.wikipedia.org/wiki/MSX).
 
 ## Talks and lectures
 
-* [Implementando OpenTelemetry con Grafana Cloud](Implementando OpenTelemetry con Grafana Cloud)
+* [Implementando OpenTelemetry con Grafana Cloud](https://www.youtube.com/watch?v=V7uWPSe3v-0)
     * ObservabilityCon on the Road. Madrid, Spain. November 2025.
 * [Observing Dark Matter with OpenTelemetry](https://www.youtube.com/watch?v=pfBw4g1LdAM)
     * KubeCon + CloudNativeCon North America. Atlanta, US. November 10-13, 2025.
