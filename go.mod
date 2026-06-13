@@ -1,6 +1,7 @@
 module github.com/mariomac/goblog
 
-go 1.23
+go 1.23.0
+
 toolchain go1.24.1
 
 require (
@@ -8,8 +9,8 @@ require (
 	github.com/floscodes/golang-tools v0.0.0-20210816125844-1d6c9227bad8
 	github.com/fsnotify/fsnotify v1.7.0
 	github.com/mariomac/guara v0.0.0-20221222112709-f95b15506aee
-	github.com/sirupsen/logrus v1.9.3
-	github.com/stretchr/testify v1.9.0
+	github.com/sirupsen/logrus v1.9.4
+	github.com/stretchr/testify v1.10.0
 	github.com/yuin/goldmark v1.7.4
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc
 	golang.org/x/net v0.38.0
