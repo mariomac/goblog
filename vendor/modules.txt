@@ -22,7 +22,7 @@ github.com/floscodes/golang-tools
 github.com/fsnotify/fsnotify
 # github.com/kr/text v0.2.0
 ## explicit
-# github.com/mariomac/guara v0.0.0-20221222112709-f95b15506aee
+# github.com/mariomac/guara v0.0.0-20250408105519-1e4dbdfb7136
 ## explicit; go 1.18
 github.com/mariomac/guara/pkg/cache
 github.com/mariomac/guara/pkg/rate
