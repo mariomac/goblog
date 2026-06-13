@@ -7,7 +7,7 @@ toolchain go1.24.1
 require (
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/floscodes/golang-tools v0.0.0-20210816125844-1d6c9227bad8
-	github.com/fsnotify/fsnotify v1.7.0
+	github.com/fsnotify/fsnotify v1.10.1
 	github.com/mariomac/guara v0.0.0-20250408105519-1e4dbdfb7136
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.9.0
