@@ -5,6 +5,7 @@ go 1.23.0
 toolchain go1.24.1
 
 require (
+	github.com/caarlos0/env/v11 v11.4.1
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/floscodes/golang-tools v0.0.0-20210816125844-1d6c9227bad8
 	github.com/fsnotify/fsnotify v1.7.0
