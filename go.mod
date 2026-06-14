@@ -11,7 +11,7 @@ require (
 	github.com/mariomac/guara v0.0.0-20250408105519-1e4dbdfb7136
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.9.0
-	github.com/yuin/goldmark v1.7.4
+	github.com/yuin/goldmark v1.8.2
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc
 	golang.org/x/net v0.38.0
 	golang.org/x/tools v0.25.0

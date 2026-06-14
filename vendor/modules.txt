@@ -38,8 +38,8 @@ github.com/sirupsen/logrus
 ## explicit; go 1.17
 github.com/stretchr/testify/assert
 github.com/stretchr/testify/require
-# github.com/yuin/goldmark v1.7.4
-## explicit; go 1.19
+# github.com/yuin/goldmark v1.8.2
+## explicit; go 1.22
 github.com/yuin/goldmark
 github.com/yuin/goldmark/ast
 github.com/yuin/goldmark/extension
