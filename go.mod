@@ -2,7 +2,7 @@ module github.com/mariomac/goblog
 
 go 1.23.0
 
-toolchain go1.24.1
+toolchain go1.26.4
 
 require (
 	github.com/caarlos0/env/v6 v6.10.1
