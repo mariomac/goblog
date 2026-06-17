@@ -8,10 +8,9 @@ import (
 	"math"
 	"net/http"
 	"sync"
+	"time"
 
 	"github.com/mariomac/guara/pkg/rate"
-
-	"time"
 )
 
 var clock = time.Now

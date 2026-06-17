@@ -8,11 +8,10 @@ import (
 	"path"
 	"strings"
 
-	"github.com/mariomac/goblog/src/install"
-
 	"github.com/mariomac/guara/pkg/cache"
 
 	"github.com/mariomac/goblog/src/blog"
+	"github.com/mariomac/goblog/src/install"
 	"github.com/mariomac/goblog/src/logr"
 	"github.com/mariomac/goblog/src/visual"
 )
@@ -91,7 +90,8 @@ func (c *CachedHandler) Reload() error {
 		{Prefix: pathStatic, Generator: &FileAssetGenerator{rootPath: c.config.RootPath}},
 		{Prefix: pathEntry, Generator: &EntryGenerator{templates: templates, entries: &entries}},
 		{Prefix: pathAtom, Generator: &AtomGenerator{
-			urlProtocol: protocol, hostName: c.config.Domain, entryPath: pathEntry, entries: &entries}},
+			urlProtocol: protocol, hostName: c.config.Domain, entryPath: pathEntry, entries: &entries,
+		}},
 		{Prefix: pathIndex, Generator: &IndexGenerator{entries: &entries, templates: &templates, entriesPerPage: c.config.EntriesPerPage}},
 	}
 	return nil

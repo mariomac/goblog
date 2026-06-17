@@ -5,8 +5,9 @@ import (
 	"encoding/xml"
 	"fmt"
 
-	"github.com/mariomac/goblog/src/blog"
 	"golang.org/x/tools/blog/atom"
+
+	"github.com/mariomac/goblog/src/blog"
 )
 
 // TODO: make configurable

@@ -93,7 +93,6 @@ func getTitleBodyAndPreview(mdBytes []byte) (string, template.HTML, template.HTM
 		htmlBytes.WriteString(`<h1>Error parsing markdown</h1><p>` + err.Error() + `</p>`)
 	}
 	htmlNode, err := nethtml.Parse(bytes.NewReader(htmlBytes.Bytes()))
-
 	// TODO: properly handle error
 	if err != nil {
 		return err.Error(), "", ""

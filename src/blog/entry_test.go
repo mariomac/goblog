@@ -45,7 +45,7 @@ func TestFileNotFound(t *testing.T) {
 
 func TestExtractTime(t *testing.T) {
 	assert.Equal(t,
-		time.Date(1979, 5, 25, 06, 07, 0, 0, location),
+		time.Date(1979, 5, 25, 0o6, 0o7, 0, 0, location),
 		extractTime("197905250607"), "YYYYMMDDHHMM dates should be parsed correctly")
 }
 
@@ -65,5 +65,4 @@ This is another paragraph`))
 	assert.True(t, strings.Contains(string(preview), "This is a paragraph"))
 	assert.False(t, strings.Contains(string(preview), "This is a title"), "Title should have been removed")
 	assert.False(t, strings.Contains(string(preview), "This is another paragraph"), "Only first paragraph should be in preview")
-
 }

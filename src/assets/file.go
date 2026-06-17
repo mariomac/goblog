@@ -19,7 +19,6 @@ type FileAssetGenerator struct {
 }
 
 func (f *FileAssetGenerator) Get(urlPath string) (*WebAsset, error) {
-
 	relPath := strings.Split(urlPath, "/")
 	absPath := path.Join(append([]string{f.rootPath, dirStatic}, relPath...)...)
 

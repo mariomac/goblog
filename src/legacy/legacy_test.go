@@ -17,7 +17,7 @@ func TestRedirector(t *testing.T) {
 		},
 		http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 			_, err := writer.Write([]byte("not filtered"))
-			require.NoError(t, err)
+			assert.NoError(t, err)
 		}),
 	))
 	defer server.Close()
