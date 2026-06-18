@@ -15,14 +15,14 @@ func TestRedirector(t *testing.T) {
 		map[string]string{
 			"/foo.html": "/bar.html",
 		},
-		http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
+		http.HandlerFunc(func(writer http.ResponseWriter, _ *http.Request) {
 			_, err := writer.Write([]byte("not filtered"))
 			assert.NoError(t, err)
 		}),
 	))
 	defer server.Close()
 	hc := http.Client{
-		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+		CheckRedirect: func(_ *http.Request, _ []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
 	}

@@ -16,6 +16,10 @@ lint:
 	@echo "=== $(ASSETNAME) === [ lint ]: Validating source code running golint..."
 	$(GOLANGCI) run
 
+lint-fix:
+	@echo "=== $(ASSETNAME) === [ lint ]: Fixing source code linting..."
+	$(GOLANGCI) run --fix
+
 compile:
 	@echo "=== $(ASSETNAME) === [ compile ]: Building $(BINARY_NAME)..."
 	$(GOCMD) build -o bin/$(BINARY_NAME) ./src

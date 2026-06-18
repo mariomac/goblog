@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/xml"
 	"fmt"
+	"strconv"
 
 	"golang.org/x/tools/blog/atom"
 
@@ -31,7 +32,7 @@ func (a *AtomGenerator) Get(_ string) (*WebAsset, error) {
 	for _, bentry := range bEntries {
 		entries = append(entries, &atom.Entry{
 			Title: bentry.Title,
-			ID:    fmt.Sprint(bentry.Time.Unix()),
+			ID:    strconv.FormatInt(bentry.Time.Unix(), 10),
 			Link: []atom.Link{
 				{Href: "http://" + a.hostName + a.entryPath + bentry.FileName},
 			},
