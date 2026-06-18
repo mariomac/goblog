@@ -8,11 +8,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mariomac/goblog/src/install"
+	tools "github.com/floscodes/golang-tools"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	tools "github.com/floscodes/golang-tools"
+	"github.com/mariomac/goblog/src/install"
 )
 
 const testBlog = "../../testresources/testblog"
@@ -186,13 +186,12 @@ func TestEntryPage(t *testing.T) {
 
 func TestReload(t *testing.T) {
 	// copy the entire blog folder into a temporary folder for later overwriting
-	tmpDir, err := os.MkdirTemp("", "reload_test")
-	require.NoError(t, err)
+	tmpDir := t.TempDir()
 	blogDir := path.Join(tmpDir, "blog")
 	require.NoError(t, tools.CopyDir(testBlog, blogDir))
 
 	ch, err := NewCachedHandler(&install.Config{
-		RootPath:       testBlog,
+		RootPath:       blogDir,
 		Domain:         "www.superblog.com",
 		EntriesPerPage: 100000,
 	}, false)
@@ -218,14 +217,14 @@ func TestReload(t *testing.T) {
 
 	// append a line to an entry
 	entryFile, err := os.OpenFile(
-		path.Join(blogDir, "entries", "201610281345_hello_guy.md"), os.O_WRONLY|os.O_APPEND, 0666)
+		path.Join(blogDir, "entries", "201610281345_hello_guy.md"), os.O_WRONLY|os.O_APPEND, 0o666)
 	require.NoError(t, err)
 	_, err = entryFile.Write([]byte("\nthis should have been updated!"))
 	require.NoError(t, err)
 	require.NoError(t, entryFile.Close())
 	// also modify the template
 	templateFile, err := os.OpenFile(
-		path.Join(blogDir, "template", "entry.html"), os.O_WRONLY|os.O_APPEND, 0666)
+		path.Join(blogDir, "template", "entry.html"), os.O_WRONLY|os.O_APPEND, 0o666)
 	require.NoError(t, err)
 	_, err = templateFile.Write([]byte("\n<footer>Added to the template</footer>"))
 	require.NoError(t, err)

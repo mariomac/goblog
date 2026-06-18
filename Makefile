@@ -1,6 +1,9 @@
 ASSETNAME   := $(shell basename $(shell pwd))
 BINARY_NAME  = $(ASSETNAME)
 GOCMD       ?= go
+
+GOLANGCI ?= go tool golangci-lint
+
 all: build
 
 build: clean fmt lint test compile
@@ -11,23 +14,31 @@ clean:
 
 lint:
 	@echo "=== $(ASSETNAME) === [ lint ]: Validating source code running golint..."
-	golangci-lint run
+	$(GOLANGCI) run
+
+lint-fix:
+	@echo "=== $(ASSETNAME) === [ lint ]: Fixing source code linting..."
+	$(GOLANGCI) run --fix
 
 compile:
 	@echo "=== $(ASSETNAME) === [ compile ]: Building $(BINARY_NAME)..."
 	$(GOCMD) build -o bin/$(BINARY_NAME) ./src
 
+# TODO: coverage
 test:
 	@echo "=== $(ASSETNAME) === [ test ]: Running unit tests..."
-	@gocov test ./src/... | gocov-xml > coverage.xml
+	go test -race ./src/...
 
 fmt:
 	@echo "=== $(ASSETNAME) === [ fmt ]: formatting code..."
-	goimports -w ./src/
+	$(GOLANGCI) fmt
 
 sample: compile
 	@echo "=== $(ASSETNAME) === [ sample ]: running sample blog..."
 	bin/$(BINARY_NAME) -cfg sample/config.yml
 
+macias: compile
+	@echo "=== $(ASSETNAME) === [ sample ]: running macias.info locally..."
+	cd ./etc && ../bin/$(BINARY_NAME) -cfg config-localtest.yml
 
-.PHONY: all build clean lint compile test fmt
+.PHONY: all build clean lint compile test fmt sample macias

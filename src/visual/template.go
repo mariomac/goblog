@@ -66,7 +66,7 @@ func LoadTemplates(
 	return Templater{templates: templates}, nil
 }
 
-func (t *Templater) Render(template TemplateType, data interface{}, dest io.Writer) error {
+func (t *Templater) Render(template TemplateType, data any, dest io.Writer) error {
 	return t.templates.ExecuteTemplate(dest, string(template), data)
 }
 

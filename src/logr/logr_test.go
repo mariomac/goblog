@@ -2,6 +2,7 @@ package logr
 
 import (
 	"io/ioutil"
+	"log/slog"
 	"os"
 	"testing"
 
@@ -17,6 +18,10 @@ func TestGet(t *testing.T) {
 		os.Stdout = previousStdout
 	}()
 	os.Stdout = w
+
+	// Init must be called after redirecting os.Stdout, so the slog handler
+	// captures the pipe's file descriptor instead of the original stdout.
+	Init(slog.LevelDebug)
 	log := Get()
 	log.Info("hello!")
 	require.NoError(t, w.Close())
@@ -25,6 +30,7 @@ func TestGet(t *testing.T) {
 	loggedLine, err := ioutil.ReadAll(r)
 	require.NoError(t, err)
 
-	assert.Contains(t, string(loggedLine), `msg="hello!"`)
-	assert.Contains(t, string(loggedLine), FieldComponent+"=logr/logr_test.go")
+	assert.Contains(t, string(loggedLine), `msg=hello!`)
+	assert.Contains(t, string(loggedLine), "source=")
+	assert.Contains(t, string(loggedLine), "logr/logr_test.go")
 }

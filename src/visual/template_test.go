@@ -27,5 +27,4 @@ func TestTemplates_Load(t *testing.T) {
 		"entry.html":      {},
 		"index.html":      {},
 	}, actual)
-
 }

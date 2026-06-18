@@ -1,10 +1,8 @@
 package blog
 
 import (
-	"errors"
 	"io/fs"
 	"path"
-	"strings"
 	"testing"
 	"time"
 
@@ -38,14 +36,14 @@ func TestBlogContent_LoadEntries(t *testing.T) {
 
 func TestFileNotFound(t *testing.T) {
 	_, err := LoadEntry("foobar.md")
-	require.True(t, errors.Is(err, fs.ErrNotExist))
+	require.ErrorIs(t, err, fs.ErrNotExist)
 }
 
 // TODO: test not found
 
 func TestExtractTime(t *testing.T) {
 	assert.Equal(t,
-		time.Date(1979, 5, 25, 06, 07, 0, 0, location),
+		time.Date(1979, 5, 25, 0o6, 0o7, 0, 0, location),
 		extractTime("197905250607"), "YYYYMMDDHHMM dates should be parsed correctly")
 }
 
@@ -58,12 +56,11 @@ This is a paragraph
 This is another paragraph`))
 
 	assert.Equal(t, "This is a title", title, "Title is not well extracted")
-	assert.True(t, strings.Contains(string(body), "This is a paragraph"))
-	assert.False(t, strings.Contains(string(body), "This is a title"), "Title should have been removed")
-	assert.False(t, strings.Contains(string(body), "<h1>"), "H1 should have been removed")
+	assert.Contains(t, string(body), "This is a paragraph")
+	assert.NotContains(t, string(body), "This is a title", "Title should have been removed")
+	assert.NotContains(t, string(body), "<h1>", "H1 should have been removed")
 
-	assert.True(t, strings.Contains(string(preview), "This is a paragraph"))
-	assert.False(t, strings.Contains(string(preview), "This is a title"), "Title should have been removed")
-	assert.False(t, strings.Contains(string(preview), "This is another paragraph"), "Only first paragraph should be in preview")
-
+	assert.Contains(t, string(preview), "This is a paragraph")
+	assert.NotContains(t, string(preview), "This is a title", "Title should have been removed")
+	assert.NotContains(t, string(preview), "This is another paragraph", "Only first paragraph should be in preview")
 }

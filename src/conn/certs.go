@@ -49,7 +49,7 @@ fTbjelQnStOOZKsk
 `
 
 func createLocalCerts() (tmpLocalCert, tmpLocalKey string) {
-	var panicOn = func(err error) {
+	panicOn := func(err error) {
 		if err != nil {
 			panic("creating local certificates for development: " + err.Error())
 		}
@@ -57,8 +57,8 @@ func createLocalCerts() (tmpLocalCert, tmpLocalKey string) {
 	fldr, err := os.MkdirTemp("", "local_dev_certs")
 	panicOn(err)
 	tmpLocalCert = path.Join(fldr, "cert.pem")
-	panicOn(os.WriteFile(tmpLocalCert, []byte(localCertificate), 0600))
+	panicOn(os.WriteFile(tmpLocalCert, []byte(localCertificate), 0o600))
 	tmpLocalKey = path.Join(fldr, "key.pem")
-	panicOn(os.WriteFile(tmpLocalKey, []byte(localKey), 0600))
+	panicOn(os.WriteFile(tmpLocalKey, []byte(localKey), 0o600))
 	return tmpLocalCert, tmpLocalKey
 }

@@ -10,7 +10,6 @@ import (
 	"regexp"
 	"strconv"
 	"time"
-	_ "time/tzdata"
 
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting/v2"
@@ -64,7 +63,7 @@ func LoadEntry(filePath string) (*Entry, error) {
 // TODO: configure by env
 var location, _ = time.LoadLocation("Europe/Madrid")
 
-// Extracts a Time from a string beggining with a timestamp in the format YYYYMMDDHHMM...
+// Extracts a Time from a string beginning with a timestamp in the format YYYYMMDDHHMM...
 func extractTime(timestr string) time.Time {
 	year, _ := strconv.Atoi(timestr[:4])
 	month, _ := strconv.Atoi(timestr[4:6])
@@ -90,10 +89,11 @@ func getTitleBodyAndPreview(mdBytes []byte) (string, template.HTML, template.HTM
 	if err := markdown.Convert(mdBytes, &htmlBytes); err != nil {
 		// TODO: properly log/manage blogerr
 		htmlBytes = bytes.Buffer{}
-		htmlBytes.WriteString(`<h1>Error parsing markdown</h1><p>` + err.Error() + `</p>`)
+		htmlBytes.WriteString(`<h1>Error parsing markdown</h1><p>`)
+		htmlBytes.WriteString(err.Error())
+		htmlBytes.WriteString(`</p>`)
 	}
 	htmlNode, err := nethtml.Parse(bytes.NewReader(htmlBytes.Bytes()))
-
 	// TODO: properly handle error
 	if err != nil {
 		return err.Error(), "", ""
@@ -106,13 +106,17 @@ func getTitleBodyAndPreview(mdBytes []byte) (string, template.HTML, template.HTM
 	logr.Get().Debug("Parsed title", "title", title)
 
 	bodyBuf := new(bytes.Buffer)
-	nethtml.Render(bodyBuf, htmlNode)
+	if err := nethtml.Render(bodyBuf, htmlNode); err != nil {
+		panic(err)
+	}
 	body := template.HTML(bodyBuf.String())
 
 	var preview template.HTML
 	if firstParagraph != nil {
 		previewBuf := new(bytes.Buffer)
-		nethtml.Render(previewBuf, firstParagraph)
+		if err := nethtml.Render(previewBuf, firstParagraph); err != nil {
+			panic(err)
+		}
 		preview = template.HTML(previewBuf.String())
 	} else {
 		preview = ""

@@ -3,21 +3,20 @@ package conn
 import (
 	"bytes"
 	"container/list"
-	"fmt"
 	"hash/fnv"
 	"math"
 	"net/http"
+	"strconv"
 	"sync"
+	"time"
 
 	"github.com/mariomac/guara/pkg/rate"
-
-	"time"
 )
 
 var clock = time.Now
 
 func ClientRateLimitHandler(inner http.HandlerFunc, maxReqs int, period, clientExpiry time.Duration) http.HandlerFunc {
-	retryAfterVal := fmt.Sprint(int(math.Ceil(0.1 * period.Seconds())))
+	retryAfterVal := strconv.Itoa(int(math.Ceil(0.1 * period.Seconds())))
 	limiter := NewLimiter(maxReqs, period, clientExpiry)
 	return func(rw http.ResponseWriter, req *http.Request) {
 		// assumes we are using the http.Server, which sets RemoteAddr to IP:port

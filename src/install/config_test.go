@@ -10,7 +10,7 @@ import (
 )
 
 func TestConfigOverride(t *testing.T) {
-	tmp, err := os.CreateTemp("", "testconfig")
+	tmp, err := os.CreateTemp(t.TempDir(), "testconfig")
 	require.NoError(t, err)
 	_, err = tmp.WriteString(`domain: blog.com
 httpsPort: 443
@@ -21,7 +21,7 @@ maxRequests:
 `)
 	require.NoError(t, err)
 	require.NoError(t, tmp.Close())
-	require.NoError(t, os.Setenv("GOBLOG_HTTP_PORT", "81"))
+	t.Setenv("GOBLOG_HTTP_PORT", "81")
 
 	cfg, err := ReadConfig(tmp.Name())
 	require.NoError(t, err)
@@ -37,9 +37,9 @@ maxRequests:
 }
 
 func TestConfigOverride_Env(t *testing.T) {
-	require.NoError(t, os.Setenv("GOBLOG_HTTP_PORT", "81"))
-	require.NoError(t, os.Setenv("GOBLOG_MAX_REQUESTS_NUMBER", "30"))
-	require.NoError(t, os.Setenv("GOBLOG_MAX_REQUESTS_PERIOD", "1m"))
+	t.Setenv("GOBLOG_HTTP_PORT", "81")
+	t.Setenv("GOBLOG_MAX_REQUESTS_NUMBER", "30")
+	t.Setenv("GOBLOG_MAX_REQUESTS_PERIOD", "1m")
 
 	cfg, err := ReadConfig("")
 	require.NoError(t, err)

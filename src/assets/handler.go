@@ -8,11 +8,10 @@ import (
 	"path"
 	"strings"
 
-	"github.com/mariomac/goblog/src/install"
-
 	"github.com/mariomac/guara/pkg/cache"
 
 	"github.com/mariomac/goblog/src/blog"
+	"github.com/mariomac/goblog/src/install"
 	"github.com/mariomac/goblog/src/logr"
 	"github.com/mariomac/goblog/src/visual"
 )
@@ -28,7 +27,7 @@ const (
 	dirEntry    = "entries/"
 )
 
-var unsupportedMethodErr = errors.New("unsupported method")
+var errUnsupportedMethod = errors.New("unsupported method")
 
 type WebAsset struct {
 	MimeType string
@@ -57,8 +56,8 @@ type CachedHandler struct {
 	routes []route
 }
 
-// TODO pass "routedHandler" as argument and remove router logic from here
 func NewCachedHandler(
+	// TODO pass "routedHandler" as argument and remove router logic from here
 	cfg *install.Config,
 	isTLS bool, // todo: move to install config and make configurable
 ) (*CachedHandler, error) {
@@ -91,7 +90,8 @@ func (c *CachedHandler) Reload() error {
 		{Prefix: pathStatic, Generator: &FileAssetGenerator{rootPath: c.config.RootPath}},
 		{Prefix: pathEntry, Generator: &EntryGenerator{templates: templates, entries: &entries}},
 		{Prefix: pathAtom, Generator: &AtomGenerator{
-			urlProtocol: protocol, hostName: c.config.Domain, entryPath: pathEntry, entries: &entries}},
+			urlProtocol: protocol, hostName: c.config.Domain, entryPath: pathEntry, entries: &entries,
+		}},
 		{Prefix: pathIndex, Generator: &IndexGenerator{entries: &entries, templates: &templates, entriesPerPage: c.config.EntriesPerPage}},
 	}
 	return nil
@@ -106,30 +106,28 @@ func (c *CachedHandler) ServeHTTP(writer http.ResponseWriter, request *http.Requ
 	)
 	alog.Debug("new request")
 	if request.Method != http.MethodGet {
-		writeErr(http.StatusBadRequest, unsupportedMethodErr, writer, alog)
+		writeErr(http.StatusBadRequest, errUnsupportedMethod, writer, alog)
 		return
 	}
-	fileUrlPath := path.Clean(request.URL.Path)
-	if asset, ok := c.assets.Get(fileUrlPath); ok {
+	fileURLPath := path.Clean(request.URL.Path)
+	if asset, ok := c.assets.Get(fileURLPath); ok {
 		alog.Debug("found cached copy")
 		writeAsset(writer, asset, alog)
 		return
 	}
 	for _, r := range c.routes {
-		if strings.HasPrefix(fileUrlPath, r.Prefix) {
-			asset, err := r.Generator.Get(fileUrlPath[len(r.Prefix):])
+		if strings.HasPrefix(fileURLPath, r.Prefix) {
+			asset, err := r.Generator.Get(fileURLPath[len(r.Prefix):])
 			if err != nil {
-				switch e := err.(type) {
-				case errNotFound:
-					e.url = fileUrlPath
+				if _, ok := errors.AsType[errNotFound](err); ok {
 					writeErr(http.StatusNotFound, err, writer, alog)
-				default:
+				} else {
 					writeErr(http.StatusInternalServerError, err, writer, alog)
 				}
 				return
 			}
 			writeAsset(writer, asset, alog)
-			c.assets.Put(fileUrlPath, asset)
+			c.assets.Put(fileURLPath, asset)
 			return
 		}
 	}

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"runtime"
+	"strconv"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -21,13 +22,13 @@ func TestNewLimiter(t *testing.T) {
 	start := time.Now()
 
 	// should accept all the queries as long as there are less than 60/100ms
-	for time.Now().Sub(start) < 30*time.Millisecond {
+	for time.Since(start) < 30*time.Millisecond {
 		assert.True(t, l.Accept(ip1))
 		time.Sleep(time.Millisecond)
 	}
 	// should end up rejecting queries
 	last := true
-	for time.Now().Sub(start) < 90*time.Millisecond {
+	for time.Since(start) < 90*time.Millisecond {
 		last = last && l.Accept(ip1)
 	}
 	assert.False(t, last)
@@ -36,7 +37,6 @@ func TestNewLimiter(t *testing.T) {
 	l.ClearOldEntries()
 
 	// after some time, there is more room to get enough queries
-	start = time.Now()
 	for i := 0; i < 10; i++ {
 		assert.True(t, l.Accept(ip1))
 		assert.True(t, l.Accept(ip2))
@@ -52,7 +52,7 @@ func TestTimedLRU(t *testing.T) {
 	tlru := NewTimedLRU[string, string, int](time.Second)
 
 	qu := func(i *string) int {
-		*i = *i + "-"
+		*i += "-"
 		return len(*i)
 	}
 	cr := func() (string, int) {
@@ -77,7 +77,7 @@ func TestTimedLRU(t *testing.T) {
 	assert.Equal(t, 0, tlru.QueryUpdateOrCreate("foo", qu, cr))
 }
 
-func TestTimedLRU_ConcurrencyRaces(t *testing.T) {
+func TestTimedLRU_ConcurrencyRaces(_ *testing.T) {
 	timeBias := int64(0)
 	clock = func() time.Time {
 		return time.Now().Add(time.Duration(atomic.LoadInt64(&timeBias)))
@@ -90,9 +90,9 @@ func TestTimedLRU_ConcurrencyRaces(t *testing.T) {
 		go func() {
 			start := time.Now()
 			defer wg.Done()
-			for time.Now().Sub(start) < 100*time.Millisecond {
+			for time.Since(start) < 100*time.Millisecond {
 				clk := clock()
-				key := fmt.Sprint(clk.UnixMilli())
+				key := strconv.FormatInt(clk.UnixMilli(), 10)
 				tlru.QueryUpdateOrCreate(key, func(v *int64) bool {
 					atomic.AddInt64(v, 1)
 					return true
@@ -106,9 +106,9 @@ func TestTimedLRU_ConcurrencyRaces(t *testing.T) {
 				atomic.StoreInt64(&timeBias, int64(950*time.Millisecond))
 				tlru.RemoveOldItems()
 			} else {
-				for time.Now().Sub(start) < 200*time.Millisecond {
+				for time.Since(start) < 200*time.Millisecond {
 					clk := clock()
-					key := fmt.Sprint(clk.UnixMilli())
+					key := strconv.FormatInt(clk.UnixMilli(), 10)
 					tlru.QueryUpdateOrCreate(key, func(v *int64) bool {
 						atomic.AddInt64(v, 1)
 						return true
