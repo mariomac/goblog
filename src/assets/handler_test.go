@@ -191,7 +191,7 @@ func TestReload(t *testing.T) {
 	require.NoError(t, tools.CopyDir(testBlog, blogDir))
 
 	ch, err := NewCachedHandler(&install.Config{
-		RootPath:       testBlog,
+		RootPath:       blogDir,
 		Domain:         "www.superblog.com",
 		EntriesPerPage: 100000,
 	}, false)
