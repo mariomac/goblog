@@ -37,5 +37,8 @@ sample: compile
 	@echo "=== $(ASSETNAME) === [ sample ]: running sample blog..."
 	bin/$(BINARY_NAME) -cfg sample/config.yml
 
+macias: compile
+	@echo "=== $(ASSETNAME) === [ sample ]: running macias.info locally..."
+	cd ./etc && ../bin/$(BINARY_NAME) -cfg config-localtest.yml
 
-.PHONY: all build clean lint compile test fmt
+.PHONY: all build clean lint compile test fmt sample macias
