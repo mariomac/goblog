@@ -6,13 +6,14 @@ ARG TARGETARCH
 ENV CGO_ENABLED=0 GOOS=linux GOARCH=$TARGETARCH
 WORKDIR /goblog
 COPY go.mod go.sum ./
-RUN go mod download
+COPY ./vendor ./vendor
 COPY ./src ./src
 COPY ./sample ./sample
 RUN go build -o /goblog/goblog ./src
 
-# Second stage: Create minimal image with compilled binary
-FROM alpine:latest
+# Use distroless as minimal base image to package the manager binary
+# Refer to https://github.com/GoogleContainerTools/distroless for more details
+FROM gcr.io/distroless/static:nonroot@sha256:963fa6c544fe5ce420f1f54fb88b6fb01479f054c8056d0f74cc2c6000df5240
 
 WORKDIR /
 COPY --from=builder /goblog/goblog /goblog
