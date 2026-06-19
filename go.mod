@@ -5,6 +5,7 @@ go 1.26.4
 tool github.com/golangci/golangci-lint/v2/cmd/golangci-lint
 
 require (
+	github.com/caarlos0/env/v11 v11.4.1
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/floscodes/golang-tools v0.0.0-20210816125844-1d6c9227bad8
 	github.com/fsnotify/fsnotify v1.10.1
