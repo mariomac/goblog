@@ -962,8 +962,8 @@ github.com/yeya24/promlinter
 # github.com/ykadowak/zerologlint v0.1.5
 ## explicit; go 1.19
 github.com/ykadowak/zerologlint
-# github.com/yuin/goldmark v1.7.4
-## explicit; go 1.19
+# github.com/yuin/goldmark v1.8.5
+## explicit; go 1.22
 github.com/yuin/goldmark
 github.com/yuin/goldmark/ast
 github.com/yuin/goldmark/extension
