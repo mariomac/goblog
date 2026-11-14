@@ -10,7 +10,7 @@ require (
 	github.com/floscodes/golang-tools v0.0.0-20210816125844-1d6c9227bad8
 	github.com/fsnotify/fsnotify v1.10.1
 	github.com/mariomac/guara v0.0.0-20250408105519-1e4dbdfb7136
-	github.com/sirupsen/logrus v1.9.4
+	github.com/sirupsen/logrus v1.10.2
 	github.com/stretchr/testify v1.11.1
 	github.com/yuin/goldmark v1.7.4
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc
