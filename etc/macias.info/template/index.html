@@ -27,7 +27,7 @@
             <a href="/entry/{{.FileName}}">{{.Title}}</a>
         </h2>
         <p class="post-meta"><a href="/entry/{{.FileName}}">Posted on {{.Time.Month}} {{.Time.Day}} , {{.Time.Year}}</a>
-            (<a href="http://macias.info/entry/{{.FileName}}#giscus_thread">comments</a>)</p>
+            (<a href="/entry/{{.FileName}}#disqus_thread">No comments</a>)</p>
         </p>
         <p class="post-subtitle">
             {{.Preview}}
@@ -61,4 +61,6 @@
 
 {{ template "footer" }}
 
+<script id="dsq-count-scr" src="//maciasinfo.disqus.com/count.js" async></script>
+</body>
 </html>

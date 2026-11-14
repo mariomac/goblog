@@ -5,52 +5,56 @@
   <title>{{.Title}}. Mario Macias' handcrafted blog</title>
   {{ template "html_head" . }}
 </head>
+
 <body>
-{{ template "navbar" }}
-<!-- Page Header -->
-<header>
-  <h1>{{.Title}}</h1>
-  <!--h2 class="subheading">Problems look mighty small from 150 miles up</h2-->
+  {{ template "navbar" }}
+  <!-- Page Header -->
+  <header>
+    <h1>{{.Title}}</h1>
+    <!--h2 class="subheading">Problems look mighty small from 150 miles up</h2-->
     {{if not .Time.IsZero}}
-      <p>Posted on {{.Time.Month}} {{.Time.Day}}
-        , {{.Time.Year}}</p>
+    <p>Posted on {{.Time.Month}} {{.Time.Day}}
+      , {{.Time.Year}}</p>
     {{end}}
-</header>
+  </header>
 
-<!-- Entry HTML-rendered contents -->
-<!-- Post Content -->
-<article>
-  <section class="article-body">
+  <!-- Entry HTML-rendered contents -->
+  <!-- Post Content -->
+  <article>
+    <section class="article-body">
       {{.HTML}}
-  </section>
-  {{if not .Time.IsZero}}
-  <!-- giscus comment sections -->
-  <hr id="giscus_thread"/>
-  <section>
-    <script src="https://giscus.app/client.js"
-            data-repo="mariomac/blog-giscuss"
-            data-repo-id="R_kgDOPvHv7w"
-            data-category="General"
-            data-category-id="DIC_kwDOPvHv784CvZVC"
-            data-mapping="pathname"
-            data-strict="1"
-            data-reactions-enabled="1"
-            data-emit-metadata="0"
-            data-input-position="bottom"
-            data-theme="light"
-            data-lang="en"
-            data-loading="lazy"
-            crossorigin="anonymous"
-            async>
+    </section>
+    {{if not .Time.IsZero}}
+    <!-- disqus comment sections -->
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+
+      var disqus_config = function () {
+        this.page.url = "http://macias.info/entry/{{.FileName}}";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "{{.FileName}}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+
+      (function () { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://maciasinfo.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
     </script>
-  </section>
-  {{end}}
-</article>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+        Disqus.</a></noscript>
 
-<hr>
+    <!-- end of disqus comments-->
+    {{end}}
+  </article>
 
-<!-- Footer -->
-{{ template "footer" }}
+  <hr>
+
+  <!-- Footer -->
+  {{ template "footer" }}
 </body>
 
 </html>
